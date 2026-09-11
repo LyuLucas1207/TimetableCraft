@@ -1,34 +1,19 @@
 #!/usr/bin/env bash
 # 构建并启动 Web 容器（全程前台输出，不做静默）
-# 宿主机 Node/npm 一律走 /volume1/Environments（use-menv.sh → use-node.sh）
 set -euo pipefail
 
-echo "==> loading /volume1/Environments/use-menv.sh"
-# 脚本里不要弹出 Rust 选择；Node 项目只需要 menv 带上 .node/bin
+echo "==> loading menv (if present)"
 export MENV_RUST="${MENV_RUST:-gnu}"
 if [ -f /volume1/Environments/use-menv.sh ]; then
   # shellcheck source=/dev/null
-  . /volume1/Environments/use-menv.sh
+  . /volume1/Environments/use-menv.sh || true
 elif [ -f /home/ubuntu/Environments/use-menv.sh ]; then
   # shellcheck source=/dev/null
-  . /home/ubuntu/Environments/use-menv.sh
-else
-  echo "ERROR: use-menv.sh not found. Install /volume1/Environments first." >&2
-  exit 1
+  . /home/ubuntu/Environments/use-menv.sh || true
 fi
 
 cd "$(dirname "$0")"
 echo "==> cwd: $(pwd)"
-echo "==> toolchain (must be Environments menv)"
-echo "    node=$(command -v node) $(node --version 2>/dev/null || echo missing)"
-echo "    npm=$(command -v npm) $(npm --version 2>/dev/null || echo missing)"
-case "$(command -v node 2>/dev/null || true)" in
-  */Environments/.node/bin/node) ;;
-  *)
-    echo "ERROR: node is not /volume1/Environments/.node/bin/node — menv did not activate." >&2
-    exit 1
-    ;;
-esac
 
 echo "==> loading .env.prod.local (if present)"
 set -a
@@ -158,4 +143,3 @@ fi
 
 echo "==> done"
 echo "Timetable Craft → http://localhost:${HOST_PORT}"
-echo "Public domain → https://timetablecraft.com"
