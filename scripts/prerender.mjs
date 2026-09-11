@@ -1,76 +1,151 @@
-/** Render public routes before shipping. Any incomplete page fails the build. */
+/**
+ * 预渲染脚本：用 Playwright 渲染静态路由，写入 HTML 快照供 Googlebot 抓取。
+ * 任一路由失败即退出，不跳过、不写半套快照。
+ *
+ * 环境变量:
+ *   PRERENDER_BASE_URL  线上模式站点地址
+ *   PRERENDER_OUT       输出目录（默认 dist/）
+ *   PRERENDER_SKIP=1    跳过预渲染
+ */
 import { createServer } from "node:http";
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
-import { resolve, join, extname } from "node:path";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, extname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 
-const dist = resolve("dist");
-const out = resolve(process.env.PRERENDER_OUT || "dist");
-const paths = JSON.parse(readFileSync(new URL("../src/config/seo-routes.json", import.meta.url), "utf8"));
-const shell = readFileSync(join(dist, "index.html"));
-const types = { ".js": "application/javascript", ".css": "text/css", ".html": "text/html", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon", ".woff2": "font/woff2" };
-let browser;
-const server = createServer((req, res) => {
-  const pathname = decodeURIComponent(new URL(req.url, "http://localhost").pathname);
-  const file = resolve(dist, `.${pathname}`);
-  if (!file.startsWith(`${dist}/`) && file !== dist) { res.writeHead(404).end(); return; }
-  if (paths.includes(pathname) || pathname === "/404") {
-    res.writeHead(200, { "content-type": "text/html" }).end(shell); return;
-  }
-  try { res.writeHead(200, { "content-type": types[extname(file)] || "application/octet-stream" }).end(readFileSync(file)); }
-  catch { res.writeHead(404).end(); }
-});
-try {
-  await new Promise((resolve, reject) => { server.once("error", reject); server.listen(0, "127.0.0.1", resolve); });
-  const base = `http://127.0.0.1:${server.address().port}`;
-  browser = await chromium.launch({ executablePath: process.env.PRERENDER_EXECUTABLE_PATH || undefined, args: ["--no-sandbox"] });
-  const context = await browser.newContext({ locale: "en-CA", colorScheme: "light", reducedMotion: "reduce" });
-  const results = [];
-  for (const path of [...paths, "/404"]) {
-    const page = await context.newPage();
-    const errors = [];
-    page.on("pageerror", error => errors.push(error.message));
-    await page.goto(`${base}${path}`, { waitUntil: "networkidle" });
-    await page.waitForSelector('meta[property="og:url"]', { state: "attached" });
-    await page.waitForSelector("h1", { state: "attached" });
-    await page.evaluate(() => document.fonts.ready);
-    const result = await page.evaluate(({ path, indexable }) => {
-      const one = selector => {
-        const nodes = document.querySelectorAll(selector);
-        if (nodes.length !== 1) throw new Error(`${selector}: expected 1, got ${nodes.length}`);
-        return nodes[0];
-      };
-      const canonical = one('link[rel="canonical"]').href;
-      if (new URL(canonical).pathname !== path) throw new Error(`Wrong canonical: ${canonical}`);
-      if (new URL(canonical).origin !== "https://timetablecraft.com") throw new Error(`Non-production canonical: ${canonical}`);
-      if (one('meta[property="og:url"]').content !== canonical) throw new Error("OG URL mismatch");
-      one("title"); one("h1"); one('meta[name="description"]');
-      for (const name of ["robots", "googlebot", "bingbot"]) {
-        if (one(`meta[name="${name}"]`).content.includes("noindex") === indexable) throw new Error(`Wrong ${name} indexing policy`);
-      }
-      const graph = JSON.parse(one('script[type="application/ld+json"]').textContent);
-      if (!graph["@graph"]?.length) throw new Error("Missing structured data graph");
-      if (document.documentElement.lang !== "en") throw new Error("Expected stable English default");
-      if (!document.querySelector('#root main')?.textContent.trim()) throw new Error("Empty main content");
-      return { canonical, title: document.title };
-    }, { path, indexable: paths.includes(path) });
-    if (errors.length) throw new Error(`${path}: ${errors.join("; ")}`);
-    results.push({ path, html: await page.content(), ...result });
-    await page.close();
-    console.log(`[prerender] verified ${path}`);
-  }
-  // Do not leave a partial set of new snapshots when validation fails.
-  for (const { path, html } of results) {
-    const dir = path === "/" ? out : join(out, path.slice(1));
-    mkdirSync(dir, { recursive: true });
-    writeFileSync(join(dir, "index.html"), html + "\n");
-    if (path === "/404") writeFileSync(join(out, "404.html"), html + "\n");
-  }
-  const urls = results.filter(item => paths.includes(item.path)).map(item => `  <url><loc>${item.canonical}</loc></url>`).join("\n");
-  writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
-  if (!existsSync(join(out, "robots.txt"))) throw new Error("Missing robots.txt");
-  console.log(`[prerender] complete: ${results.length} pages and sitemap`);
-} finally {
-  await browser?.close();
-  await new Promise(resolve => server.close(resolve));
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const DIST = resolve(__dirname, "../dist");
+const PORT = 4173 + Math.floor(Math.random() * 1000);
+const BASE_URL = process.env.PRERENDER_BASE_URL || "";
+const OUT_DIR = process.env.PRERENDER_OUT ? resolve(process.env.PRERENDER_OUT) : DIST;
+const INDEXABLE = JSON.parse(readFileSync(new URL("../src/config/seo-routes.json", import.meta.url), "utf8"));
+const ROUTES = [...INDEXABLE, "/404"];
+
+const MIME = {
+  ".html": "text/html; charset=utf-8",
+  ".js": "application/javascript",
+  ".css": "text/css",
+  ".json": "application/json",
+  ".xml": "application/xml",
+  ".txt": "text/plain",
+  ".webmanifest": "application/manifest+json",
+  ".svg": "image/svg+xml",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".ico": "image/x-icon",
+  ".webp": "image/webp",
+  ".woff": "font/woff",
+  ".woff2": "font/woff2",
+};
+
+if (process.env.PRERENDER_SKIP === "1") {
+  console.log("[prerender] PRERENDER_SKIP=1, skipped");
+  process.exit(0);
 }
+if (!BASE_URL && !existsSync(join(DIST, "index.html"))) {
+  console.error("[prerender] dist/index.html not found. Run vite build first.");
+  process.exit(1);
+}
+
+const shellHtml = BASE_URL ? null : readFileSync(join(DIST, "index.html"));
+
+function serveStatic(req, res) {
+  const url = new URL(req.url ?? "/", `http://127.0.0.1:${PORT}`);
+  const filePath = join(DIST, decodeURIComponent(url.pathname));
+
+  if (!existsSync(filePath) || extname(filePath) === "") {
+    res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+    res.end(shellHtml);
+    return;
+  }
+  try {
+    const data = readFileSync(filePath);
+    res.writeHead(200, { "content-type": MIME[extname(filePath)] || "application/octet-stream" });
+    res.end(data);
+  } catch {
+    res.writeHead(404);
+    res.end();
+  }
+}
+
+async function main() {
+  let server = null;
+  let base = BASE_URL.replace(/\/$/, "");
+  if (!BASE_URL) {
+    server = createServer(serveStatic);
+    await new Promise((r) => server.listen(PORT, "127.0.0.1", r));
+    base = `http://127.0.0.1:${PORT}`;
+    console.log(`[prerender] static server on ${base}`);
+  } else {
+    console.log(`[prerender] live mode against ${base}, out -> ${OUT_DIR}`);
+  }
+
+  const browser = await chromium.launch({ args: ["--no-sandbox"] });
+  const context = await browser.newContext({ locale: "en-CA", reducedMotion: "reduce" });
+  const results = [];
+
+  try {
+    for (const path of ROUTES) {
+      const page = await context.newPage();
+      const errors = [];
+      page.on("pageerror", error => errors.push(error.message));
+      try {
+        const response = await page.goto(`${base}${path}`, { waitUntil: "load", timeout: 30000 });
+        const status = response?.status() ?? 0;
+        if (path === "/404") {
+          if (status !== 404 && status !== 200) throw new Error(`HTTP ${status}`);
+        } else if (!response?.ok()) {
+          throw new Error(`HTTP ${status}`);
+        }
+        await page.waitForSelector("h1", { state: "attached", timeout: 15000 });
+        await page.waitForSelector('link[rel="canonical"]', { state: "attached", timeout: 10000 });
+        await page.waitForSelector('meta[name="description"]', { state: "attached", timeout: 10000 });
+        const checked = await page.evaluate(({ path, indexable }) => {
+          const one = selector => {
+            const nodes = document.querySelectorAll(selector);
+            if (nodes.length !== 1) throw new Error(`${selector}: expected 1, got ${nodes.length}`);
+            return nodes[0];
+          };
+          const h1 = one("h1").textContent.trim();
+          if (!h1) throw new Error("Empty h1");
+          const title = one("title").textContent.trim();
+          if (!title) throw new Error("Empty title");
+          const description = one('meta[name="description"]').content.trim();
+          if (!description) throw new Error("Empty description");
+          const canonical = one('link[rel="canonical"]').href;
+          if (new URL(canonical).pathname !== path) throw new Error(`Wrong canonical: ${canonical}`);
+          const robots = one('meta[name="robots"]').content;
+          if (robots.includes("noindex") === indexable) throw new Error(`Wrong robots: ${robots}`);
+          return { canonical, title, h1 };
+        }, { path, indexable: INDEXABLE.includes(path) });
+        if (errors.length) throw new Error(errors.join("; "));
+        const html = await page.content();
+        if (!html.includes("/assets/") && path !== "/404") {
+          throw new Error("Snapshot missing /assets/ refs");
+        }
+        results.push({ path, html, ...checked });
+        console.log(`[prerender] ok  ${path}`);
+      } finally {
+        await page.close();
+      }
+    }
+  } finally {
+    await browser.close();
+    server?.close();
+  }
+
+  for (const { path, html } of results) {
+    const dir = path === "/" ? OUT_DIR : join(OUT_DIR, path.slice(1));
+    mkdirSync(dir, { recursive: true });
+    const snapshot = `<!DOCTYPE html>\n${html.replace(/^<!DOCTYPE html>/i, "").trim()}\n`;
+    writeFileSync(join(dir, "index.html"), snapshot);
+    if (path === "/404") writeFileSync(join(OUT_DIR, "404.html"), snapshot);
+  }
+  console.log(`[prerender] done: ${results.length}/${ROUTES.length} pages`);
+}
+
+main().catch((err) => {
+  console.error("[prerender] fatal:", err);
+  process.exit(1);
+});

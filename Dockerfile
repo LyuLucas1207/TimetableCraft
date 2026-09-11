@@ -1,11 +1,15 @@
 # syntax=docker/dockerfile:1
-# Build complete crawlable HTML before replacing the running site.
-FROM node:22-bookworm AS build
+# 静态站点。vite build --mode prod.local 从镜像内 /app/.env.prod.local 读变量
+
+FROM node:22-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci && npx playwright install --with-deps chromium
+RUN npm ci
+
+FROM deps AS build
+ENV DOCKER_BUILD=1
 COPY . .
-RUN npm run build
+RUN npm run build:prod-local
 
 FROM nginx:1.27-alpine AS runner
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
