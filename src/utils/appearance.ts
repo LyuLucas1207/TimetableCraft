@@ -1,5 +1,5 @@
 import { APP_DOMAIN } from "@/constants";
-import { ColorPreset, Term, TimetableTheme, TitlePreset, GridInterval, type TimetableSettings } from "@/types/course";
+import { ColorPreset, ExportAspect, Term, TimetableTheme, TitlePreset, GridInterval, type TimetableSettings } from "@/types/course";
 
 export const TERM_I18N_KEY: Record<Term, string> = {
   [Term.W1]: "common.winterTerm1",
@@ -104,6 +104,8 @@ export const DEFAULT_SETTINGS: TimetableSettings = {
   showRooms: true,
   showSections: true,
   autoBounds: true,
+  collapseEmptyTime: true,
+  exportAspect: ExportAspect.Original,
   startTime: "08:00",
   endTime: "18:30",
   colorPreset: ColorPreset.Pastel,

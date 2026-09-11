@@ -1,6 +1,10 @@
 import { toPng } from "html-to-image";
 
-export async function exportNodeToPng(node: HTMLElement, filename: string): Promise<void> {
+export async function exportNodeToPng(
+  node: HTMLElement,
+  filename: string,
+  options?: { aspectRatio?: number | null },
+): Promise<void> {
   const hidden = Array.from(node.querySelectorAll<HTMLElement>("[data-export-hide]"));
   const previousDisplay = hidden.map((el) => el.style.display);
   for (const el of hidden) {
@@ -16,7 +20,7 @@ export async function exportNodeToPng(node: HTMLElement, filename: string): Prom
         ? computedBg
         : node.style.background || node.style.backgroundColor || "#ffffff";
 
-    const dataUrl = await toPng(node, {
+    let dataUrl = await toPng(node, {
       pixelRatio: 3,
       cacheBust: true,
       backgroundColor,
@@ -34,6 +38,11 @@ export async function exportNodeToPng(node: HTMLElement, filename: string): Prom
       },
     });
 
+    const aspectRatio = options?.aspectRatio;
+    if (aspectRatio && aspectRatio > 0) {
+      dataUrl = await padImageToAspect(dataUrl, aspectRatio, backgroundColor);
+    }
+
     const link = document.createElement("a");
     link.download = filename;
     link.href = dataUrl;
@@ -43,4 +52,40 @@ export async function exportNodeToPng(node: HTMLElement, filename: string): Prom
       el.style.display = previousDisplay[index] ?? "";
     });
   }
+}
+
+function padImageToAspect(dataUrl: string, aspectRatio: number, backgroundColor: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => {
+      const imgW = image.naturalWidth;
+      const imgH = image.naturalHeight;
+      if (!imgW || !imgH) {
+        resolve(dataUrl);
+        return;
+      }
+      const current = imgW / imgH;
+      let canvasW = imgW;
+      let canvasH = imgH;
+      if (current > aspectRatio) {
+        canvasH = Math.round(imgW / aspectRatio);
+      } else {
+        canvasW = Math.round(imgH * aspectRatio);
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = canvasW;
+      canvas.height = canvasH;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        resolve(dataUrl);
+        return;
+      }
+      ctx.fillStyle = backgroundColor;
+      ctx.fillRect(0, 0, canvasW, canvasH);
+      ctx.drawImage(image, Math.round((canvasW - imgW) / 2), Math.round((canvasH - imgH) / 2));
+      resolve(canvas.toDataURL("image/png"));
+    };
+    image.onerror = () => reject(new Error("Could not compose export image"));
+    image.src = dataUrl;
+  });
 }

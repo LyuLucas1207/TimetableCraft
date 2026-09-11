@@ -8,30 +8,37 @@ import {
   InstructionalFormat,
   Term,
   TERMS,
-  WEEK_DAYS,
-  WeekDay,
 } from "@/types/course";
 import type { ManualCourseInput } from "@/stores/schedule";
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ClockIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { EnumSelect } from "@/components/ui/enum-select";
+import { MeetingSummary } from "@/components/courses/MeetingSummary";
 import { parseManualCourseCode } from "@/parser/courseListingParser";
 import { useScheduleStore } from "@/stores";
+import { showMeetingTimeModal } from "@/stores/modal";
 import { colorsForPreset } from "@/utils/colors";
-import { isStartBeforeEnd, normalizeTime } from "@/utils/time";
+import { parseOptionalTimeRange, toTimeInputValue } from "@/utils/time";
 
 interface CourseFormProps {
   initial?: Partial<ManualCourseInput>;
   submitLabel: string;
+  autoOpenMeeting?: boolean;
   onCancel: () => void;
   onSubmit: (input: ManualCourseInput) => void;
 }
 
-export default function CourseForm({ initial, submitLabel, onCancel, onSubmit }: CourseFormProps) {
+export default function CourseForm({
+  initial,
+  submitLabel,
+  autoOpenMeeting = false,
+  onCancel,
+  onSubmit,
+}: CourseFormProps) {
   const { t } = useTranslation([PAGE.App, "language"]);
   const preset = useScheduleStore((s) => s.settings.colorPreset);
   const [courseCode, setCourseCode] = useState(initial?.courseCode ?? "");
@@ -40,18 +47,44 @@ export default function CourseForm({ initial, submitLabel, onCancel, onSubmit }:
   const [term, setTerm] = useState<Term>(initial?.term ?? Term.W1);
   const [instructionalFormat, setInstructionalFormat] = useState<InstructionalFormat>(initial?.instructionalFormat ?? InstructionalFormat.Lecture);
   const [courseType, setCourseType] = useState<CourseType>(initial?.courseType ?? CourseType.Active);
-  const [days, setDays] = useState<WeekDay[]>(initial?.days ?? []);
-  const [startTime, setStartTime] = useState(initial?.startTime ?? "09:00");
-  const [endTime, setEndTime] = useState(initial?.endTime ?? "10:30");
+  const [days, setDays] = useState(initial?.days ?? []);
+  const [startTime, setStartTime] = useState(toTimeInputValue(initial?.startTime));
+  const [endTime, setEndTime] = useState(toTimeInputValue(initial?.endTime));
   const [building, setBuilding] = useState(initial?.building ?? "");
   const [room, setRoom] = useState(initial?.room ?? "");
   const [instructor, setInstructor] = useState(initial?.instructor ?? "");
   const [color, setColor] = useState(initial?.color ?? colorsForPreset(preset)[0]);
   const [error, setError] = useState("");
 
-  const toggleDay = (day: WeekDay, checked: boolean) => {
-    setDays((current) => (checked ? [...current, day] : current.filter((item) => item !== day)));
+  const hasMeeting = days.length > 0 || Boolean(startTime || endTime);
+
+  const applyMeeting = (next: { days: typeof days; startTime: string; endTime: string }) => {
+    setDays(next.days);
+    setStartTime(next.startTime);
+    setEndTime(next.endTime);
+    setError("");
   };
+
+  const openMeeting = () => {
+    showMeetingTimeModal({
+      days,
+      startTime,
+      endTime,
+      onApply: applyMeeting,
+    });
+  };
+
+  useEffect(() => {
+    if (!autoOpenMeeting) return;
+    showMeetingTimeModal({
+      days: initial?.days ?? [],
+      startTime: toTimeInputValue(initial?.startTime),
+      endTime: toTimeInputValue(initial?.endTime),
+      onApply: applyMeeting,
+    });
+    // Slot click opens the stacked meeting modal once on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoOpenMeeting]);
 
   return (
     <form
@@ -62,7 +95,8 @@ export default function CourseForm({ initial, submitLabel, onCancel, onSubmit }:
           setError(t("formErrorCode", { ns: PAGE.App }));
           return;
         }
-        if (days.length > 0 && !isStartBeforeEnd(startTime, endTime)) {
+        const range = parseOptionalTimeRange(startTime, endTime);
+        if (range === "invalid") {
           setError(t("formErrorTime", { ns: PAGE.App }));
           return;
         }
@@ -74,8 +108,8 @@ export default function CourseForm({ initial, submitLabel, onCancel, onSubmit }:
           instructionalFormat,
           courseType,
           days,
-          startTime: normalizeTime(startTime) ?? startTime,
-          endTime: normalizeTime(endTime) ?? endTime,
+          startTime: range === "empty" ? "" : range.startTime,
+          endTime: range === "empty" ? "" : range.endTime,
           building,
           room,
           instructor,
@@ -129,26 +163,19 @@ export default function CourseForm({ initial, submitLabel, onCancel, onSubmit }:
       </Field>
       <div>
         <p className="mb-2 text-sm font-medium">
-          {t("formDays", { ns: PAGE.App })}
+          {t("formMeeting", { ns: PAGE.App })}
           <span className="ml-1 font-normal text-muted-foreground">({t("optional", { ns: PAGE.App })})</span>
         </p>
-        <div className="flex flex-wrap gap-3">
-          {WEEK_DAYS.map((day) => (
-            <label key={day} className="flex items-center gap-2 text-sm">
-              <Checkbox checked={days.includes(day)} onCheckedChange={(checked) => toggleDay(day, checked === true)} />
-              {t(`days.${day}`, { ns: "language" })}
-            </label>
-          ))}
+        <div className="flex items-center justify-between gap-3 rounded-xl border bg-muted/30 px-3 py-2.5">
+          <p className="min-w-0 text-sm text-muted-foreground">
+            <MeetingSummary days={days} startTime={startTime} endTime={endTime} />
+          </p>
+          <Button type="button" variant="outline" size="sm" onClick={openMeeting}>
+            <ClockIcon />
+            {hasMeeting ? t("formMeetingEdit", { ns: PAGE.App }) : t("formMeetingSet", { ns: PAGE.App })}
+          </Button>
         </div>
         <p className="mt-1 text-[11px] text-muted-foreground">{t("formDaysHint", { ns: PAGE.App })}</p>
-      </div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <Field label={t("formStart", { ns: PAGE.App })} optional={t("optional", { ns: PAGE.App })}>
-          <Input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
-        </Field>
-        <Field label={t("formEnd", { ns: PAGE.App })} optional={t("optional", { ns: PAGE.App })}>
-          <Input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
-        </Field>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         <Field label={t("formBuilding", { ns: PAGE.App })} optional={t("optional", { ns: PAGE.App })}>

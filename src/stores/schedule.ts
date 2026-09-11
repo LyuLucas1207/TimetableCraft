@@ -10,10 +10,13 @@ import {
   courseTypeFromExcel,
   ImportMode,
   Term,
+  TERMS,
   termFromTitlePreset,
   TimetableTheme,
   TitlePreset,
   titlePresetFromTerm,
+  ExportAspect,
+  EXPORT_ASPECTS,
   type Course,
   type CourseMeeting,
   type ImportSummary,
@@ -24,6 +27,7 @@ import {
 import { appearanceFromTheme, DEFAULT_SETTINGS, isDefaultPresetTitle, titleFromPreset } from "@/utils/appearance";
 import { pickRandomPaletteColor } from "@/utils/colors";
 import { createId } from "@/utils/ids";
+import { parseOptionalTimeRange } from "@/utils/time";
 
 export interface ManualCourseInput {
   courseCode: string;
@@ -33,8 +37,8 @@ export interface ManualCourseInput {
   instructionalFormat: InstructionalFormat;
   courseType: CourseType;
   days: WeekDay[];
-  startTime: string;
-  endTime: string;
+  startTime?: string;
+  endTime?: string;
   building?: string;
   room?: string;
   instructor?: string;
@@ -66,6 +70,23 @@ interface ScheduleState {
 
 function courseIdentity(course: Course): string {
   return `${course.courseKey}:${course.section}:${course.term}:${course.instructionalFormat}`;
+}
+
+function placeTermOnTimetable(courses: Course[], term: Term): Course[] {
+  return courses.map((course) => ({
+    ...course,
+    onTimetable: course.term === term && course.courseType !== CourseType.Drop,
+  }));
+}
+
+function termToPlaceAfterImport(courses: Course[], preferred: Term): Term {
+  const counts = Object.fromEntries(TERMS.map((term) => [term, 0])) as Record<Term, number>;
+  for (const course of courses) {
+    if (course.courseType === CourseType.Drop) continue;
+    counts[course.term] += 1;
+  }
+  if (counts[preferred] > 0) return preferred;
+  return TERMS.reduce((best, term) => (counts[term] > counts[best] ? term : best), preferred);
 }
 
 function migrateCourse(course: Course & { registrationStatus?: string }): Course {
@@ -104,13 +125,7 @@ export const useScheduleStore = create<ScheduleState>()(
           customTitle?.trim() ||
           (isDefaultPresetTitle(settings.titlePreset, settings.title) ? titleFromPreset(preset, settings.title) : settings.title);
         const term = termFromTitlePreset(preset);
-        const courses =
-          term == null
-            ? get().courses
-            : get().courses.map((course) => ({
-                ...course,
-                onTimetable: course.term === term && course.courseType !== CourseType.Drop,
-              }));
+        const courses = term == null ? get().courses : placeTermOnTimetable(get().courses, term);
         set({
           settings: { ...settings, titlePreset: preset, title, customTitles: [] },
           selectedTerm: term ?? get().selectedTerm,
@@ -156,7 +171,20 @@ export const useScheduleStore = create<ScheduleState>()(
           unregisteredCount: result.unregisteredCount,
         };
 
-        set({ courses: nextCourses, importSummary: summary });
+        const settings = get().settings;
+        const preferred = termFromTitlePreset(settings.titlePreset) ?? get().selectedTerm;
+        const term = termToPlaceAfterImport(nextCourses, preferred);
+        const titlePreset = titlePresetFromTerm(term);
+        const title = isDefaultPresetTitle(settings.titlePreset, settings.title)
+          ? titleFromPreset(titlePreset, settings.title)
+          : settings.title;
+
+        set({
+          courses: placeTermOnTimetable(nextCourses, term),
+          selectedTerm: term,
+          settings: { ...settings, titlePreset, title, customTitles: [] },
+          importSummary: summary,
+        });
         return summary;
       },
       addManualCourse: (input) => {
@@ -166,13 +194,14 @@ export const useScheduleStore = create<ScheduleState>()(
         }
         const courseKey = courseKeyOf(parsed.subject, parsed.courseNumber);
         const existingColor = get().courses.find((course) => course.courseKey === courseKey)?.color;
+        const range = parseOptionalTimeRange(input.startTime, input.endTime);
         const meeting: CourseMeeting | null =
-          input.days.length > 0
+          input.days.length > 0 && range !== "empty" && range !== "invalid"
             ? {
                 id: createId(),
                 days: input.days,
-                startTime: input.startTime,
-                endTime: input.endTime,
+                startTime: range.startTime,
+                endTime: range.endTime,
                 building: input.building?.trim() || undefined,
                 room: input.room?.trim() || undefined,
               }
@@ -280,6 +309,10 @@ export const useScheduleStore = create<ScheduleState>()(
             titlePreset,
             customTitles: [],
             footerText: migrateFooterText(mergedSettings.footerText),
+            collapseEmptyTime: mergedSettings.collapseEmptyTime !== false,
+            exportAspect: EXPORT_ASPECTS.includes(mergedSettings.exportAspect as ExportAspect)
+              ? mergedSettings.exportAspect
+              : ExportAspect.Original,
           },
           courses: (persisted.courses ?? []).map((course) => migrateCourse(course as Course & { registrationStatus?: string })),
         };

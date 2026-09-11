@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverHeader, PopoverTitle, PopoverTrigger } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { ColorPreset, GridInterval, TimetableTheme, type TimetableSettings } from "@/types/course";
+import { toTimeInputValue } from "@/utils/time";
 
 interface AppearanceEditorProps {
   settings: TimetableSettings;
@@ -78,12 +79,23 @@ export default function AppearanceEditor({
           />
         </Field>
         <Field label={t("startTime")}>
-          <Input type="time" value={settings.startTime} onChange={(event) => onChange({ startTime: event.target.value, autoBounds: false })} />
+          <Input
+            type="time"
+            step={900}
+            value={toTimeInputValue(settings.startTime)}
+            onChange={(event) => onChange({ startTime: toTimeInputValue(event.target.value) || settings.startTime, autoBounds: false })}
+          />
         </Field>
         <Field label={t("endTime")}>
-          <Input type="time" value={settings.endTime} onChange={(event) => onChange({ endTime: event.target.value, autoBounds: false })} />
+          <Input
+            type="time"
+            step={900}
+            value={toTimeInputValue(settings.endTime)}
+            onChange={(event) => onChange({ endTime: toTimeInputValue(event.target.value) || settings.endTime, autoBounds: false })}
+          />
         </Field>
         <ToggleRow label={t("autoBounds")} checked={settings.autoBounds} onChange={(autoBounds) => onChange({ autoBounds })} />
+        <ToggleRow label={t("collapseEmptyTime")} checked={settings.collapseEmptyTime} onChange={(collapseEmptyTime) => onChange({ collapseEmptyTime })} />
         <SizeField label={t("sizeBlockTitle")} value={settings.blockTitleFontSize} min={9} max={18} onChange={(blockTitleFontSize) => onChange({ blockTitleFontSize })} />
         <SizeField label={t("sizeBlockMeta")} value={settings.blockMetaFontSize} min={8} max={14} onChange={(blockMetaFontSize) => onChange({ blockMetaFontSize })} />
         <SizeField label={t("cornerRadius")} value={settings.cornerRadius} min={0} max={18} onChange={(cornerRadius) => onChange({ cornerRadius })} />

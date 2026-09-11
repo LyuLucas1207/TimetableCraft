@@ -36,7 +36,7 @@ export function EnumSelect<T extends string | number>({
       <SelectTrigger className={cn("w-full min-w-0", className)}>
         <SelectValue />
       </SelectTrigger>
-      <SelectContent align="start" className="z-[70] min-w-(--anchor-width)">
+      <SelectContent align="start" className="min-w-(--anchor-width)">
         {options.map((option) => (
           <SelectItem key={String(option.value)} value={option.value}>
             {option.label}

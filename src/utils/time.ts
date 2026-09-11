@@ -36,6 +36,39 @@ export function isStartBeforeEnd(start: string, end: string): boolean {
   return startMin < endMin;
 }
 
+/** `HH:MM` snapped to :00 / :15 / :30 / :45, or empty. */
+export function toTimeInputValue(value: string | undefined): string {
+  const minutes = parseToMinutes(value ?? "");
+  if (minutes == null) return "";
+  return minutesToTime(snapToQuarterHour(minutes));
+}
+
+export const QUARTER_MINUTES = [0, 15, 30, 45] as const;
+
+export function snapToQuarterHour(totalMinutes: number): number {
+  return Math.max(0, Math.min(24 * 60, Math.round(totalMinutes / 15) * 15));
+}
+
+export function parseOptionalTimeRange(
+  start?: string,
+  end?: string,
+): { startTime: string; endTime: string } | "empty" | "invalid" {
+  const startTime = toTimeInputValue(start);
+  const endTime = toTimeInputValue(end);
+  if (!startTime && !endTime) return "empty";
+  if (!startTime || !endTime || !isStartBeforeEnd(startTime, endTime)) return "invalid";
+  return { startTime, endTime };
+}
+
+export function addDuration(start: string, durationMinutes: number): string | null {
+  const startMin = parseToMinutes(toTimeInputValue(start));
+  if (startMin == null) return null;
+  const latest = 23 * 60 + 45;
+  const next = Math.min(latest, snapToQuarterHour(startMin + durationMinutes));
+  if (next <= startMin) return null;
+  return minutesToTime(next);
+}
+
 export function normalizeTime(input: string): string | null {
   const minutes = parseToMinutes(input);
   if (minutes == null) return null;
@@ -73,6 +106,20 @@ export function snapDown(minutes: number, interval: GridInterval): number {
 
 export function snapUp(minutes: number, interval: GridInterval): number {
   return Math.ceil(minutes / interval) * interval;
+}
+
+/** Trim idle morning/evening slots, keeping one empty row before the first class and after the last. */
+export function collapseIdleBounds(
+  firstEventMin: number,
+  lastEventMin: number,
+  interval: GridInterval,
+): { startMin: number; endMin: number } {
+  const first = snapDown(firstEventMin, interval);
+  const last = snapUp(lastEventMin, interval);
+  const startMin = Math.max(0, first - interval);
+  let endMin = Math.min(24 * 60, last + interval);
+  if (endMin <= startMin) endMin = startMin + interval;
+  return { startMin, endMin };
 }
 
 export function buildTimeSlots(

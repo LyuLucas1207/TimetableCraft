@@ -2,13 +2,13 @@ import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 
-import { DownloadIcon, EyeIcon, FileDescriptionIcon, RefreshIcon, SlidersHorizontalIcon, UserPlusIcon } from "@/animations";
+import { DownloadIcon, ExpandIcon, EyeIcon, FileDescriptionIcon, LayoutBottombarCollapseIcon, RefreshIcon, SlidersHorizontalIcon, UserPlusIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
 import Logo from "@/components/Logo";
 import PreferencesPopover from "@/components/PreferencesPopover";
 import CourseList from "@/components/courses/CourseList";
-import CourseModal from "@/components/courses/CourseModal";
 import ExcelUploader from "@/components/import/ExcelUploader";
+import ExportOptionsPopover from "@/components/schedule/ExportOptionsPopover";
 import AppearanceEditor, { ColorField, RegionEdit, SizeField, ToggleRow } from "@/components/timetable/AppearanceEditor";
 import TitlePicker from "@/components/timetable/TitlePicker";
 import Timetable from "@/components/timetable/Timetable";
@@ -27,10 +27,11 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { parseManualCourseCode, courseKeyOf, formatCourseCode, normalizeFormat } from "@/parser/courseListingParser";
-import { selectTimetableCourses, useScheduleStore, type ManualCourseInput } from "@/stores/schedule";
-import { ColorPreset, CourseType, ImportMode, TitlePreset, termFromTitlePreset, type Course } from "@/types/course";
+import { hideModal, ModalTypeEnum, selectTimetableCourses, showCourseModal, useModalStore, useScheduleStore, type ManualCourseInput } from "@/stores";
+import { ColorPreset, CourseType, EXPORT_ASPECT_RATIO, ImportMode, TitlePreset, termFromTitlePreset, type Course, type WeekDay } from "@/types/course";
 import { createId } from "@/utils/ids";
 import { exportNodeToPng } from "@/utils/exportImage";
+import { parseOptionalTimeRange } from "@/utils/time";
 
 export default function ScheduleWorkspace() {
   const { t } = useTranslation([PAGE.App, LANG_NS]);
@@ -55,24 +56,64 @@ export default function ScheduleWorkspace() {
   const onTimetableCount = courses.filter((course) => course.onTimetable).length;
   const exportRef = useRef<HTMLDivElement>(null);
 
-  const [modalOpen, setModalOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
-  const [editing, setEditing] = useState<Course | null>(null);
   const [pendingFile, setPendingFile] = useState<File | null>(null);
   const [resetOpen, setResetOpen] = useState(false);
   const [customizeOpen, setCustomizeOpen] = useState(false);
   const [focusCourseId, setFocusCourseId] = useState<string | null>(null);
 
   const openCreate = () => {
-    setEditing(null);
-    setModalOpen(true);
+    showCourseModal({
+      title: t("common.addCourse", { ns: LANG_NS }),
+      submitLabel: t("common.addCourse", { ns: LANG_NS }),
+      autoOpenMeeting: false,
+      editing: null,
+      initial: { term: selectedTerm, color: settings.colorPreset === ColorPreset.Pastel ? "#DBEAFE" : undefined },
+      onSubmit: handleSubmit,
+    });
+  };
+
+  const openCreateFromSlot = (day: WeekDay, startTime: string) => {
+    showCourseModal({
+      title: t("common.addCourse", { ns: LANG_NS }),
+      submitLabel: t("common.addCourse", { ns: LANG_NS }),
+      autoOpenMeeting: true,
+      editing: null,
+      initial: {
+        term: selectedTerm,
+        color: settings.colorPreset === ColorPreset.Pastel ? "#DBEAFE" : undefined,
+        days: [day],
+        startTime,
+      },
+      onSubmit: handleSubmit,
+    });
   };
 
   const openEdit = (course: Course) => {
     setFocusCourseId(course.id);
-    setEditing(course);
-    setModalOpen(true);
+    showCourseModal({
+      title: t("common.edit", { ns: LANG_NS }),
+      submitLabel: t("common.save", { ns: LANG_NS }),
+      autoOpenMeeting: false,
+      editing: course,
+      initial: {
+        courseCode: formatCourseCode(course.subject, course.courseNumber),
+        section: course.section,
+        title: course.title,
+        term: course.term,
+        instructionalFormat: course.instructionalFormat,
+        courseType: course.courseType,
+        days: course.meetings[0]?.days ?? [],
+        startTime: course.meetings[0]?.startTime ?? "",
+        endTime: course.meetings[0]?.endTime ?? "",
+        building: course.meetings[0]?.building,
+        room: course.meetings[0]?.room,
+        instructor: course.instructor,
+        color: course.color,
+      },
+      onSubmit: handleSubmit,
+    });
   };
 
   const onSelectPreset = (preset: TitlePreset) => {
@@ -108,14 +149,16 @@ export default function ScheduleWorkspace() {
       toast.error(t("formErrorCode", { ns: PAGE.App }));
       return;
     }
+    const editing = useModalStore.getState().courseModal.editing ?? null;
+    const range = parseOptionalTimeRange(input.startTime, input.endTime);
     const meetings =
-      input.days.length > 0
+      input.days.length > 0 && range !== "empty" && range !== "invalid"
         ? [
             {
               id: editing?.meetings[0]?.id ?? createId(),
               days: input.days,
-              startTime: input.startTime,
-              endTime: input.endTime,
+              startTime: range.startTime,
+              endTime: range.endTime,
               building: input.building?.trim() || undefined,
               room: input.room?.trim() || undefined,
             },
@@ -139,8 +182,7 @@ export default function ScheduleWorkspace() {
       } else {
         addManualCourse(input);
       }
-      setModalOpen(false);
-      setEditing(null);
+      hideModal(ModalTypeEnum.Course);
     } catch {
       toast.error(t("formErrorCode", { ns: PAGE.App }));
     }
@@ -151,7 +193,9 @@ export default function ScheduleWorkspace() {
       toast.error(t("emptyTitle", { ns: PAGE.App }));
       return;
     }
-    await exportNodeToPng(exportRef.current, `${slugify(settings.title)}.png`);
+    await exportNodeToPng(exportRef.current, `${slugify(settings.title)}.png`, {
+      aspectRatio: EXPORT_ASPECT_RATIO[settings.exportAspect],
+    });
   };
 
   return (
@@ -200,6 +244,14 @@ export default function ScheduleWorkspace() {
           <HoverIconButton variant="outline" size="sm" icon={EyeIcon} onClick={() => setPreviewOpen(true)} disabled={visible.length === 0}>
             {t("preview")}
           </HoverIconButton>
+          <HoverIconButton
+            variant={settings.collapseEmptyTime ? "default" : "outline"}
+            size="sm"
+            icon={settings.collapseEmptyTime ? ExpandIcon : LayoutBottombarCollapseIcon}
+            onClick={() => setSettings({ collapseEmptyTime: !settings.collapseEmptyTime })}
+          >
+            {settings.collapseEmptyTime ? t("collapseToggleUnfold") : t("collapseToggleFold")}
+          </HoverIconButton>
           <HoverIconButton variant="outline" size="sm" icon={RefreshIcon} onClick={() => setResetOpen(true)}>
             {t("header.reset", { ns: LANG_NS })}
           </HoverIconButton>
@@ -208,6 +260,7 @@ export default function ScheduleWorkspace() {
             <HoverIconButton size="sm" icon={DownloadIcon} onClick={() => void exportPng()} disabled={visible.length === 0}>
               {t("header.exportPng", { ns: LANG_NS })}
             </HoverIconButton>
+            <ExportOptionsPopover />
           </div>
         </div>
 
@@ -217,6 +270,7 @@ export default function ScheduleWorkspace() {
               courses={visible}
               settings={settings}
               onBlockClick={openEdit}
+              onSlotClick={openCreateFromSlot}
               exportRef={visible.length > 0 ? exportRef : undefined}
               onTitleCommit={commitTitle}
               headerEdit={
@@ -234,33 +288,6 @@ export default function ScheduleWorkspace() {
           </div>
         </div>
       </section>
-
-      <CourseModal
-        open={modalOpen}
-        title={editing ? t("common.edit", { ns: LANG_NS }) : t("common.addCourse", { ns: LANG_NS })}
-        submitLabel={editing ? t("common.save", { ns: LANG_NS }) : t("common.addCourse", { ns: LANG_NS })}
-        initial={
-          editing
-            ? {
-                courseCode: formatCourseCode(editing.subject, editing.courseNumber),
-                section: editing.section,
-                title: editing.title,
-                term: editing.term,
-                instructionalFormat: editing.instructionalFormat,
-                courseType: editing.courseType,
-                days: editing.meetings[0]?.days ?? [],
-                startTime: editing.meetings[0]?.startTime ?? "09:00",
-                endTime: editing.meetings[0]?.endTime ?? "10:30",
-                building: editing.meetings[0]?.building,
-                room: editing.meetings[0]?.room,
-                instructor: editing.instructor,
-                color: editing.color,
-              }
-            : { term: selectedTerm, color: settings.colorPreset === ColorPreset.Pastel ? "#DBEAFE" : undefined }
-        }
-        onOpenChange={setModalOpen}
-        onSubmit={handleSubmit}
-      />
 
       <Dialog open={importOpen} onOpenChange={setImportOpen}>
         <DialogContent className="sm:max-w-lg">

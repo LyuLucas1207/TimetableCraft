@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode, type Ref } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode, type Ref } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ClockIcon } from "@/animations";
@@ -11,12 +11,13 @@ import { TITLE_PRESET_I18N_KEY, isDefaultPresetTitle } from "@/utils/appearance"
 import { uniqueCreditTotal, uniqueCourseCount } from "@/utils/credits";
 import { resolvePaletteColor } from "@/utils/colors";
 import { layoutOverlaps } from "@/utils/overlaps";
-import { buildTimeSlots, formatDisplayTime, formatTimeRange, snapDown, snapUp, timeToMinutes, minutesToTime } from "@/utils/time";
+import { buildTimeSlots, collapseIdleBounds, formatDisplayTime, formatTimeRange, snapDown, snapUp, timeToMinutes, minutesToTime } from "@/utils/time";
 
 interface TimetableProps {
   courses: Course[];
   settings: TimetableSettings;
   onBlockClick?: (course: Course) => void;
+  onSlotClick?: (day: WeekDay, startTime: string) => void;
   exportRef?: Ref<HTMLDivElement>;
   interactive?: boolean;
   headerEdit?: ReactNode;
@@ -42,10 +43,13 @@ const ROW_HEIGHT: Record<TimetableSettings["intervalMinutes"], number> = {
   120: 68,
 };
 
+const GRID_COLS = "88px repeat(5, minmax(0, 1fr))";
+
 export default function Timetable({
   courses,
   settings,
   onBlockClick,
+  onSlotClick,
   exportRef,
   interactive = true,
   headerEdit,
@@ -56,7 +60,7 @@ export default function Timetable({
   const unscheduled = courses.filter((course) => course.meetings.length === 0);
   const layout = useMemo(() => buildLayout(scheduled, settings), [scheduled, settings]);
 
-  if (scheduled.length === 0 && unscheduled.length === 0) {
+  if (scheduled.length === 0 && unscheduled.length === 0 && !interactive) {
     return (
       <div className="flex h-full min-h-0 flex-col items-center justify-center rounded-2xl border bg-card px-6 py-16 text-center shadow-sm">
         <ClockIcon size={32} className="mx-auto mb-3 text-muted-foreground" />
@@ -109,18 +113,29 @@ export default function Timetable({
       </div>
       <div className={settings.showFooter ? "overflow-hidden" : "overflow-hidden rounded-b-2xl"}>
         <div
-          className="grid grid-cols-[88px_repeat(5,1fr)] border-b text-xs font-semibold"
-          style={{ borderColor: settings.gridLine }}
+          className="grid border-b text-xs font-semibold"
+          style={{ gridTemplateColumns: GRID_COLS, borderColor: settings.gridLine }}
         >
           <div className="border-r px-3 py-2" style={{ background: settings.timeBg, color: settings.timeText, borderColor: settings.gridLine }}>
             {t("common.time", { ns: LANG_NS })}
           </div>
-          {WEEK_DAYS.map((day) => (
-            <div key={day} className="px-3 py-2" style={{ background: settings.dayHeaderBg, color: settings.dayHeaderText }}>
+          {WEEK_DAYS.map((day, col) => (
+            <div
+              key={day}
+              className={col === 0 ? "px-3 py-2" : "border-l px-3 py-2"}
+              style={{ background: settings.dayHeaderBg, color: settings.dayHeaderText, borderColor: settings.gridLine }}
+            >
               {t(`days.${day}`, { ns: LANG_NS })}
             </div>
           ))}
         </div>
+        {interactive && courses.length === 0 ? (
+          <ExportHide>
+            <p className="border-b px-5 py-2 text-xs" style={{ color: settings.kickerColor, borderColor: settings.gridLine, background: settings.pageBg }}>
+              {t("formSlotHint", { ns: PAGE.App })}
+            </p>
+          </ExportHide>
+        ) : null}
         {unscheduled.length > 0 ? (
           <div className="border-b" style={{ borderColor: settings.gridLine, background: settings.pageBg }}>
             {unscheduled.map((course) => {
@@ -129,7 +144,7 @@ export default function Timetable({
                 ? formatCourseSection(course.subject, course.courseNumber, course.section)
                 : formatCourseCode(course.subject, course.courseNumber);
               return (
-                <div key={course.id} className="grid grid-cols-[88px_repeat(5,1fr)]">
+                <div key={course.id} className="grid" style={{ gridTemplateColumns: GRID_COLS }}>
                   <div className="flex items-center border-r px-2 text-[11px]" style={{ background: settings.timeBg, color: settings.timeText, borderColor: settings.gridLine }}>
                     {t("unscheduledBar", { ns: PAGE.App })}
                   </div>
@@ -167,75 +182,118 @@ export default function Timetable({
             })}
           </div>
         ) : null}
-        <div className="relative grid grid-cols-[88px_repeat(5,1fr)]" style={{ height: gridHeight, background: settings.pageBg }}>
-          <div style={{ background: settings.timeBg }}>
-            {layout.slots.map((slot) => (
-              <div
-                key={slot}
-                className="flex items-start border-b px-2 text-[11px]"
-                style={{ height: rowHeight, borderColor: settings.gridLine, color: settings.timeText, background: settings.timeBg }}
-              >
-                {formatDisplayTime(slot)}
+        <div className="relative overflow-hidden" style={{ height: gridHeight, background: settings.pageBg }}>
+          <div
+            className="grid h-full"
+            style={{
+              gridTemplateColumns: GRID_COLS,
+              gridTemplateRows: `repeat(${layout.slots.length}, ${rowHeight}px)`,
+            }}
+          >
+            {layout.slots.map((slot, row) => (
+              <Fragment key={slot}>
+                <div
+                  className="box-border flex items-start overflow-hidden border-b border-r px-2 text-[11px] leading-none"
+                  style={{
+                    gridColumn: 1,
+                    gridRow: row + 1,
+                    background: settings.timeBg,
+                    color: settings.timeText,
+                    borderColor: settings.gridLine,
+                    paddingTop: 4,
+                  }}
+                >
+                  {formatDisplayTime(slot)}
+                </div>
+                {WEEK_DAYS.map((day, col) =>
+                  interactive && onSlotClick ? (
+                    <button
+                      key={day}
+                      type="button"
+                      className={`box-border m-0 block size-full appearance-none rounded-none border-0 border-b bg-transparent p-0 transition-colors hover:bg-primary/20 focus-visible:bg-primary/20 focus-visible:outline-none ${col === 0 ? "" : "border-l"}`}
+                      style={{
+                        gridColumn: col + 2,
+                        gridRow: row + 1,
+                        borderColor: settings.gridLine,
+                      }}
+                      aria-label={t("formSlotCreate", { ns: PAGE.App, day: t(`days.${day}`, { ns: LANG_NS }), time: formatDisplayTime(slot) })}
+                      onClick={() => onSlotClick(day, slot)}
+                    />
+                  ) : (
+                    <div
+                      key={day}
+                      className={`box-border size-full border-b ${col === 0 ? "" : "border-l"}`}
+                      style={{
+                        gridColumn: col + 2,
+                        gridRow: row + 1,
+                        borderColor: settings.gridLine,
+                      }}
+                    />
+                  ),
+                )}
+              </Fragment>
+            ))}
+          </div>
+          <div
+            className="pointer-events-none absolute inset-0 grid"
+            style={{ gridTemplateColumns: GRID_COLS }}
+          >
+            <div />
+            {WEEK_DAYS.map((day) => (
+              <div key={day} className="relative min-w-0">
+                {layout.byDay[day].map((item) => {
+                  const top = ((item.event.startMin - layout.startMin) / settings.intervalMinutes) * rowHeight;
+                  const height = ((item.event.endMin - item.event.startMin) / settings.intervalMinutes) * rowHeight;
+                  const width = 100 / item.columns;
+                  const left = item.column * width;
+                  const palette = resolvePaletteColor(item.event.course.color, settings.colorPreset);
+                  const course = item.event.course;
+                  const label = settings.showSections
+                    ? formatCourseSection(course.subject, course.courseNumber, course.section)
+                    : formatCourseCode(course.subject, course.courseNumber);
+                  return (
+                    <button
+                      key={item.event.id}
+                      type="button"
+                      className={`pointer-events-auto absolute box-border overflow-hidden px-1.5 py-1 text-left shadow-sm ${interactive ? "transition-transform hover:-translate-y-px" : "pointer-events-none"}`}
+                      style={{
+                        top: top + 2,
+                        height: Math.max(height - 4, 24),
+                        left: `calc(${left}% + 4px)`,
+                        width: `calc(${width}% - 8px)`,
+                        background: palette.bg,
+                        border: `1.5px ${COURSE_TYPE_BORDER[course.courseType]} ${palette.border}`,
+                        color: palette.text,
+                        borderRadius: settings.cornerRadius,
+                        opacity: course.courseType === CourseType.Waitlist ? 0.92 : 1,
+                      }}
+                      title={`${label}\n${course.title}\n${formatTimeRange(item.event.startTime, item.event.endTime)}\n${formatLocation(item.event)}`}
+                      onClick={() => interactive && onBlockClick?.(course)}
+                    >
+                      <div className="truncate font-bold leading-tight" style={{ fontSize: settings.blockTitleFontSize }}>
+                        {label}
+                      </div>
+                      {settings.showTitles && height > 40 ? (
+                        <div className="truncate leading-tight opacity-90" style={{ fontSize: settings.blockMetaFontSize }}>
+                          {course.title}
+                        </div>
+                      ) : null}
+                      {height > 54 ? (
+                        <div className="truncate opacity-80" style={{ fontSize: settings.blockMetaFontSize }}>
+                          {formatTimeRange(item.event.startTime, item.event.endTime)}
+                        </div>
+                      ) : null}
+                      {settings.showRooms && height > 68 ? (
+                        <div className="truncate opacity-80" style={{ fontSize: settings.blockMetaFontSize }}>
+                          {formatLocation(item.event)}
+                        </div>
+                      ) : null}
+                    </button>
+                  );
+                })}
               </div>
             ))}
           </div>
-          {WEEK_DAYS.map((day) => (
-            <div key={day} className="relative border-l" style={{ borderColor: settings.gridLine }}>
-              {layout.slots.map((slot) => (
-                <div key={slot} className="border-b" style={{ height: rowHeight, borderColor: settings.gridLine }} />
-              ))}
-              {layout.byDay[day].map((item) => {
-                const top = ((item.event.startMin - layout.startMin) / settings.intervalMinutes) * rowHeight;
-                const height = ((item.event.endMin - item.event.startMin) / settings.intervalMinutes) * rowHeight;
-                const width = 100 / item.columns;
-                const left = item.column * width;
-                const palette = resolvePaletteColor(item.event.course.color, settings.colorPreset);
-                const course = item.event.course;
-                const label = settings.showSections
-                  ? formatCourseSection(course.subject, course.courseNumber, course.section)
-                  : formatCourseCode(course.subject, course.courseNumber);
-                return (
-                  <button
-                    key={item.event.id}
-                    type="button"
-                    className={`absolute overflow-hidden px-1.5 py-1 text-left shadow-sm ${interactive ? "transition-transform hover:-translate-y-px" : "pointer-events-none"}`}
-                    style={{
-                      top: top + 2,
-                      height: Math.max(height - 4, 24),
-                      left: `calc(${left}% + 4px)`,
-                      width: `calc(${width}% - 8px)`,
-                      background: palette.bg,
-                      border: `1.5px ${COURSE_TYPE_BORDER[course.courseType]} ${palette.border}`,
-                      color: palette.text,
-                      borderRadius: settings.cornerRadius,
-                      opacity: course.courseType === CourseType.Waitlist ? 0.92 : 1,
-                    }}
-                    title={`${label}\n${course.title}\n${formatTimeRange(item.event.startTime, item.event.endTime)}\n${formatLocation(item.event)}`}
-                    onClick={() => interactive && onBlockClick?.(course)}
-                  >
-                    <div className="truncate font-bold leading-tight" style={{ fontSize: settings.blockTitleFontSize }}>
-                      {label}
-                    </div>
-                    {settings.showTitles && height > 40 ? (
-                      <div className="truncate leading-tight opacity-90" style={{ fontSize: settings.blockMetaFontSize }}>
-                        {course.title}
-                      </div>
-                    ) : null}
-                    {height > 54 ? (
-                      <div className="truncate opacity-80" style={{ fontSize: settings.blockMetaFontSize }}>
-                        {formatTimeRange(item.event.startTime, item.event.endTime)}
-                      </div>
-                    ) : null}
-                    {settings.showRooms && height > 68 ? (
-                      <div className="truncate opacity-80" style={{ fontSize: settings.blockMetaFontSize }}>
-                        {formatLocation(item.event)}
-                      </div>
-                    ) : null}
-                  </button>
-                );
-              })}
-            </div>
-          ))}
         </div>
       </div>
       {settings.showFooter ? (
@@ -374,6 +432,15 @@ function buildLayout(courses: Course[], settings: TimetableSettings) {
     const maxEvent = Math.max(...events.map((event) => event.endMin));
     startMin = Math.min(startMin, snapDown(minEvent, settings.intervalMinutes));
     endMin = Math.max(endMin, snapUp(maxEvent, settings.intervalMinutes));
+  }
+  if (settings.collapseEmptyTime && events.length > 0) {
+    const collapsed = collapseIdleBounds(
+      Math.min(...events.map((event) => event.startMin)),
+      Math.max(...events.map((event) => event.endMin)),
+      settings.intervalMinutes,
+    );
+    startMin = collapsed.startMin;
+    endMin = collapsed.endMin;
   }
 
   const slots = buildTimeSlots(minutesToTime(startMin), minutesToTime(endMin), settings.intervalMinutes);

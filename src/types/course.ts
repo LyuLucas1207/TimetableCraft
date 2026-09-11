@@ -144,6 +144,31 @@ export enum ThemeMode {
   System = "system",
 }
 
+export enum ExportAspect {
+  Original = "original",
+  Phone = "phone",
+  Desktop = "desktop",
+  DesktopWide = "desktopWide",
+  Square = "square",
+}
+
+export const EXPORT_ASPECTS = [
+  ExportAspect.Original,
+  ExportAspect.Phone,
+  ExportAspect.Desktop,
+  ExportAspect.DesktopWide,
+  ExportAspect.Square,
+] as const;
+
+/** Width / height. `null` keeps the timetable’s natural size. */
+export const EXPORT_ASPECT_RATIO: Record<ExportAspect, number | null> = {
+  [ExportAspect.Original]: null,
+  [ExportAspect.Phone]: 9 / 16,
+  [ExportAspect.Desktop]: 16 / 9,
+  [ExportAspect.DesktopWide]: 16 / 10,
+  [ExportAspect.Square]: 1,
+};
+
 export interface CourseMeeting {
   id: string;
   days: WeekDay[];
@@ -211,6 +236,8 @@ export interface TimetableSettings {
   showRooms: boolean;
   showSections: boolean;
   autoBounds: boolean;
+  collapseEmptyTime: boolean;
+  exportAspect: ExportAspect;
   startTime: string;
   endTime: string;
   theme: TimetableTheme;
