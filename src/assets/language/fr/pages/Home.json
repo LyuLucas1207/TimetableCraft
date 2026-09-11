@@ -1,7 +1,7 @@
 {
   "kicker": "Timetable Craft",
   "headline": "Créateur d’horaire gratuit pour votre semaine de cours.",
-  "support": "Construisez un course table avec ce schedule maker en ligne. Ajoutez les cours à la main ou importez un Excel UBC Workday, puis exportez un PNG. Sans compte.",
+  "support": "Construisez un course table avec ce schedule maker en ligne. Ajoutez les cours à la main ou importez un Excel UBC Workday, puis exportez un PNG. SFU, Waterloo et d’autres campus : envoyez-nous votre export.",
   "ctaOpen": "Ouvrir le créateur d’horaire",
   "ctaTools": "Voir les outils",
   "ctaGuide": "Exporter l’Excel",
@@ -23,7 +23,7 @@
   "privacyTitle": "Sans compte. Sans envoi.",
   "privacyBody": "L’horaire reste dans ce navigateur jusqu’à la réinitialisation. Workday reste la source ; confirmez-y les horaires.",
   "seoTitle": "Créateur d’horaire et d’emploi du temps | Timetable Craft",
-  "seoDescription": "Timetable maker et schedule maker gratuits. Créez un course table, ajoutez des cours ou importez l’Excel UBC Workday, puis exportez un PNG. Sans inscription.",
+  "seoDescription": "Timetable maker et schedule maker gratuits. Créez un course table, ajoutez des cours ou importez l’Excel UBC Workday, puis exportez un PNG. SFU, Waterloo et d’autres campus peuvent envoyer un fichier.",
   "useTitle": "Un course table maker selon votre façon de planifier",
   "manualTitle": "Construisez un horaire de cours à la main",
   "manualBody": "Sans tableur, ajoutez chaque cours avec jours, heures et lieu. Cours magistraux et laboratoires apparaissent sur la même grille. Sessions d’hiver et d’été ; sections et crédits facultatifs.",

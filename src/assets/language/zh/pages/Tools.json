@@ -1,8 +1,8 @@
 {
   "title": "课表制作器与课程表工具",
-  "lead": "免费浏览器工具：现在可用课程表制作器，之后会有更多学生工具。支持导入 UBC Workday Excel。",
+  "lead": "免费浏览器工具：现在可用课程表制作器，之后会有更多学生工具。支持导入 UBC Workday Excel。SFU、滑铁卢等学校可以把课表文件发给我们补充。",
   "seoTitle": "课表制作器与课程表工具 | Timetable Craft",
-  "seoDescription": "免费 schedule maker 与 course table maker。打开周课表工具，或走 UBC Workday Excel 路径。无需账号。",
+  "seoDescription": "免费 schedule maker 与 course table maker。打开周课表工具，或走 UBC Workday Excel 路径。其它学校可把课表文件发给我们补充。",
   "scheduleMakerName": "课表制作器",
   "scheduleMakerBody": "免费 timetable maker：手填课程或导入 UBC Workday View My Courses Excel，勾选上表内容，改外观，导出 PNG。解析不离开这台设备。",
   "scheduleMakerSeoTitle": "免费课程表制作器 | Timetable Craft",

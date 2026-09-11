@@ -26,7 +26,7 @@
     "ubcTimetable": "UBC 课表制作器"
   },
   "footer": {
-    "tag": "Timetable Craft — 免费课表制作器、schedule maker 与 UBC course table maker，全部在浏览器里运行。"
+    "tag": "Timetable Craft — 免费课表制作器、schedule maker 与 UBC course table maker，全部在浏览器里运行。其它学校可把课表文件发给我们补充。"
   },
   "common": {
     "or": "或",
@@ -71,6 +71,23 @@
     "Active": "在读",
     "Waitlist": "候补",
     "Drop": "已退"
+  },
+  "campusInvite": {
+    "kicker": "其它学校",
+    "title": "SFU、滑铁卢等学校：把课表文件发给我们，我们来补。",
+    "body": "目前已支持 UBC Workday Excel。如果你在 SFU、滑铁卢、多伦多大学或其它学校，把课表导出文件发过来。我们会加上解析，让同校同学也能一键导入。",
+    "cta": "发邮件补充课表文件",
+    "live": "已支持",
+    "wanted": "征集中",
+    "yourCampus": "你的学校？",
+    "stepsTitle": "发这些就够",
+    "step1": "学校名称——SFU、滑铁卢，或任何一所学校。",
+    "step2": "一份课表导出文件（Excel、CSV，或学校系统给的表格）。",
+    "step3": "从哪里下载的——Quest、goSFU、ACORN、Minerva 等都可以。",
+    "hint": "可以先去掉姓名和学号。一份真实文件就够我们做一键导入。",
+    "toolHint": "不是 UBC Workday？把 SFU、滑铁卢或其它学校的课表文件发过来，我们来补。",
+    "mailSubject": "补充我校课表格式",
+    "mailBody": "学校：\n导出页面（Quest / goSFU / ACORN / Minerva / 其它）：\n文件类型（Excel / CSV / 其它）：\n\n请附上一份课表导出文件。个人信息可以先删掉。"
   },
   "logoTagline": "免费课表与课程表工具",
   "notFound": {

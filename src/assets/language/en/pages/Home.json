@@ -1,7 +1,7 @@
 {
   "kicker": "Timetable Craft",
   "headline": "Free timetable maker for your weekly course schedule.",
-  "support": "Build a course table with this free online schedule maker. Add classes by hand or import UBC Workday Excel, then export a weekly timetable PNG. No account needed.",
+  "support": "Build a course table with this free online schedule maker. Add classes by hand or import UBC Workday Excel, then export a weekly timetable PNG. SFU, Waterloo, and other schools: send us your export and we will add it.",
   "ctaOpen": "Open Schedule Maker",
   "ctaTools": "Browse tools",
   "ctaGuide": "How to export Excel",
@@ -23,7 +23,7 @@
   "privacyTitle": "No account. No upload.",
   "privacyBody": "Schedules stay in this browser until you reset them. Workday remains the source of record; always confirm times there.",
   "seoTitle": "Free Timetable & Schedule Maker | Timetable Craft",
-  "seoDescription": "Free online timetable maker and schedule maker. Build a course table, add classes or import UBC Workday Excel, then export PNG. No sign-up.",
+  "seoDescription": "Free online timetable maker and schedule maker. Build a course table, add classes or import UBC Workday Excel, then export PNG. SFU, Waterloo and other campuses can send a timetable file.",
   "useTitle": "A course table maker for the way you plan",
   "manualTitle": "Build a weekly class schedule manually",
   "manualBody": "No spreadsheet? Add each course with meeting days, start and end times, and location. See lectures and labs together on one weekly timetable. Winter and Summer term groups are included; sections and credits are optional.",

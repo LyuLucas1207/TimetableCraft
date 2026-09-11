@@ -26,7 +26,7 @@
     "ubcTimetable": "Emploi du temps UBC"
   },
   "footer": {
-    "tag": "Timetable Craft — timetable maker, schedule maker et UBC course table maker gratuits dans le navigateur."
+    "tag": "Timetable Craft — timetable maker, schedule maker et UBC course table maker gratuits dans le navigateur. Autres campus : envoyez un fichier d’horaire."
   },
   "common": {
     "or": "OU",
@@ -71,6 +71,23 @@
     "Active": "Inscrit",
     "Waitlist": "Liste d’attente",
     "Drop": "Abandonné"
+  },
+  "campusInvite": {
+    "kicker": "Autres campus",
+    "title": "SFU, Waterloo et d’autres universités : envoyez-nous votre fichier d’horaire.",
+    "body": "L’Excel UBC Workday s’importe déjà. Si vous êtes à SFU, Waterloo, U of T, McGill ou ailleurs, joignez un export : nous ajouterons l’analyse pour que votre campus puisse importer aussi.",
+    "cta": "Envoyer un fichier d’horaire",
+    "live": "Disponible",
+    "wanted": "Recherché",
+    "yourCampus": "Votre campus ?",
+    "stepsTitle": "Quoi envoyer",
+    "step1": "Le nom de l’université — SFU, Waterloo, ou un autre campus.",
+    "step2": "Un export d’horaire (Excel, CSV, ou le fichier de votre portail).",
+    "step3": "D’où il vient — Quest, goSFU, ACORN, Minerva, ou équivalent.",
+    "hint": "Vous pouvez retirer noms et identifiants. Un vrai fichier suffit pour ajouter l’import en un clic.",
+    "toolHint": "Pas UBC Workday ? Envoyez un export de SFU, Waterloo ou d’un autre campus, et nous l’ajouterons.",
+    "mailSubject": "Ajouter le format d’horaire de mon université",
+    "mailBody": "Université :\nPortail / page d’export (Quest, goSFU, ACORN, Minerva, autre) :\nType de fichier (Excel / CSV / autre) :\n\nVeuillez joindre un export d’horaire. Vous pouvez retirer les données personnelles."
   },
   "logoTagline": "Timetable maker et schedule maker gratuits",
   "notFound": {

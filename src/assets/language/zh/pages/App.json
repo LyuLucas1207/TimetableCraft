@@ -20,7 +20,7 @@
   "excelHowMore": "查看完整步骤",
   "importReady": "已识别 {{count}} 门课，当前学期已放到课表上。",
   "catalogEmptyTitle": "还没有课程",
-  "catalogEmptyBody": "导入 Workday Excel，或自己添加一门课。",
+  "catalogEmptyBody": "导入 Workday Excel，或自己添加一门课。其它学校可以把课表文件发邮件给我们。",
   "catalogFilterEmpty": "这个筛选下没有课程。",
   "appearanceTitle": "页眉",
   "appearanceColors": "颜色",

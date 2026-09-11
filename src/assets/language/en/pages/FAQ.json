@@ -1,6 +1,6 @@
 {
   "title": "Course table maker and schedule maker FAQ.",
-  "lead": "Short answers about this free timetable maker, UBC Workday Excel, waitlists, and PNG export.",
+  "lead": "Short answers about this free timetable maker, UBC Workday Excel, waitlists, PNG export, and other-campus files (SFU, Waterloo).",
   "q1": "Is my Excel uploaded?",
   "a1": "No. Parsing runs in the browser. Closing the tab does not send the file anywhere.",
   "q2": "Why is a lab missing from the grid?",
@@ -19,10 +19,12 @@
   "a8": "No. Add any class schedule manually. The UBC Workday import is optional.",
   "q9": "How do I get the Excel from Workday?",
   "a9": "Open Workday, go to View My Courses, then under that title click the first icon (the one to the left of the PDF icon). Import the downloaded .xlsx in Schedule Maker.",
+  "q10": "Can you import SFU, Waterloo, or other school timetables?",
+  "a10": "Not as a one-click import yet. Email a sample export from Quest, goSFU, ACORN, Minerva, or any campus portal and we will add the parser. You can still add those classes by hand today.",
   "seoTitle": "Timetable & Schedule Maker FAQ | Timetable Craft",
-  "seoDescription": "FAQ for this free course table maker and UBC schedule maker: local Excel parsing, waitlists, unscheduled labs, credits, and PNG export.",
+  "seoDescription": "FAQ for this free course table maker and UBC schedule maker: local Excel parsing, waitlists, other-campus files (SFU, Waterloo), and PNG export.",
   "contactTitle": "Something else?",
-  "contactBody": "Send suggestions or questions to {{email}}.",
+  "contactBody": "Send suggestions or questions to {{email}}. Building import for another school? Attach a timetable export.",
   "contactCta": "Send an email",
   "ubcLink": "UBC timetable maker overview"
 }

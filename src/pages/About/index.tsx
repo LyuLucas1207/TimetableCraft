@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { ClockIcon, GmailIcon, UnorderedListIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
+import CampusInvite from "@/components/marketing/CampusInvite";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/constants";
@@ -56,6 +57,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
+        <CampusInvite className="mt-12" />
         <div className="mt-8 grid gap-10 border-t py-10 md:grid-cols-2">
           <section>
             <h2 className="text-lg font-semibold">{t("privacyTitle")}</h2>

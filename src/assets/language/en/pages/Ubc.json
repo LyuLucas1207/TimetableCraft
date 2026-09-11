@@ -18,7 +18,7 @@
   "gridTitle": "Export a weekly course table",
   "gridBody": "Check the classes to display, restyle the card, and download a PNG. Waitlist sections use a dashed box; dropped sections use a dotted box.",
   "diffTitle": "UBC timetable maker vs a generic schedule maker",
-  "diffBody": "The same Schedule Maker tool also works as a general timetable maker. This UBC page is for students searching for a UBC course table maker: Workday Excel import, UBC terms, and registration statuses. If you are not at UBC, start from the homepage schedule maker instead.",
+  "diffBody": "The same Schedule Maker tool also works as a general timetable maker. This UBC page is for students searching for a UBC course table maker: Workday Excel import, UBC terms, and registration statuses. At SFU, Waterloo, or another campus? Email a sample timetable export and we will add the parser.",
   "helpTitle": "UBC timetable help",
   "faqTitle": "UBC timetable maker questions",
   "q1": "What is a UBC timetable maker?",

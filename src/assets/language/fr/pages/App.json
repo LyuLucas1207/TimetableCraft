@@ -20,7 +20,7 @@
   "excelHowMore": "Voir le guide complet",
   "importReady": "{{count}} cours importés. Ce trimestre est sur l’horaire.",
   "catalogEmptyTitle": "Aucun cours",
-  "catalogEmptyBody": "Importez un Excel Workday ou ajoutez un cours.",
+  "catalogEmptyBody": "Importez un Excel Workday ou ajoutez un cours. Les autres campus peuvent envoyer un fichier d’horaire.",
   "catalogFilterEmpty": "Rien dans ce filtre.",
   "appearanceTitle": "En-tête",
   "appearanceColors": "Couleurs",

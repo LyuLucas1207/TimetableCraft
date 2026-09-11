@@ -1,6 +1,6 @@
 {
   "title": "FAQ du course table maker et du schedule maker.",
-  "lead": "Réponses courtes sur ce timetable maker gratuit, l’Excel UBC Workday, les listes d’attente et l’export PNG.",
+  "lead": "Réponses courtes sur ce timetable maker gratuit, l’Excel UBC Workday, les listes d’attente, l’export PNG, et les fichiers d’autres campus (SFU, Waterloo).",
   "q1": "Mon Excel est-il envoyé ?",
   "a1": "Non. L’analyse se fait dans le navigateur. Fermer l’onglet n’envoie pas le fichier.",
   "q2": "Pourquoi un laboratoire n’apparaît pas ?",
@@ -19,10 +19,12 @@
   "a8": "Non. Ajoutez n’importe quel horaire à la main. L’import Workday UBC est facultatif.",
   "q9": "Où télécharger l’Excel Workday ?",
   "a9": "Ouvrez Workday, allez dans View My Courses, puis sous ce titre cliquez sur la première icône (à gauche de l’icône PDF). Importez le .xlsx dans le créateur d’horaire.",
+  "q10": "Pouvez-vous importer les horaires de SFU, Waterloo ou d’autres universités ?",
+  "a10": "Pas encore en un clic. Envoyez un export de Quest, goSFU, ACORN, Minerva ou d’un autre portail, et nous ajouterons l’analyse. Vous pouvez déjà saisir ces cours à la main.",
   "seoTitle": "FAQ emploi du temps et schedule maker | Timetable Craft",
-  "seoDescription": "FAQ de ce course table maker et UBC schedule maker : analyse Excel locale, listes d’attente, laboratoires, crédits et export PNG.",
+  "seoDescription": "FAQ de ce course table maker et UBC schedule maker : analyse Excel locale, listes d’attente, fichiers d’autres campus (SFU, Waterloo) et export PNG.",
   "contactTitle": "Autre chose ?",
-  "contactBody": "Suggestions ou questions : {{email}}.",
+  "contactBody": "Suggestions ou questions : {{email}}. Pour un autre campus, joignez un export d’horaire.",
   "contactCta": "Envoyer un e-mail",
   "ubcLink": "Aperçu du créateur d’horaire UBC"
 }

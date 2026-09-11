@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { ClockIcon, UnorderedListIcon, UploadIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
+import CampusInvite from "@/components/marketing/CampusInvite";
 import MiniWeek from "@/components/marketing/MiniWeek";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
@@ -91,6 +92,8 @@ export default function UbcPage() {
             </HoverIconButton>
           </div>
         </section>
+
+        <CampusInvite className="mt-16" />
 
         <section className="mt-16 border-t pt-10">
           <h2 className="text-2xl font-semibold tracking-tight">{t("faqTitle")}</h2>

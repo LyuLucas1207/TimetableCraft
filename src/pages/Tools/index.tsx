@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { ClockIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
+import CampusInvite from "@/components/marketing/CampusInvite";
 import MiniWeek from "@/components/marketing/MiniWeek";
 import WorkdayExportHint from "@/components/import/WorkdayExportHint";
 import Seo from "@/components/Seo";
@@ -66,6 +67,7 @@ export default function ToolsPage() {
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{t("comingSoonBody")}</p>
           </article>
         </div>
+        <CampusInvite className="mt-10" />
       </PageFrame>
     </>
   );

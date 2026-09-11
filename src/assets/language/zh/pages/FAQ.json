@@ -1,6 +1,6 @@
 {
   "title": "课表制作器与 schedule maker 常见问题。",
-  "lead": "关于这款免费 timetable maker、UBC Workday Excel、候补和 PNG 导出的短回答。",
+  "lead": "关于这款免费 timetable maker、UBC Workday Excel、候补、PNG 导出，以及 SFU / 滑铁卢等其它学校文件的短回答。",
   "q1": "Excel 会被上传吗？",
   "a1": "不会。解析在浏览器里完成。关掉标签页也不会把文件发出去。",
   "q2": "为什么实验课没出现在课表上？",
@@ -19,10 +19,12 @@
   "a8": "不必。可以手填任何课程表。UBC Workday 导入是可选项。",
   "q9": "Workday 的 Excel 在哪下载？",
   "a9": "打开 Workday，进入 View My Courses，在标题下方点 PDF 左边的第一个图标。下载后的 .xlsx 再导入课表制作器。",
+  "q10": "能导入 SFU、滑铁卢或其它学校的课表吗？",
+  "a10": "还不能一键导入。把 Quest、goSFU、ACORN、Minerva 或其它学校系统的导出文件发邮件给我们，我们会补上解析。现在也可以手填这些课。",
   "seoTitle": "课表制作常见问题 | Timetable Craft",
-  "seoDescription": "课表制作器与 UBC schedule maker 常见问题：本地解析 Excel、候补、未排实验课、学分和 PNG 导出。",
+  "seoDescription": "课表制作器与 UBC schedule maker 常见问题：本地解析 Excel、候补、SFU/滑铁卢等其它学校文件，以及 PNG 导出。",
   "contactTitle": "还有别的问题？",
-  "contactBody": "建议或疑问请发到 {{email}}。",
+  "contactBody": "建议或疑问请发到 {{email}}。想补充其它学校导入？把课表导出文件附上即可。",
   "contactCta": "发送邮件",
   "ubcLink": "UBC 课表制作器说明"
 }

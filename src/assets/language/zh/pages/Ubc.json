@@ -18,7 +18,7 @@
   "gridTitle": "导出周课表",
   "gridBody": "勾选要显示的课，调整卡片样式，下载 PNG。候补是虚线框，已退是点线框。",
   "diffTitle": "UBC 课表制作器与通用 schedule maker",
-  "diffBody": "同一个课表工具也可以当通用 timetable maker。本页专门给搜索 UBC course table maker 的同学：Workday Excel、UBC 学期和注册状态。如果你不在 UBC，请从首页的课表制作器开始。",
+  "diffBody": "同一个课表工具也可以当通用 timetable maker。本页专门给搜索 UBC course table maker 的同学：Workday Excel、UBC 学期和注册状态。如果你在 SFU、滑铁卢或其它学校，把课表导出文件发过来，我们会补上解析。",
   "helpTitle": "UBC 课表帮助",
   "faqTitle": "UBC 课表制作器常见问题",
   "q1": "什么是 UBC timetable maker？",

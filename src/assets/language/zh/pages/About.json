@@ -14,7 +14,7 @@
   "ctaTools": "浏览工具",
   "ctaGuide": "阅读指南",
   "contactTitle": "联系",
-  "contactBody": "有建议、问题或发现 bug，发邮件到 {{email}}。这是独立的学生项目，不是 UBC 或 Workday 的官方服务。",
+  "contactBody": "有建议、问题或发现 bug，发邮件到 {{email}}。这是独立的学生项目，不是 UBC 或 Workday 的官方服务。SFU、滑铁卢等学校可以把课表导出文件发给我们来补。",
   "contactCta": "发送邮件",
   "seoTitle": "联系 Timetable Craft | 课表制作器",
   "seoDescription": "联系 Timetable Craft 课表制作器。纯浏览器的 UBC 课程表工具。邮箱 lyuchongkai@gmail.com。与学校无隶属关系。"

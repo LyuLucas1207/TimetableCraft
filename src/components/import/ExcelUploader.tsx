@@ -2,8 +2,9 @@ import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { FileDescriptionIcon, UploadIcon } from "@/animations";
-import { PAGE } from "@/assets/language";
+import { LANG_NS, PAGE } from "@/assets/language";
 import { HoverIconButton, useAnimatedIconHover } from "@/components/ui/hover-icon-button";
+import { buildMailto } from "@/constants";
 import { useScheduleStore } from "@/stores";
 
 interface ExcelUploaderProps {
@@ -11,7 +12,7 @@ interface ExcelUploaderProps {
 }
 
 export default function ExcelUploader({ onFile }: ExcelUploaderProps) {
-  const { t } = useTranslation(PAGE.App);
+  const { t } = useTranslation([PAGE.App, LANG_NS]);
   const inputRef = useRef<HTMLInputElement>(null);
   const summary = useScheduleStore((s) => s.importSummary);
   const [dragging, setDragging] = useState(false);
@@ -51,8 +52,17 @@ export default function ExcelUploader({ onFile }: ExcelUploaderProps) {
         onChange={(event) => handleFiles(event.target.files)}
       />
       <HoverIconButton className="mt-4" type="button" icon={FileDescriptionIcon} onClick={() => inputRef.current?.click()}>
-        {t("common.browse", { ns: "language" })}
+        {t("common.browse", { ns: LANG_NS })}
       </HoverIconButton>
+      <p className="mt-4 text-xs leading-6 text-muted-foreground">
+        {t("campusInvite.toolHint", { ns: LANG_NS })}{" "}
+        <a
+          href={buildMailto(t("campusInvite.mailSubject", { ns: LANG_NS }), t("campusInvite.mailBody", { ns: LANG_NS }))}
+          className="font-medium text-foreground underline-offset-2 hover:underline"
+        >
+          {t("campusInvite.cta", { ns: LANG_NS })}
+        </a>
+      </p>
       {summary ? (
         <div className="mx-auto mt-5 flex max-w-md items-start gap-3 rounded-xl border bg-muted/40 p-3 text-left">
           <FileDescriptionIcon size={16} className="mt-0.5 shrink-0" />

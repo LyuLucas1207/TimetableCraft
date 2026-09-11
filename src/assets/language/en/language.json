@@ -26,7 +26,7 @@
     "ubcTimetable": "UBC timetable maker"
   },
   "footer": {
-    "tag": "Timetable Craft — free timetable maker, schedule maker, and UBC course table maker in the browser."
+    "tag": "Timetable Craft — free timetable maker, schedule maker, and UBC course table maker in the browser. Other schools: send a timetable file."
   },
   "common": {
     "or": "OR",
@@ -71,6 +71,23 @@
     "Active": "Active",
     "Waitlist": "Waitlist",
     "Drop": "Dropped"
+  },
+  "campusInvite": {
+    "kicker": "More campuses",
+    "title": "SFU, Waterloo, and other schools: send us your timetable file.",
+    "body": "UBC Workday Excel already imports. If you are at SFU, Waterloo, U of T, McGill, or anywhere else, attach a sample export and we will add the parser so your classmates can import too.",
+    "cta": "Email a timetable file",
+    "live": "Live",
+    "wanted": "Wanted",
+    "yourCampus": "Your school?",
+    "stepsTitle": "What to send",
+    "step1": "Your school name — SFU, Waterloo, or any campus.",
+    "step2": "A sample timetable export (Excel, CSV, or the file your portal gives you).",
+    "step3": "Where you downloaded it — Quest, goSFU, ACORN, Minerva, or similar.",
+    "hint": "You can strip names and IDs first. A real file is enough for us to add one-click import.",
+    "toolHint": "Not UBC Workday? Email a sample from SFU, Waterloo, or any campus and we will add it.",
+    "mailSubject": "Add my school timetable format",
+    "mailBody": "School:\nPortal / export page (Quest, goSFU, ACORN, Minerva, other):\nFile type (Excel / CSV / other):\n\nPlease attach a sample timetable export. You can remove personal details."
   },
   "logoTagline": "Free timetable & schedule maker",
   "notFound": {

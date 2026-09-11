@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { ClockIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
+import CampusInvite from "@/components/marketing/CampusInvite";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { MarketingHero, PageFrame } from "@/layouts";
@@ -38,7 +39,7 @@ export default function GuidePage() {
         ]}
       />
       <MarketingHero title={t("title")} lead={t("lead")} />
-      <PageFrame maxWidth={800} className="py-12 md:py-16">
+      <PageFrame maxWidth={1100} className="py-12 md:py-16">
         <ol>
           {steps.map(([title, body], index) => (
             <li key={title} className="border-t py-8">
@@ -49,6 +50,7 @@ export default function GuidePage() {
           ))}
         </ol>
         <p className="border-t py-8 text-sm leading-7 text-muted-foreground">{t("note")}</p>
+        <CampusInvite className="mb-10" />
         <div className="flex flex-wrap gap-3">
           <HoverIconButton icon={ClockIcon} nativeButton={false} render={<Link to={ROUTES.TOOL_SCHEDULE_MAKER} />}>
             {t("ctaOpen")}

@@ -20,7 +20,7 @@
   "excelHowMore": "See the full guide",
   "importReady": "{{count}} courses imported. This term is on the timetable.",
   "catalogEmptyTitle": "No courses yet",
-  "catalogEmptyBody": "Import a Workday Excel or add a course yourself.",
+  "catalogEmptyBody": "Import a Workday Excel or add a course yourself. Other schools can email a sample timetable file.",
   "catalogFilterEmpty": "Nothing in this filter.",
   "appearanceTitle": "Header",
   "appearanceColors": "Colors",

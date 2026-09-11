@@ -1,8 +1,8 @@
 {
   "title": "Schedule maker and course table tools",
-  "lead": "Free browser tools: a class schedule maker now, and more student tools later. UBC Workday Excel import is included.",
+  "lead": "Free browser tools: a class schedule maker now, and more student tools later. UBC Workday Excel import is included. Other campuses — SFU, Waterloo, and more — can send a timetable file so we can add it.",
   "seoTitle": "Schedule Maker & Course Table Tools | Timetable Craft",
-  "seoDescription": "Free schedule maker and course table maker in the browser. Open the class timetable tool, or follow the UBC Workday Excel path. No account.",
+  "seoDescription": "Free schedule maker and course table maker in the browser. Open the class timetable tool, or follow the UBC Workday Excel path. Other schools can send a timetable file.",
   "scheduleMakerName": "Schedule Maker",
   "scheduleMakerBody": "A free timetable maker for weekly classes. Add courses by hand or import UBC Workday View My Courses Excel, pick what goes on the grid, restyle the card, and export PNG. Parsing stays on this device.",
   "scheduleMakerSeoTitle": "Free Schedule Maker for Classes | Timetable Craft",

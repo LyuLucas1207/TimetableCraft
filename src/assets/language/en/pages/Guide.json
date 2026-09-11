@@ -9,7 +9,7 @@
   "step3b": "Open Schedule Maker and use Import Excel. Columns are read by header name: Course Listing, Section, Registration Status, Meeting Patterns, Instructor, and dates.",
   "step4": "Choose what goes on the grid",
   "step4b": "Nothing is placed automatically. Check Active courses, add Waitlist as dashed boxes, and leave Dropped off unless you need them.",
-  "note": "Labs with a blank meeting pattern stay in the list so you can add a time. Need the UBC-specific overview? Open the UBC timetable maker page.",
+  "note": "Labs with a blank meeting pattern stay in the list so you can add a time. Need the UBC-specific overview? Open the UBC timetable maker page. At SFU, Waterloo, or another school? Email a sample export and we will add the format.",
   "ctaOpen": "Open Schedule Maker",
   "ubcLink": "UBC timetable maker overview",
   "seoTitle": "UBC Workday Excel to Timetable | Timetable Craft",

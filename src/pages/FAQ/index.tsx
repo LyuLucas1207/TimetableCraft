@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { GmailIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
+import CampusInvite from "@/components/marketing/CampusInvite";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/constants";
@@ -22,6 +23,7 @@ export default function FAQPage() {
     ["q6", "a6"],
     ["q7", "a7"],
     ["q8", "a8"],
+    ["q10", "a10"],
   ] as const;
 
   return (
@@ -42,7 +44,7 @@ export default function FAQPage() {
         ]}
       />
       <MarketingHero title={t("title")} lead={t("lead")} />
-      <PageFrame maxWidth={800} className="py-12 md:py-16">
+      <PageFrame maxWidth={1100} className="py-12 md:py-16">
         {items.map(([q, a]) => (
           <article key={q} className="border-t py-8">
             <h2 className="text-lg font-semibold">{t(q)}</h2>
@@ -54,6 +56,7 @@ export default function FAQPage() {
             ) : null}
           </article>
         ))}
+        <CampusInvite className="my-4" />
         <section className="border-t py-8">
           <h2 className="text-lg font-semibold">{t("contactTitle")}</h2>
           <p className="mt-2 max-w-[48ch] text-sm leading-7 text-muted-foreground">

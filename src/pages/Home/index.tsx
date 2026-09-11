@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ClockIcon, UnorderedListIcon, UploadIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
 import logoMark from "@/assets/logo_no_background.png";
+import CampusInvite from "@/components/marketing/CampusInvite";
 import MiniWeek from "@/components/marketing/MiniWeek";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
@@ -83,6 +84,8 @@ export default function HomePage() {
             </article>
           </div>
         </section>
+
+        <CampusInvite className="mt-16" />
 
         <h2 className="mt-20 text-2xl font-semibold tracking-tight">{t("excelHowTitle")}</h2>
         <ol className="mt-6">
