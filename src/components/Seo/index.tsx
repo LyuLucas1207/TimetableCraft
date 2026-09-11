@@ -4,6 +4,9 @@ import { useTranslation } from "react-i18next";
 import { SITE } from "@/config";
 import { APP_NAME } from "@/constants";
 import {
+  DEFAULT_ROBOTS,
+  FAVICON_PATH,
+  LOGO_PATH,
   OG_IMAGE_HEIGHT,
   OG_IMAGE_URL,
   OG_IMAGE_WIDTH,
@@ -18,16 +21,25 @@ interface SeoProps {
   description: string;
   path?: string;
   keywords?: string;
+  noindex?: boolean;
   jsonLd?: JsonLd | JsonLd[];
 }
 
-export default function Seo({ title, description, path = "/", keywords = SITE.keywords, jsonLd }: SeoProps) {
+export default function Seo({
+  title,
+  description,
+  path = "/",
+  keywords = SITE.keywords,
+  noindex = false,
+  jsonLd,
+}: SeoProps) {
   const { i18n } = useTranslation();
   const lang = (i18n.resolvedLanguage ?? "en").split("-")[0];
   const locale = OG_LOCALE[lang] ?? OG_LOCALE.en;
   const url = absoluteUrl(path);
   const extras = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   const structured = graphJsonLd(extras);
+  const robots = noindex ? "noindex, nofollow" : DEFAULT_ROBOTS;
 
   return (
     <Helmet prioritizeSeoTags>
@@ -36,9 +48,16 @@ export default function Seo({ title, description, path = "/", keywords = SITE.ke
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
       <meta name="author" content={APP_NAME} />
-      <meta name="robots" content="index, follow, max-image-preview:large" />
+      <meta name="robots" content={robots} />
+      <meta name="googlebot" content={robots} />
+      <meta name="bingbot" content={noindex ? "noindex, nofollow" : "index, follow"} />
       <meta name="theme-color" content="#0f2744" />
+      <link rel="icon" href={FAVICON_PATH} sizes="any" />
+      <link rel="apple-touch-icon" href={LOGO_PATH} />
+      <link rel="manifest" href="/site.webmanifest" />
       <link rel="canonical" href={url} />
+      <link rel="alternate" hrefLang="x-default" href={absoluteUrl("/")} />
+      <link rel="alternate" hrefLang="en" href={url} />
       <link rel="image_src" href={OG_IMAGE_URL} />
 
       <meta property="og:title" content={title} />

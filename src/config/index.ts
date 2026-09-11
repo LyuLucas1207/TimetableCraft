@@ -8,6 +8,7 @@ export const SITE = {
   keywords:
     "UBC, Workday, timetable, schedule, Excel, View My Courses, Timetable Craft, timetablecraft.com, Winter Term, Summer Term, course calendar, PNG, student tools",
   url: APP_URL,
+  locale: "en_CA",
 } as const;
 
 export enum AppLanguage {

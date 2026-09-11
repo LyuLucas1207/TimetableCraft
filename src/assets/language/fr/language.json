@@ -71,5 +71,12 @@
     "Waitlist": "Liste d’attente",
     "Drop": "Abandonné"
   },
-  "logoTagline": "Outils UBC gratuits"
+  "logoTagline": "Outils UBC gratuits",
+  "notFound": {
+    "title": "Cette page n’est pas à l’horaire.",
+    "lead": "Cette adresse n’est pas une page Timetable Craft. Retournez à l’accueil ou ouvrez le créateur d’horaire.",
+    "cta": "Retour à l’accueil",
+    "seoTitle": "404 | Timetable Craft",
+    "seoDescription": "Cette page n’existe pas. Retournez à Timetable Craft."
+  }
 }

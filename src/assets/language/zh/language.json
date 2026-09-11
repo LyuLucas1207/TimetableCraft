@@ -71,5 +71,12 @@
     "Waitlist": "候补",
     "Drop": "已退"
   },
-  "logoTagline": "免费 UBC 学生工具"
+  "logoTagline": "免费 UBC 学生工具",
+  "notFound": {
+    "title": "这一页不在课表上。",
+    "lead": "这个地址不是 Timetable Craft 的页面。可以回首页，或从工具列表打开课表制作器。",
+    "cta": "返回首页",
+    "seoTitle": "404 | Timetable Craft",
+    "seoDescription": "页面不存在。返回 Timetable Craft。"
+  }
 }

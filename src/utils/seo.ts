@@ -5,6 +5,11 @@ export const OG_IMAGE_PATH = "/og.png";
 export const OG_IMAGE_URL = `${APP_URL}${OG_IMAGE_PATH}`;
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
+export const LOGO_PATH = "/apple-touch-icon.png";
+export const LOGO_URL = `${APP_URL}${LOGO_PATH}`;
+export const FAVICON_PATH = "/favicon.ico";
+export const FAVICON_URL = `${APP_URL}${FAVICON_PATH}`;
+export const DEFAULT_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 
 export const OG_LOCALE: Record<string, string> = {
   en: "en_CA",
@@ -27,7 +32,11 @@ export function organizationJsonLd(): JsonLd {
     name: APP_NAME,
     url: APP_URL,
     email: CONTACT_EMAIL,
-    logo: OG_IMAGE_URL,
+    logo: {
+      "@type": "ImageObject",
+      url: LOGO_URL,
+    },
+    image: OG_IMAGE_URL,
     description: SITE.description,
   };
 }

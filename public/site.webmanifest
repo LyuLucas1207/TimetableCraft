@@ -4,10 +4,13 @@
   "description": "Free UBC student tools in the browser. Schedule Maker turns a Workday View My Courses Excel file into a weekly timetable without uploading it.",
   "start_url": "/",
   "scope": "/",
+  "id": "/",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#0f2744",
   "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "productivity", "utilities"],
   "icons": [
     {
       "src": "/favicon.ico",
@@ -17,7 +20,8 @@
     {
       "src": "/apple-touch-icon.png",
       "sizes": "180x180",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/og.png",

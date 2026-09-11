@@ -71,5 +71,12 @@
     "Waitlist": "Waitlist",
     "Drop": "Dropped"
   },
-  "logoTagline": "Free UBC student tools"
+  "logoTagline": "Free UBC student tools",
+  "notFound": {
+    "title": "This page is not on the timetable.",
+    "lead": "That URL is not a Timetable Craft page. Head home or open Schedule Maker from the tools list.",
+    "cta": "Back home",
+    "seoTitle": "404 | Timetable Craft",
+    "seoDescription": "This page does not exist. Return to Timetable Craft."
+  }
 }

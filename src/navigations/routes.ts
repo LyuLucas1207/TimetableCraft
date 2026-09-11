@@ -8,6 +8,7 @@ const router = createRouter(
     GUIDE: "/guide",
     FAQ: "/faq",
     CONTACT: "/contact",
+    NOT_FOUND: "/404",
   }),
 );
 
