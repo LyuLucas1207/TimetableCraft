@@ -1,7 +1,7 @@
 {
-  "title": "给 UBC 学生用的本地课表工具。",
-  "lead": "看清一周的课，不用把选课数据发到别处。",
-  "body": "选课以 Workday 为准。这个网站只在浏览器里读 Excel，列出所有课程，再由你勾选画成周课表。",
+  "title": "联系这款课表制作器的作者。",
+  "lead": "Timetable Craft 是在浏览器里运行的免费 schedule maker / course table maker。",
+  "body": "对 UBC 学生来说，选课以 Workday 为准。这个网站只在浏览器里读 Excel，列出所有课程，再由你勾选画成周课表。",
   "bodyMore": "本站与 UBC 没有隶属关系。时间地点可能变化，请以 Workday 为准。",
   "p1": "同一套课程数据",
   "p1b": "Excel 导入和手动填写都会变成同一类课程。课表不关心课是从哪来的。",
@@ -16,6 +16,6 @@
   "contactTitle": "联系",
   "contactBody": "有建议、问题或发现 bug，发邮件到 {{email}}。这是独立的学生项目，不是 UBC 或 Workday 的官方服务。",
   "contactCta": "发送邮件",
-  "seoTitle": "联系 | Timetable Craft",
-  "seoDescription": "Timetable Craft 是纯浏览器的 UBC 课表工具。建议请发到 lyuchongkai@gmail.com。与学校无隶属关系。"
+  "seoTitle": "联系 Timetable Craft | 课表制作器",
+  "seoDescription": "联系 Timetable Craft 课表制作器。纯浏览器的 UBC 课程表工具。邮箱 lyuchongkai@gmail.com。与学校无隶属关系。"
 }

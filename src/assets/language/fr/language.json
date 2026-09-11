@@ -22,10 +22,11 @@
     },
     "language": "Langue",
     "exportPng": "Exporter PNG",
-    "reset": "Réinitialiser"
+    "reset": "Réinitialiser",
+    "ubcTimetable": "Emploi du temps UBC"
   },
   "footer": {
-    "tag": "Timetable Craft — outils UBC gratuits dans le navigateur. Commencez par le créateur d’horaire."
+    "tag": "Timetable Craft — timetable maker, schedule maker et UBC course table maker gratuits dans le navigateur."
   },
   "common": {
     "or": "OU",
@@ -71,7 +72,7 @@
     "Waitlist": "Liste d’attente",
     "Drop": "Abandonné"
   },
-  "logoTagline": "Outils UBC gratuits",
+  "logoTagline": "Timetable maker et schedule maker gratuits",
   "notFound": {
     "title": "Cette page n’est pas à l’horaire.",
     "lead": "Cette adresse n’est pas une page Timetable Craft. Retournez à l’accueil ou ouvrez le créateur d’horaire.",

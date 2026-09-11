@@ -1,128 +1,76 @@
-/**
- * 预渲染脚本：用 Playwright 渲染静态路由，写入 HTML 快照供 Googlebot 抓取。
- *
- * 环境变量:
- *   PRERENDER_BASE_URL  线上模式站点地址
- *   PRERENDER_OUT       输出目录（默认 dist/）
- *   PRERENDER_SKIP=1    跳过预渲染
- */
+/** Render public routes before shipping. Any incomplete page fails the build. */
 import { createServer } from "node:http";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, extname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { resolve, join, extname } from "node:path";
 import { chromium } from "playwright";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const DIST = resolve(__dirname, "../dist");
-const PORT = 4173 + Math.floor(Math.random() * 1000);
-const BASE_URL = process.env.PRERENDER_BASE_URL || "";
-const OUT_DIR = process.env.PRERENDER_OUT ? resolve(process.env.PRERENDER_OUT) : DIST;
-
-const ROUTES = ["/", "/tools", "/tools/schedule-maker", "/guide", "/faq", "/contact", "/404"];
-
-const MIME = {
-  ".html": "text/html; charset=utf-8",
-  ".js": "application/javascript",
-  ".css": "text/css",
-  ".json": "application/json",
-  ".xml": "application/xml",
-  ".txt": "text/plain",
-  ".webmanifest": "application/manifest+json",
-  ".svg": "image/svg+xml",
-  ".png": "image/png",
-  ".jpg": "image/jpeg",
-  ".jpeg": "image/jpeg",
-  ".ico": "image/x-icon",
-  ".webp": "image/webp",
-  ".woff": "font/woff",
-  ".woff2": "font/woff2",
-};
-
-if (process.env.PRERENDER_SKIP === "1") {
-  console.log("[prerender] PRERENDER_SKIP=1, skipped");
-  process.exit(0);
-}
-if (!BASE_URL && !existsSync(join(DIST, "index.html"))) {
-  console.error("[prerender] dist/index.html not found. Run vite build first.");
-  process.exit(1);
-}
-
-const shellHtml = BASE_URL ? null : readFileSync(join(DIST, "index.html"));
-
-function serveStatic(req, res) {
-  const url = new URL(req.url ?? "/", `http://127.0.0.1:${PORT}`);
-  const filePath = join(DIST, decodeURIComponent(url.pathname));
-
-  if (!existsSync(filePath) || extname(filePath) === "") {
-    res.writeHead(200, { "content-type": "text/html; charset=utf-8" });
-    res.end(shellHtml);
-    return;
+const dist = resolve("dist");
+const out = resolve(process.env.PRERENDER_OUT || "dist");
+const paths = JSON.parse(readFileSync(new URL("../src/config/seo-routes.json", import.meta.url), "utf8"));
+const shell = readFileSync(join(dist, "index.html"));
+const types = { ".js": "application/javascript", ".css": "text/css", ".html": "text/html", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".ico": "image/x-icon", ".woff2": "font/woff2" };
+let browser;
+const server = createServer((req, res) => {
+  const pathname = decodeURIComponent(new URL(req.url, "http://localhost").pathname);
+  const file = resolve(dist, `.${pathname}`);
+  if (!file.startsWith(`${dist}/`) && file !== dist) { res.writeHead(404).end(); return; }
+  if (paths.includes(pathname) || pathname === "/404") {
+    res.writeHead(200, { "content-type": "text/html" }).end(shell); return;
   }
-  try {
-    const data = readFileSync(filePath);
-    res.writeHead(200, { "content-type": MIME[extname(filePath)] || "application/octet-stream" });
-    res.end(data);
-  } catch {
-    res.writeHead(404);
-    res.end();
-  }
-}
-
-async function main() {
-  let server = null;
-  let base = BASE_URL.replace(/\/$/, "");
-  if (!BASE_URL) {
-    server = createServer(serveStatic);
-    await new Promise((r) => server.listen(PORT, "127.0.0.1", r));
-    base = `http://127.0.0.1:${PORT}`;
-    console.log(`[prerender] static server on ${base}`);
-  } else {
-    console.log(`[prerender] live mode against ${base}, out -> ${OUT_DIR}`);
-  }
-
-  const browser = await chromium.launch({ args: ["--no-sandbox"] });
-  const context = await browser.newContext({ locale: "en-CA" });
-  const page = await context.newPage();
-
-  let ok = 0;
-  for (const route of ROUTES) {
-    const path = route;
-    const url = `${base}${path}`;
-    try {
-      await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
-      await page.waitForSelector("#root > *", { timeout: 10000 });
-      await page.waitForTimeout(500);
-      const html = await page.content();
-
-      const outDir = path === "/" ? OUT_DIR : join(OUT_DIR, path.slice(1));
-      mkdirSync(outDir, { recursive: true });
-      writeFileSync(join(outDir, "index.html"), `<!DOCTYPE html>\n${html.replace(/^<!DOCTYPE html>/i, "").trim()}\n`);
-      ok += 1;
-      console.log(`[prerender] ok  ${path}`);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
-      console.warn(`[prerender] fail ${path}: ${message}`);
-    }
-  }
-
-  await browser.close();
-  server?.close();
-
-  const rootIndex = join(OUT_DIR, "index.html");
-  if (existsSync(rootIndex)) {
-    const rootHtml = readFileSync(rootIndex, "utf8");
-    if (!rootHtml.includes("/assets/")) {
-      console.warn("[prerender] root snapshot missing asset refs" + (shellHtml ? ", restoring original shell" : ""));
-      if (shellHtml) writeFileSync(rootIndex, shellHtml);
-    }
-  }
-
-  const total = ROUTES.length;
-  console.log(`[prerender] done: ${ok}/${total} pages`);
-  if (ok === 0) process.exit(1);
-}
-
-main().catch((err) => {
-  console.error("[prerender] fatal:", err);
-  process.exit(1);
+  try { res.writeHead(200, { "content-type": types[extname(file)] || "application/octet-stream" }).end(readFileSync(file)); }
+  catch { res.writeHead(404).end(); }
 });
+try {
+  await new Promise((resolve, reject) => { server.once("error", reject); server.listen(0, "127.0.0.1", resolve); });
+  const base = `http://127.0.0.1:${server.address().port}`;
+  browser = await chromium.launch({ executablePath: process.env.PRERENDER_EXECUTABLE_PATH || undefined, args: ["--no-sandbox"] });
+  const context = await browser.newContext({ locale: "en-CA", colorScheme: "light", reducedMotion: "reduce" });
+  const results = [];
+  for (const path of [...paths, "/404"]) {
+    const page = await context.newPage();
+    const errors = [];
+    page.on("pageerror", error => errors.push(error.message));
+    await page.goto(`${base}${path}`, { waitUntil: "networkidle" });
+    await page.waitForSelector('meta[property="og:url"]', { state: "attached" });
+    await page.waitForSelector("h1", { state: "attached" });
+    await page.evaluate(() => document.fonts.ready);
+    const result = await page.evaluate(({ path, indexable }) => {
+      const one = selector => {
+        const nodes = document.querySelectorAll(selector);
+        if (nodes.length !== 1) throw new Error(`${selector}: expected 1, got ${nodes.length}`);
+        return nodes[0];
+      };
+      const canonical = one('link[rel="canonical"]').href;
+      if (new URL(canonical).pathname !== path) throw new Error(`Wrong canonical: ${canonical}`);
+      if (new URL(canonical).origin !== "https://timetablecraft.com") throw new Error(`Non-production canonical: ${canonical}`);
+      if (one('meta[property="og:url"]').content !== canonical) throw new Error("OG URL mismatch");
+      one("title"); one("h1"); one('meta[name="description"]');
+      for (const name of ["robots", "googlebot", "bingbot"]) {
+        if (one(`meta[name="${name}"]`).content.includes("noindex") === indexable) throw new Error(`Wrong ${name} indexing policy`);
+      }
+      const graph = JSON.parse(one('script[type="application/ld+json"]').textContent);
+      if (!graph["@graph"]?.length) throw new Error("Missing structured data graph");
+      if (document.documentElement.lang !== "en") throw new Error("Expected stable English default");
+      if (!document.querySelector('#root main')?.textContent.trim()) throw new Error("Empty main content");
+      return { canonical, title: document.title };
+    }, { path, indexable: paths.includes(path) });
+    if (errors.length) throw new Error(`${path}: ${errors.join("; ")}`);
+    results.push({ path, html: await page.content(), ...result });
+    await page.close();
+    console.log(`[prerender] verified ${path}`);
+  }
+  // Do not leave a partial set of new snapshots when validation fails.
+  for (const { path, html } of results) {
+    const dir = path === "/" ? out : join(out, path.slice(1));
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, "index.html"), html + "\n");
+    if (path === "/404") writeFileSync(join(out, "404.html"), html + "\n");
+  }
+  const urls = results.filter(item => paths.includes(item.path)).map(item => `  <url><loc>${item.canonical}</loc></url>`).join("\n");
+  writeFileSync(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
+  if (!existsSync(join(out, "robots.txt"))) throw new Error("Missing robots.txt");
+  console.log(`[prerender] complete: ${results.length} pages and sitemap`);
+} finally {
+  await browser?.close();
+  await new Promise(resolve => server.close(resolve));
+}

@@ -7,7 +7,7 @@ import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { MarketingHero, PageFrame } from "@/layouts";
 import { ROUTES } from "@/navigations";
-import { breadcrumbJsonLd, howToJsonLd } from "@/utils/seo";
+import { breadcrumbJsonLd, howToJsonLd, absoluteUrl } from "@/utils/seo";
 
 export default function GuidePage() {
   const { t } = useTranslation([PAGE.Guide, LANG_NS]);
@@ -29,6 +29,7 @@ export default function GuidePage() {
             t("title"),
             t("seoDescription"),
             steps.map(([title, body]) => ({ name: t(title), text: t(body) })),
+            absoluteUrl(ROUTES.GUIDE),
           ),
           breadcrumbJsonLd([
             { name: t("header.home", { ns: LANG_NS }), path: ROUTES.HOME },
@@ -48,9 +49,14 @@ export default function GuidePage() {
           ))}
         </ol>
         <p className="border-t py-8 text-sm leading-7 text-muted-foreground">{t("note")}</p>
-        <HoverIconButton icon={ClockIcon} nativeButton={false} render={<Link to={ROUTES.TOOL_SCHEDULE_MAKER} />}>
-          {t("ctaOpen")}
-        </HoverIconButton>
+        <div className="flex flex-wrap gap-3">
+          <HoverIconButton icon={ClockIcon} nativeButton={false} render={<Link to={ROUTES.TOOL_SCHEDULE_MAKER} />}>
+            {t("ctaOpen")}
+          </HoverIconButton>
+          <Link to={ROUTES.UBC_TIMETABLE_MAKER} className="inline-flex items-center text-sm font-medium underline underline-offset-4">
+            {t("ubcLink")}
+          </Link>
+        </div>
       </PageFrame>
     </>
   );

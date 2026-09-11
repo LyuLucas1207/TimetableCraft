@@ -1,6 +1,6 @@
 {
-  "title": "Questions fréquentes.",
-  "lead": "Fichiers, types de cours et export.",
+  "title": "FAQ du course table maker et du schedule maker.",
+  "lead": "Réponses courtes sur ce timetable maker gratuit, l’Excel UBC Workday, les listes d’attente et l’export PNG.",
   "q1": "Mon Excel est-il envoyé ?",
   "a1": "Non. L’analyse se fait dans le navigateur. Fermer l’onglet n’envoie pas le fichier.",
   "q2": "Pourquoi un laboratoire n’apparaît pas ?",
@@ -11,11 +11,18 @@
   "a4": "Par cours unique (sigle + numéro + session). Un cours et sa discussion ne doublent pas les crédits.",
   "q5": "Puis-je modifier un cours importé ?",
   "a5": "Oui. La modification met à jour la liste dans le navigateur. L’Excel original n’est pas réécrit.",
-  "q6": "Où télécharger l’Excel Workday ?",
-  "a6": "Ouvrez Workday, allez dans View My Courses, puis sous ce titre cliquez sur la première icône (à gauche de l’icône PDF). Importez le .xlsx dans le créateur d’horaire.",
-  "seoTitle": "FAQ | Timetable Craft",
-  "seoDescription": "Réponses sur l’analyse Excel locale, listes d’attente, laboratoires, crédits et export PNG.",
+  "q6": "Est-ce un timetable maker ou un schedule maker ?",
+  "a6": "Les deux. Timetable Craft est un créateur d’horaire gratuit : vous construisez un course table hebdomadaire en ligne, ajoutez des cours et exportez un PNG.",
+  "q7": "Puis-je l’utiliser comme UBC course table maker ?",
+  "a7": "Oui. Importez l’Excel View My Courses de UBC Workday, ou saisissez les cours UBC à la main. C’est le chemin UBC timetable maker / UBC schedule maker.",
+  "q8": "Faut-il un fichier Excel UBC ?",
+  "a8": "Non. Ajoutez n’importe quel horaire à la main. L’import Workday UBC est facultatif.",
+  "q9": "Où télécharger l’Excel Workday ?",
+  "a9": "Ouvrez Workday, allez dans View My Courses, puis sous ce titre cliquez sur la première icône (à gauche de l’icône PDF). Importez le .xlsx dans le créateur d’horaire.",
+  "seoTitle": "FAQ emploi du temps et schedule maker | Timetable Craft",
+  "seoDescription": "FAQ de ce course table maker et UBC schedule maker : analyse Excel locale, listes d’attente, laboratoires, crédits et export PNG.",
   "contactTitle": "Autre chose ?",
   "contactBody": "Suggestions ou questions : {{email}}.",
-  "contactCta": "Envoyer un e-mail"
+  "contactCta": "Envoyer un e-mail",
+  "ubcLink": "Aperçu du créateur d’horaire UBC"
 }

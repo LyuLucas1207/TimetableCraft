@@ -22,10 +22,11 @@
     },
     "language": "Language",
     "exportPng": "Export PNG",
-    "reset": "Reset"
+    "reset": "Reset",
+    "ubcTimetable": "UBC timetable maker"
   },
   "footer": {
-    "tag": "Timetable Craft — free UBC student tools in the browser. Start with Schedule Maker."
+    "tag": "Timetable Craft — free timetable maker, schedule maker, and UBC course table maker in the browser."
   },
   "common": {
     "or": "OR",
@@ -71,7 +72,7 @@
     "Waitlist": "Waitlist",
     "Drop": "Dropped"
   },
-  "logoTagline": "Free UBC student tools",
+  "logoTagline": "Free timetable & schedule maker",
   "notFound": {
     "title": "This page is not on the timetable.",
     "lead": "That URL is not a Timetable Craft page. Head home or open Schedule Maker from the tools list.",

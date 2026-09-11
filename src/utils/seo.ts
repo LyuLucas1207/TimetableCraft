@@ -3,8 +3,8 @@ import { APP_NAME, APP_URL, CONTACT_EMAIL } from "@/constants";
 
 export const OG_IMAGE_PATH = "/og.png";
 export const OG_IMAGE_URL = `${APP_URL}${OG_IMAGE_PATH}`;
-export const OG_IMAGE_WIDTH = 1200;
-export const OG_IMAGE_HEIGHT = 630;
+export const OG_IMAGE_WIDTH = 1254;
+export const OG_IMAGE_HEIGHT = 1254;
 export const LOGO_PATH = "/apple-touch-icon.png";
 export const LOGO_URL = `${APP_URL}${LOGO_PATH}`;
 export const FAVICON_PATH = "/favicon.ico";
@@ -46,6 +46,7 @@ export function websiteJsonLd(): JsonLd {
     "@type": "WebSite",
     "@id": `${APP_URL}/#website`,
     name: APP_NAME,
+    alternateName: "TimetableCraft",
     url: APP_URL,
     description: SITE.description,
     inLanguage: ["en", "zh", "fr"],
@@ -53,12 +54,19 @@ export function websiteJsonLd(): JsonLd {
   };
 }
 
-export function softwareJsonLd(description: string, url: string, name = `${APP_NAME} Schedule Maker`): JsonLd {
+export function softwareJsonLd(
+  description: string,
+  url: string,
+  name = `${APP_NAME} Schedule Maker`,
+  alternateName: string[] = ["TimetableCraft Schedule Maker"],
+): JsonLd {
   return {
     "@type": "SoftwareApplication",
     "@id": `${url.replace(/#.*$/, "")}#app`,
     name,
+    alternateName,
     applicationCategory: "EducationalApplication",
+    applicationSubCategory: "Timetable maker",
     operatingSystem: "Any",
     offers: { "@type": "Offer", price: "0", priceCurrency: "CAD" },
     description,
@@ -68,6 +76,7 @@ export function softwareJsonLd(description: string, url: string, name = `${APP_N
     isAccessibleForFree: true,
     browserRequirements: "Requires JavaScript. Runs entirely in the browser.",
     featureList: [
+      "Manual course entry",
       "Local UBC Workday Excel parsing",
       "Weekly timetable grid",
       "Waitlist and dropped section styling",
@@ -88,9 +97,10 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]): JsonL
   };
 }
 
-export function faqJsonLd(entries: { question: string; answer: string }[]): JsonLd {
+export function faqJsonLd(entries: { question: string; answer: string }[], url?: string): JsonLd {
   return {
     "@type": "FAQPage",
+    ...(url ? { url } : {}),
     mainEntity: entries.map((entry) => ({
       "@type": "Question",
       name: entry.question,
@@ -99,11 +109,17 @@ export function faqJsonLd(entries: { question: string; answer: string }[]): Json
   };
 }
 
-export function howToJsonLd(name: string, description: string, steps: { name: string; text: string }[]): JsonLd {
+export function howToJsonLd(
+  name: string,
+  description: string,
+  steps: { name: string; text: string }[],
+  url?: string,
+): JsonLd {
   return {
     "@type": "HowTo",
     name,
     description,
+    ...(url ? { url } : {}),
     step: steps.map((step, index) => ({
       "@type": "HowToStep",
       position: index + 1,

@@ -1,15 +1,20 @@
 {
-  "title": "Tools",
-  "lead": "Free browser tools for UBC students. One is ready now; more are in development.",
-  "seoTitle": "Tools | Timetable Craft",
-  "seoDescription": "Free UBC student tools in the browser. Open Schedule Maker, or check back for more.",
+  "title": "Schedule maker and course table tools",
+  "lead": "Free browser tools: a class schedule maker now, and more student tools later. UBC Workday Excel import is included.",
+  "seoTitle": "Schedule Maker & Course Table Tools | Timetable Craft",
+  "seoDescription": "Free schedule maker and course table maker in the browser. Open the class timetable tool, or follow the UBC Workday Excel path. No account.",
   "scheduleMakerName": "Schedule Maker",
-  "scheduleMakerBody": "Turn a Workday View My Courses Excel file into a weekly timetable. Pick courses, restyle the card, export PNG. Parsing never leaves this device.",
-  "scheduleMakerSeoTitle": "Schedule Maker | Timetable Craft — UBC Workday Excel to timetable",
-  "scheduleMakerSeoDescription": "Import a UBC Workday View My Courses Excel file in your browser, place courses on a weekly grid, and export a PNG. Nothing is uploaded.",
+  "scheduleMakerBody": "A free timetable maker for weekly classes. Add courses by hand or import UBC Workday View My Courses Excel, pick what goes on the grid, restyle the card, and export PNG. Parsing stays on this device.",
+  "scheduleMakerSeoTitle": "Free Schedule Maker for Classes | Timetable Craft",
+  "scheduleMakerSeoDescription": "Free schedule maker for weekly classes. Add courses or import UBC Workday Excel, customize your course table, and download a PNG. No sign-up.",
   "openTool": "Open Schedule Maker",
+  "ubcName": "UBC timetable maker",
+  "ubcBody": "Landing page for UBC schedule maker and UBC course table maker searches: Workday Excel, UBC terms, and registration statuses.",
+  "ubcCta": "Open UBC timetable maker",
   "comingSoonLabel": "Coming soon",
   "comingSoonName": "More tools in development",
   "comingSoonBody": "The next tools will live here. Schedule Maker is the first — GPA, exam planners, and the rest are still being built.",
-  "available": "Available"
+  "available": "Available",
+  "scheduleMakerHeading": "Free class schedule maker",
+  "scheduleMakerIntro": "Add courses or import Workday Excel, select classes for your weekly timetable, and export PNG."
 }

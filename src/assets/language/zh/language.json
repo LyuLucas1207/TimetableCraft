@@ -22,10 +22,11 @@
     },
     "language": "语言",
     "exportPng": "导出 PNG",
-    "reset": "重置"
+    "reset": "重置",
+    "ubcTimetable": "UBC 课表制作器"
   },
   "footer": {
-    "tag": "Timetable Craft — 给 UBC 学生用的免费浏览器工具。先从课表制作器开始。"
+    "tag": "Timetable Craft — 免费课表制作器、schedule maker 与 UBC course table maker，全部在浏览器里运行。"
   },
   "common": {
     "or": "或",
@@ -71,7 +72,7 @@
     "Waitlist": "候补",
     "Drop": "已退"
   },
-  "logoTagline": "免费 UBC 学生工具",
+  "logoTagline": "免费课表与课程表工具",
   "notFound": {
     "title": "这一页不在课表上。",
     "lead": "这个地址不是 Timetable Craft 的页面。可以回首页，或从工具列表打开课表制作器。",

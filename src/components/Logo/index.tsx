@@ -12,7 +12,7 @@ export default function Logo({ compact = false, className }: { compact?: boolean
     <Link to={ROUTES.HOME} className={cn("flex min-w-0 shrink items-center gap-2.5 text-foreground no-underline", className)}>
       <img
         src={logoMark}
-        alt={APP_NAME}
+        alt={`${APP_NAME} timetable maker`}
         width={36}
         height={36}
         className="size-9 shrink-0 object-contain dark:rounded-md dark:bg-white dark:p-0.5"

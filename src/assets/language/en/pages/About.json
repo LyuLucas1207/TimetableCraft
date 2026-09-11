@@ -1,7 +1,7 @@
 {
-  "title": "A local timetable tool for UBC students.",
-  "lead": "See your week clearly without sending registration data anywhere.",
-  "body": "Workday is the source of record. This site reads an Excel export in your browser, lists every section, and lets you choose what to draw.",
+  "title": "Contact the team behind this timetable maker.",
+  "lead": "Timetable Craft is a free schedule maker and course table maker that runs in your browser.",
+  "body": "Workday is the source of record for UBC students. This site reads an Excel export in your browser, lists every section, and lets you choose what to draw on the weekly timetable.",
   "bodyMore": "Not affiliated with UBC. Times and rooms can change — always confirm in Workday.",
   "p1": "One course model",
   "p1b": "Excel import and manual entry become the same course objects. The timetable does not care where a class came from.",
@@ -16,6 +16,6 @@
   "contactTitle": "Contact",
   "contactBody": "Suggestions, bugs, or questions — email {{email}}. This is an independent student project, not an official UBC or Workday service.",
   "contactCta": "Send an email",
-  "seoTitle": "Contact | Timetable Craft",
-  "seoDescription": "Timetable Craft is a browser-only UBC timetable builder. Email suggestions to lyuchongkai@gmail.com. Not affiliated with the university."
+  "seoTitle": "Contact Timetable Craft | Schedule Maker",
+  "seoDescription": "Contact the Timetable Craft timetable maker. Browser-only UBC course table tool. Email lyuchongkai@gmail.com. Not affiliated with UBC."
 }

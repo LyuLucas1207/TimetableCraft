@@ -1,15 +1,20 @@
 {
-  "title": "Outils",
-  "lead": "Outils gratuits dans le navigateur pour les étudiants UBC. Un est prêt ; d’autres sont en cours.",
-  "seoTitle": "Outils | Timetable Craft",
-  "seoDescription": "Outils UBC gratuits dans le navigateur. Ouvrez le créateur d’horaire, ou revenez pour la suite.",
+  "title": "Outils : schedule maker et course table",
+  "lead": "Outils gratuits dans le navigateur : un créateur d’horaire de cours est prêt ; d’autres outils étudiants suivront. Import Excel UBC Workday inclus.",
+  "seoTitle": "Schedule maker et outils d’horaire | Timetable Craft",
+  "seoDescription": "Schedule maker et course table maker gratuits dans le navigateur. Ouvrez l’outil d’emploi du temps, ou suivez le chemin Excel UBC Workday. Sans compte.",
   "scheduleMakerName": "Créateur d’horaire",
-  "scheduleMakerBody": "Transformez un Excel Workday View My Courses en horaire hebdomadaire. Choisissez les cours, personnalisez, exportez en PNG. L’analyse reste sur l’appareil.",
-  "scheduleMakerSeoTitle": "Créateur d’horaire | Timetable Craft — Excel Workday UBC",
-  "scheduleMakerSeoDescription": "Importez un Excel UBC Workday View My Courses dans le navigateur, placez les cours sur une grille hebdomadaire et exportez un PNG. Rien n’est envoyé.",
+  "scheduleMakerBody": "Timetable maker gratuit pour la semaine de cours. Ajoutez les cours à la main ou importez l’Excel UBC Workday View My Courses, choisissez la grille, personnalisez, exportez en PNG. L’analyse reste sur l’appareil.",
+  "scheduleMakerSeoTitle": "Créateur d’horaire de cours gratuit | Timetable Craft",
+  "scheduleMakerSeoDescription": "Schedule maker gratuit pour la semaine de cours. Ajoutez des cours ou importez l’Excel UBC Workday, personnalisez et téléchargez un PNG. Sans inscription.",
   "openTool": "Ouvrir le créateur d’horaire",
+  "ubcName": "Créateur d’emploi du temps UBC",
+  "ubcBody": "Page pour les recherches UBC schedule maker et UBC course table maker : Excel Workday, sessions UBC et statuts d’inscription.",
+  "ubcCta": "Ouvrir le créateur UBC",
   "comingSoonLabel": "Bientôt",
   "comingSoonName": "D’autres outils en développement",
   "comingSoonBody": "Les prochains outils apparaîtront ici. Le créateur d’horaire est le premier ; GPA, planning d’examens et le reste sont encore en construction.",
-  "available": "Disponible"
+  "available": "Disponible",
+  "scheduleMakerHeading": "Créateur gratuit de planning de cours",
+  "scheduleMakerIntro": "Ajoutez vos cours ou importez Excel Workday, choisissez les cours à afficher et exportez en PNG."
 }

@@ -1,14 +1,18 @@
+import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router";
 
 import { Main, Tool } from "@/layouts";
 import { ROUTES } from "@/navigations";
-import { AboutPage, FAQPage, GuidePage, HomePage, NotFoundPage, ScheduleMakerPage, ToolsPage } from "@/pages";
+import { AboutPage, FAQPage, GuidePage, HomePage, NotFoundPage, ToolsPage, UbcPage } from "@/pages";
+
+const ScheduleMakerPage = lazy(() => import("@/pages/Tools/ScheduleMaker"));
 
 export default function App() {
   return (
     <Routes>
       <Route element={<Main />}>
         <Route path={ROUTES.HOME} element={<HomePage />} />
+        <Route path={ROUTES.UBC_TIMETABLE_MAKER} element={<UbcPage />} />
         <Route path={ROUTES.TOOLS} element={<ToolsPage />} />
         <Route path={ROUTES.GUIDE} element={<GuidePage />} />
         <Route path={ROUTES.FAQ} element={<FAQPage />} />
@@ -17,7 +21,7 @@ export default function App() {
       </Route>
 
       <Route element={<Tool />}>
-        <Route path={ROUTES.TOOL_SCHEDULE_MAKER} element={<ScheduleMakerPage />} />
+        <Route path={ROUTES.TOOL_SCHEDULE_MAKER} element={<Suspense fallback={<p role="status" className="p-6">Loading Schedule Maker…</p>}><ScheduleMakerPage /></Suspense>} />
       </Route>
 
       <Route path="/app" element={<Navigate to={ROUTES.TOOL_SCHEDULE_MAKER} replace />} />

@@ -1,16 +1,17 @@
 {
-  "title": "从 Workday 导出 View My Courses。",
-  "lead": "解析器需要 Workday 导出的 Excel，不是截图，也不是 PDF。",
+  "title": "把 UBC Workday Excel 导入课表制作器。",
+  "lead": "UBC schedule maker 需要 Workday「View My Courses」导出的 Excel，不是截图，也不是 PDF。",
   "step1": "打开 Workday",
   "step1b": "登录后进入 View My Courses。",
   "step2": "下载 Excel",
   "step2b": "在页面顶部 “View My Courses” 标题下方，点 PDF 左边的第一个图标。保留 .xlsx 或 .xls。",
   "step3": "导入文件",
-  "step3b": "点「导入 Excel」。会按表头识别课程、分班、注册状态、上课时间、教师和日期。",
+  "step3b": "打开课表制作器，点「导入 Excel」。会按表头识别课程、分班、注册状态、上课时间、教师和日期。",
   "step4": "勾选要上表的课",
   "step4b": "识别后不会自动进课表。勾选在读课程；候补可以加，显示虚线方框；已退默认不用勾。",
-  "note": "没有上课时间的实验课会留在列表里，你可以补时间。",
+  "note": "没有上课时间的实验课会留在列表里，你可以补时间。需要 UBC 专用说明时，打开 UBC 课表制作器页面。",
   "ctaOpen": "打开课表制作器",
-  "seoTitle": "指南 | Timetable Craft",
-  "seoDescription": "如何从 UBC Workday 导出 View My Courses Excel，并在本地生成周课表。"
+  "ubcLink": "UBC 课表制作器说明",
+  "seoTitle": "UBC Workday Excel 转课表 | Timetable Craft",
+  "seoDescription": "从 UBC Workday 导出 View My Courses Excel，在本课表制作器里本地解析、勾选课程并生成周课表。"
 }
