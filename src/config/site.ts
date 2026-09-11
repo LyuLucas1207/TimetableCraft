@@ -4,7 +4,7 @@ export const SITE = {
   name: APP_NAME,
   tagline: "Turn your UBC Excel into a beautiful timetable.",
   description:
-    "Timetable Craft is a free browser toolkit for UBC students. Schedule Maker turns a Workday View My Courses Excel file into a weekly timetable without uploading it.",
+    "Timetable Craft is a free course timetable and schedule maker. Add classes manually or import UBC Workday Excel, customize your weekly grid, and export PNG locally.",
   keywords:
     "UBC, Workday, timetable, schedule, Excel, View My Courses, Timetable Craft, timetablecraft.com, Winter Term, Summer Term, course calendar, PNG, student tools",
   url: APP_URL,

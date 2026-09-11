@@ -17,7 +17,7 @@ void i18n
     fallbackNS: "language",
     interpolation: { escapeValue: false },
     detection: {
-      order: ["localStorage", "navigator"],
+      order: ["localStorage"],
       lookupLocalStorage: "timetablecraft:lng",
       caches: ["localStorage"],
     },

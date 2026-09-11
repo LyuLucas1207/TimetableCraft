@@ -1,15 +1,20 @@
 {
-  "title": "工具",
-  "lead": "给 UBC 学生用的免费浏览器工具。现在有一个能用，更多还在开发。",
-  "seoTitle": "工具 | Timetable Craft",
-  "seoDescription": "免费的 UBC 学生浏览器工具。打开课表制作器，或稍后再来看新工具。",
+  "title": "课表制作器与课程表工具",
+  "lead": "免费浏览器工具：现在可用课程表制作器，之后会有更多学生工具。支持导入 UBC Workday Excel。",
+  "seoTitle": "课表制作器与课程表工具 | Timetable Craft",
+  "seoDescription": "免费 schedule maker 与 course table maker。打开周课表工具，或走 UBC Workday Excel 路径。无需账号。",
   "scheduleMakerName": "课表制作器",
-  "scheduleMakerBody": "把 Workday View My Courses 的 Excel 变成周课表。勾选课程、改外观、导出 PNG。解析不会离开这台设备。",
-  "scheduleMakerSeoTitle": "课表制作器 | Timetable Craft — UBC Workday Excel 转课表",
-  "scheduleMakerSeoDescription": "在浏览器里导入 UBC Workday View My Courses Excel，勾选课程放到周课表，再导出 PNG。文件不会被上传。",
+  "scheduleMakerBody": "免费 timetable maker：手填课程或导入 UBC Workday View My Courses Excel，勾选上表内容，改外观，导出 PNG。解析不离开这台设备。",
+  "scheduleMakerSeoTitle": "免费课程表制作器 | Timetable Craft",
+  "scheduleMakerSeoDescription": "免费 schedule maker：手填课程或导入 UBC Workday Excel，自定义课表并下载 PNG。无需注册。",
   "openTool": "打开课表制作器",
+  "ubcName": "UBC 课表制作器",
+  "ubcBody": "面向搜索 UBC schedule maker / UBC course table maker 的说明页：Workday Excel、UBC 学期和注册状态。",
+  "ubcCta": "打开 UBC 课表制作器",
   "comingSoonLabel": "即将推出",
   "comingSoonName": "更多工具开发中",
   "comingSoonBody": "之后的工具会放在这里。课表制作器是第一个，GPA、考试规划等还在做。",
-  "available": "可用"
+  "available": "可用",
+  "scheduleMakerHeading": "免费课程表制作器",
+  "scheduleMakerIntro": "手动添加课程或导入 Workday Excel，选择课程并导出 PNG 周课表。"
 }

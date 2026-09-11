@@ -14,6 +14,7 @@ export default function Footer() {
           <p className="mt-1 max-w-xl text-sm text-muted-foreground">{t("footer.tag")}</p>
         </div>
         <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+          <Link to={ROUTES.UBC_TIMETABLE_MAKER}>{t("header.ubcTimetable")}</Link>
           <Link to={ROUTES.TOOLS}>{t("header.tools")}</Link>
           <Link to={ROUTES.GUIDE}>{t("header.guide")}</Link>
           <Link to={ROUTES.FAQ}>{t("header.faq")}</Link>

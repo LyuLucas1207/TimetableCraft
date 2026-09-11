@@ -1,6 +1,6 @@
 {
-  "title": "Questions students actually ask.",
-  "lead": "Short answers about files, course types, and export.",
+  "title": "Course table maker and schedule maker FAQ.",
+  "lead": "Short answers about this free timetable maker, UBC Workday Excel, waitlists, and PNG export.",
   "q1": "Is my Excel uploaded?",
   "a1": "No. Parsing runs in the browser. Closing the tab does not send the file anywhere.",
   "q2": "Why is a lab missing from the grid?",
@@ -11,9 +11,16 @@
   "a4": "By unique course (subject + number + term). A lecture and its discussion do not double the credits.",
   "q5": "Can I edit an imported course?",
   "a5": "Yes. Editing updates the in-browser list only. The original Excel is never rewritten.",
-  "seoTitle": "FAQ | Timetable Craft",
-  "seoDescription": "Answers about local Excel parsing, waitlists, unscheduled labs, credits, and PNG export.",
+  "q6": "Is this a timetable maker or a schedule maker?",
+  "a6": "Both names fit. Timetable Craft is a free timetable maker and schedule maker: you build a weekly course table online, add classes, and export a PNG.",
+  "q7": "Can I use this as a UBC course table maker?",
+  "a7": "Yes. Import View My Courses Excel from UBC Workday, or add UBC classes by hand. That is the UBC timetable maker and UBC schedule maker path.",
+  "q8": "Do I need a UBC Excel file?",
+  "a8": "No. Add any class schedule manually. The UBC Workday import is optional.",
+  "seoTitle": "Timetable & Schedule Maker FAQ | Timetable Craft",
+  "seoDescription": "FAQ for this free course table maker and UBC schedule maker: local Excel parsing, waitlists, unscheduled labs, credits, and PNG export.",
   "contactTitle": "Something else?",
   "contactBody": "Send suggestions or questions to {{email}}.",
-  "contactCta": "Send an email"
+  "contactCta": "Send an email",
+  "ubcLink": "UBC timetable maker overview"
 }

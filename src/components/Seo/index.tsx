@@ -5,8 +5,6 @@ import { SITE } from "@/config";
 import { APP_NAME } from "@/constants";
 import {
   DEFAULT_ROBOTS,
-  FAVICON_PATH,
-  LOGO_PATH,
   OG_IMAGE_HEIGHT,
   OG_IMAGE_URL,
   OG_IMAGE_WIDTH,
@@ -20,7 +18,6 @@ interface SeoProps {
   title: string;
   description: string;
   path?: string;
-  keywords?: string;
   noindex?: boolean;
   jsonLd?: JsonLd | JsonLd[];
 }
@@ -29,7 +26,6 @@ export default function Seo({
   title,
   description,
   path = "/",
-  keywords = SITE.keywords,
   noindex = false,
   jsonLd,
 }: SeoProps) {
@@ -38,7 +34,18 @@ export default function Seo({
   const locale = OG_LOCALE[lang] ?? OG_LOCALE.en;
   const url = absoluteUrl(path);
   const extras = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
-  const structured = graphJsonLd(extras);
+  const structured = graphJsonLd([
+    {
+      "@type": "WebPage",
+      "@id": `${url}#webpage`,
+      url,
+      name: title,
+      description,
+      inLanguage: lang,
+      isPartOf: { "@id": `${absoluteUrl("/")}#website` },
+    },
+    ...extras,
+  ]);
   const robots = noindex ? "noindex, nofollow" : DEFAULT_ROBOTS;
 
   return (
@@ -46,18 +53,12 @@ export default function Seo({
       <html lang={lang} />
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
       <meta name="author" content={APP_NAME} />
       <meta name="robots" content={robots} />
       <meta name="googlebot" content={robots} />
       <meta name="bingbot" content={noindex ? "noindex, nofollow" : "index, follow"} />
       <meta name="theme-color" content="#0f2744" />
-      <link rel="icon" href={FAVICON_PATH} sizes="any" />
-      <link rel="apple-touch-icon" href={LOGO_PATH} />
-      <link rel="manifest" href="/site.webmanifest" />
       <link rel="canonical" href={url} />
-      <link rel="alternate" hrefLang="x-default" href={absoluteUrl("/")} />
-      <link rel="alternate" hrefLang="en" href={url} />
       <link rel="image_src" href={OG_IMAGE_URL} />
 
       <meta property="og:title" content={title} />
@@ -74,7 +75,7 @@ export default function Seo({
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:width" content={String(OG_IMAGE_WIDTH)} />
       <meta property="og:image:height" content={String(OG_IMAGE_HEIGHT)} />
-      <meta property="og:image:alt" content={`${APP_NAME} — UBC Workday Excel to weekly timetable`} />
+      <meta property="og:image:alt" content={`${APP_NAME} timetable maker and course table maker`} />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />

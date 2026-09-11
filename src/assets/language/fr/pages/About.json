@@ -1,7 +1,7 @@
 {
-  "title": "Un outil d’horaire local pour les étudiants UBC.",
-  "lead": "Voyez la semaine clairement, sans envoyer vos inscriptions ailleurs.",
-  "body": "Workday reste la source. Ce site lit un Excel dans le navigateur, liste chaque section, puis vous laisse choisir la grille.",
+  "title": "Contacter l’équipe de ce timetable maker.",
+  "lead": "Timetable Craft est un schedule maker et course table maker gratuit qui s’exécute dans le navigateur.",
+  "body": "Pour les étudiants UBC, Workday reste la source. Ce site lit un Excel dans le navigateur, liste chaque section, puis vous laisse choisir la grille.",
   "bodyMore": "Non affilié à l’UBC. Horaires et salles peuvent changer ; confirmez dans Workday.",
   "p1": "Un seul modèle de cours",
   "p1b": "Import Excel et saisie manuelle deviennent les mêmes objets. L’horaire ignore la provenance.",
@@ -16,6 +16,6 @@
   "contactTitle": "Contact",
   "contactBody": "Suggestions, bugs ou questions : écrivez à {{email}}. Projet étudiant indépendant, pas un service officiel UBC ou Workday.",
   "contactCta": "Envoyer un e-mail",
-  "seoTitle": "Contact | Timetable Craft",
-  "seoDescription": "Timetable Craft est un générateur d’horaire UBC 100 % navigateur. Suggestions : lyuchongkai@gmail.com. Non affilié à l’université."
+  "seoTitle": "Contact Timetable Craft | Schedule maker",
+  "seoDescription": "Contactez le timetable maker Timetable Craft. Outil de course table UBC 100 % navigateur. lyuchongkai@gmail.com. Non affilié à l’UBC."
 }

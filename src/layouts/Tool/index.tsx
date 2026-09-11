@@ -16,8 +16,8 @@ export default function Tool() {
   }, []);
 
   return (
-    <div className="h-dvh overflow-hidden bg-slate-50 text-foreground dark:bg-zinc-950">
+    <main className="h-dvh overflow-hidden bg-slate-50 text-foreground dark:bg-zinc-950">
       <Outlet />
-    </div>
+    </main>
   );
 }

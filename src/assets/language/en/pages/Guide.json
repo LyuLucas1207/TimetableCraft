@@ -1,16 +1,17 @@
 {
-  "title": "Export View My Courses from Workday.",
-  "lead": "The parser needs the Excel Workday gives you from View My Courses — not a screenshot and not a PDF.",
+  "title": "Export UBC Workday Excel for this timetable maker.",
+  "lead": "The UBC schedule maker needs the Excel Workday gives you from View My Courses — not a screenshot and not a PDF.",
   "step1": "Open Workday",
   "step1b": "Sign in and go to Academics → View My Courses.",
   "step2": "Export Excel",
   "step2b": "Use the spreadsheet export. Keep .xlsx or .xls.",
   "step3": "Import the file",
-  "step3b": "Use Import Excel. Columns are read by header name: Course Listing, Section, Registration Status, Meeting Patterns, Instructor, and dates.",
+  "step3b": "Open Schedule Maker and use Import Excel. Columns are read by header name: Course Listing, Section, Registration Status, Meeting Patterns, Instructor, and dates.",
   "step4": "Choose what goes on the grid",
   "step4b": "Nothing is placed automatically. Check Active courses, add Waitlist as dashed boxes, and leave Dropped off unless you need them.",
-  "note": "Labs with a blank meeting pattern stay in the list so you can add a time.",
+  "note": "Labs with a blank meeting pattern stay in the list so you can add a time. Need the UBC-specific overview? Open the UBC timetable maker page.",
   "ctaOpen": "Open Schedule Maker",
-  "seoTitle": "Guide | Timetable Craft",
-  "seoDescription": "How to export UBC Workday View My Courses Excel and build a weekly timetable locally."
+  "ubcLink": "UBC timetable maker overview",
+  "seoTitle": "UBC Workday Excel to Timetable | Timetable Craft",
+  "seoDescription": "Export UBC Workday View My Courses Excel and open it in this timetable maker. Parse locally, pick classes, and build your weekly schedule."
 }

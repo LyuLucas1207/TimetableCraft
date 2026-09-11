@@ -4,7 +4,9 @@ import { HelmetProvider } from "react-helmet-async";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
-import { LanguageProvider, ModalProvider, RouterProvider, ThemeProvider } from "@/providers";
+import LanguageProvider from "@/providers/LanguageProvider";
+import RouterProvider from "@/providers/RouterProvider";
+import ThemeProvider from "@/providers/ThemeProvider";
 
 import App from "./App";
 import "./index.css";
@@ -16,10 +18,8 @@ createRoot(document.getElementById("root")!).render(
         <ThemeProvider>
           <TooltipProvider>
             <RouterProvider>
-              <ModalProvider>
                 <App />
                 <Toaster />
-              </ModalProvider>
             </RouterProvider>
           </TooltipProvider>
         </ThemeProvider>

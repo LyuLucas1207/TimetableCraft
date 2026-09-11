@@ -5,6 +5,7 @@ import enFAQ from "./en/pages/FAQ.json";
 import enGuide from "./en/pages/Guide.json";
 import enHome from "./en/pages/Home.json";
 import enTools from "./en/pages/Tools.json";
+import enUbc from "./en/pages/Ubc.json";
 import frLanguage from "./fr/language.json";
 import frAbout from "./fr/pages/About.json";
 import frApp from "./fr/pages/App.json";
@@ -12,6 +13,7 @@ import frFAQ from "./fr/pages/FAQ.json";
 import frGuide from "./fr/pages/Guide.json";
 import frHome from "./fr/pages/Home.json";
 import frTools from "./fr/pages/Tools.json";
+import frUbc from "./fr/pages/Ubc.json";
 import zhLanguage from "./zh/language.json";
 import zhAbout from "./zh/pages/About.json";
 import zhApp from "./zh/pages/App.json";
@@ -19,11 +21,13 @@ import zhFAQ from "./zh/pages/FAQ.json";
 import zhGuide from "./zh/pages/Guide.json";
 import zhHome from "./zh/pages/Home.json";
 import zhTools from "./zh/pages/Tools.json";
+import zhUbc from "./zh/pages/Ubc.json";
 
 export const LANG_NS = "language" as const;
 
 export const PAGE = {
   Home: "pages.Home",
+  Ubc: "pages.Ubc",
   App: "pages.App",
   Tools: "pages.Tools",
   Guide: "pages.Guide",
@@ -37,6 +41,7 @@ export const RESOURCES = {
   en: {
     language: enLanguage,
     [PAGE.Home]: enHome,
+    [PAGE.Ubc]: enUbc,
     [PAGE.App]: enApp,
     [PAGE.Tools]: enTools,
     [PAGE.Guide]: enGuide,
@@ -46,6 +51,7 @@ export const RESOURCES = {
   zh: {
     language: zhLanguage,
     [PAGE.Home]: zhHome,
+    [PAGE.Ubc]: zhUbc,
     [PAGE.App]: zhApp,
     [PAGE.Tools]: zhTools,
     [PAGE.Guide]: zhGuide,
@@ -55,6 +61,7 @@ export const RESOURCES = {
   fr: {
     language: frLanguage,
     [PAGE.Home]: frHome,
+    [PAGE.Ubc]: frUbc,
     [PAGE.App]: frApp,
     [PAGE.Tools]: frTools,
     [PAGE.Guide]: frGuide,

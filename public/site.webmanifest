@@ -1,7 +1,7 @@
 {
   "name": "Timetable Craft",
   "short_name": "Timetable Craft",
-  "description": "Free UBC student tools in the browser. Schedule Maker turns a Workday View My Courses Excel file into a weekly timetable without uploading it.",
+  "description": "Free timetable maker, schedule maker, and course table maker. Add classes or import UBC Workday Excel and export a weekly PNG.",
   "start_url": "/",
   "scope": "/",
   "id": "/",
@@ -25,7 +25,7 @@
     },
     {
       "src": "/og.png",
-      "sizes": "1200x630",
+      "sizes": "1254x1254",
       "type": "image/png",
       "purpose": "any"
     }
