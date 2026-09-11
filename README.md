@@ -155,7 +155,7 @@ Docker image build still uses `node:22-alpine` **inside the container**. menv is
 ## Local development / 本地开发
 
 ```bash
-cd /volume1/TimetableCraft/TimetableCraft-WEB
+cd /volume1/Projects/TimetableCraft/TimetableCraft-WEB
 source /volume1/Environments/use-menv.sh
 npm ci
 npm run dev
