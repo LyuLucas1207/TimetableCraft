@@ -260,7 +260,7 @@ chmod +x start.sh stop.sh
 | --- | --- |
 | `PRERENDER_SKIP=1` | Skip Playwright; SPA shell only |
 | `PRERENDER_ON_HOST=1` | Try host Chromium first, fall back to Playwright Docker image |
-| `PRERENDER_IMAGE` | Override `mcr.microsoft.com/playwright:v<package.json version>-noble` |
+| `PRERENDER_IMAGE` | Override `mcr.microsoft.com/playwright:v<installed playwright version>-noble` |
 | `MENV_RUST` | Default `gnu` in `start.sh` so menv does not prompt |
 
 Skip prerender:

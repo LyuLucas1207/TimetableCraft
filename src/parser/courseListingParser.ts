@@ -47,19 +47,42 @@ export function parseSectionListing(value: string): ParsedSection | null {
   return { ...listing, section: "" };
 }
 
-export function parseManualCourseCode(value: string): { subject: string; courseNumber: string } | null {
-  const cleaned = value.trim().toUpperCase().replace(/_/g, " ");
-  const match = cleaned.match(/^([A-Z]{2,8})\s+(\d{2,4}[A-Z]?)$/);
-  if (!match) return null;
-  return { subject: match[1], courseNumber: match[2] };
+const MANUAL_CODE_RE =
+  /^([A-Za-z]{2,8})(?:[_ ]([A-Za-z]))?[ _-]*(\d{2,4}[A-Za-z]?)(?:\s*[-–]\s*(.+))?$/;
+
+export function parseManualCourseCode(
+  value: string,
+): { subject: string; courseNumber: string; title?: string } | null {
+  const cleaned = value.trim();
+  if (!cleaned) return null;
+
+  const listing = parseCourseListing(cleaned);
+  if (listing) {
+    return {
+      subject: listing.subject,
+      courseNumber: listing.courseNumber,
+      title: listing.title || undefined,
+    };
+  }
+
+  const match = cleaned.match(MANUAL_CODE_RE);
+  if (match) {
+    return {
+      subject: match[1].toUpperCase(),
+      courseNumber: match[3].toUpperCase(),
+      title: match[4]?.trim() || undefined,
+    };
+  }
+
+  return { subject: cleaned, courseNumber: "" };
 }
 
 export function courseKeyOf(subject: string, courseNumber: string): string {
-  return `${subject}-${courseNumber}`;
+  return courseNumber ? `${subject}-${courseNumber}` : subject;
 }
 
 export function formatCourseCode(subject: string, courseNumber: string): string {
-  return `${subject} ${courseNumber}`;
+  return [subject, courseNumber].filter(Boolean).join(" ");
 }
 
 export function formatCourseSection(
@@ -67,7 +90,8 @@ export function formatCourseSection(
   courseNumber: string,
   section: string,
 ): string {
-  return section ? `${subject} ${courseNumber}-${section}` : `${subject} ${courseNumber}`;
+  const code = formatCourseCode(subject, courseNumber);
+  return section ? `${code}-${section}` : code;
 }
 
 export function normalizeFormat(value: string): InstructionalFormat {

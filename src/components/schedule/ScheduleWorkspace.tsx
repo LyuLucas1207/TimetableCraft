@@ -26,7 +26,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { parseManualCourseCode, courseKeyOf, normalizeFormat } from "@/parser/courseListingParser";
+import { parseManualCourseCode, courseKeyOf, formatCourseCode, normalizeFormat } from "@/parser/courseListingParser";
 import { selectTimetableCourses, useScheduleStore, type ManualCourseInput } from "@/stores/schedule";
 import { ColorPreset, CourseType, ImportMode, TitlePreset, termFromTitlePreset, type Course } from "@/types/course";
 import { createId } from "@/utils/ids";
@@ -103,39 +103,47 @@ export default function ScheduleWorkspace() {
   };
 
   const handleSubmit = (input: ManualCourseInput) => {
-    if (editing) {
-      const parsed = parseManualCourseCode(input.courseCode);
-      if (!parsed) {
-        toast.error(t("formErrorCode", { ns: PAGE.App }));
-        return;
-      }
-      updateCourse(editing.id, {
-        subject: parsed.subject,
-        courseNumber: parsed.courseNumber,
-        section: input.section.trim(),
-        title: input.title.trim(),
-        term: input.term,
-        instructionalFormat: normalizeFormat(input.instructionalFormat),
-        courseType: input.courseType,
-        instructor: input.instructor?.trim() || undefined,
-        color: input.color,
-        courseKey: courseKeyOf(parsed.subject, parsed.courseNumber),
-        meetings: [
-          {
-            id: editing.meetings[0]?.id ?? createId(),
-            days: input.days,
-            startTime: input.startTime,
-            endTime: input.endTime,
-            building: input.building,
-            room: input.room,
-          },
-        ],
-      });
-    } else {
-      addManualCourse(input);
+    const parsed = parseManualCourseCode(input.courseCode);
+    if (!parsed) {
+      toast.error(t("formErrorCode", { ns: PAGE.App }));
+      return;
     }
-    setModalOpen(false);
-    setEditing(null);
+    const meetings =
+      input.days.length > 0
+        ? [
+            {
+              id: editing?.meetings[0]?.id ?? createId(),
+              days: input.days,
+              startTime: input.startTime,
+              endTime: input.endTime,
+              building: input.building?.trim() || undefined,
+              room: input.room?.trim() || undefined,
+            },
+          ]
+        : [];
+    try {
+      if (editing) {
+        updateCourse(editing.id, {
+          subject: parsed.subject,
+          courseNumber: parsed.courseNumber,
+          section: input.section.trim(),
+          title: input.title.trim() || parsed.title || "",
+          term: input.term,
+          instructionalFormat: normalizeFormat(input.instructionalFormat),
+          courseType: input.courseType,
+          instructor: input.instructor?.trim() || undefined,
+          color: input.color,
+          courseKey: courseKeyOf(parsed.subject, parsed.courseNumber),
+          meetings,
+        });
+      } else {
+        addManualCourse(input);
+      }
+      setModalOpen(false);
+      setEditing(null);
+    } catch {
+      toast.error(t("formErrorCode", { ns: PAGE.App }));
+    }
   };
 
   const exportPng = async () => {
@@ -234,7 +242,7 @@ export default function ScheduleWorkspace() {
         initial={
           editing
             ? {
-                courseCode: `${editing.subject} ${editing.courseNumber}`,
+                courseCode: formatCourseCode(editing.subject, editing.courseNumber),
                 section: editing.section,
                 title: editing.title,
                 term: editing.term,

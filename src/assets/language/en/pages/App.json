@@ -117,6 +117,7 @@
   "formFormat": "Format",
   "formType": "Format",
   "formDays": "Days",
+  "formDaysHint": "Optional. Skip days to save an unscheduled course.",
   "formStart": "Start time",
   "formEnd": "End time",
   "formBuilding": "Building",

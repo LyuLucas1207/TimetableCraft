@@ -173,8 +173,8 @@ export const useScheduleStore = create<ScheduleState>()(
                 days: input.days,
                 startTime: input.startTime,
                 endTime: input.endTime,
-                building: input.building,
-                room: input.room,
+                building: input.building?.trim() || undefined,
+                room: input.room?.trim() || undefined,
               }
             : null;
 
@@ -183,7 +183,7 @@ export const useScheduleStore = create<ScheduleState>()(
           subject: parsed.subject,
           courseNumber: parsed.courseNumber,
           section: input.section.trim(),
-          title: input.title.trim(),
+          title: input.title.trim() || parsed.title || "",
           term: input.term,
           instructionalFormat: normalizeFormat(input.instructionalFormat),
           courseType: input.courseType,

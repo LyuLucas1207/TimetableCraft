@@ -117,6 +117,7 @@
   "formFormat": "授课形式",
   "formType": "授课形式",
   "formDays": "星期",
+  "formDaysHint": "可不填。不选星期会保存为没有上课时间的课程。",
   "formStart": "开始",
   "formEnd": "结束",
   "formBuilding": "楼",

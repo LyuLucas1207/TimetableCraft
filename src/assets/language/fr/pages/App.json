@@ -118,6 +118,7 @@
   "formFormat": "Format",
   "formType": "Format",
   "formDays": "Jours",
+  "formDaysHint": "Facultatif. Sans jour, le cours sera enregistré sans horaire.",
   "formStart": "Début",
   "formEnd": "Fin",
   "formBuilding": "Bâtiment",

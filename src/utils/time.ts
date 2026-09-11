@@ -11,12 +11,13 @@ export function parseToMinutes(input: string): number | null {
   const raw = input.trim().toLowerCase().replace(/\s+/g, " ");
   if (!raw) return null;
 
-  const match = raw.match(TIME_RE);
-  if (!match) {
-    const hhmm = raw.match(/^([01]?\d|2[0-3]):([0-5]\d)$/);
-    if (!hhmm) return null;
-    return Number(hhmm[1]) * 60 + Number(hhmm[2]);
+  const hhmmss = raw.match(/^([01]?\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$/);
+  if (hhmmss) {
+    return Number(hhmmss[1]) * 60 + Number(hhmmss[2]);
   }
+
+  const match = raw.match(TIME_RE);
+  if (!match) return null;
 
   let hours = Number(match[1]);
   const minutes = Number(match[2] ?? "0");
@@ -26,6 +27,13 @@ export function parseToMinutes(input: string): number | null {
   if (meridiem.startsWith("a") && hours === 12) hours = 0;
   if (hours > 23 || minutes > 59) return null;
   return hours * 60 + minutes;
+}
+
+export function isStartBeforeEnd(start: string, end: string): boolean {
+  const startMin = parseToMinutes(start);
+  const endMin = parseToMinutes(end);
+  if (startMin == null || endMin == null) return false;
+  return startMin < endMin;
 }
 
 export function normalizeTime(input: string): string | null {

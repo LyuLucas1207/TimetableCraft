@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ClockIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
 import { APP_NAME } from "@/constants";
-import { formatCourseSection } from "@/parser/courseListingParser";
+import { formatCourseCode, formatCourseSection } from "@/parser/courseListingParser";
 import { formatLocation } from "@/parser/meetingPatternParser";
 import { COURSE_TYPE_BORDER, CourseType, WEEK_DAYS, WeekDay, type Course, type TimetableSettings } from "@/types/course";
 import { TITLE_PRESET_I18N_KEY, isDefaultPresetTitle } from "@/utils/appearance";
@@ -127,7 +127,7 @@ export default function Timetable({
               const palette = resolvePaletteColor(course.color, settings.colorPreset);
               const label = settings.showSections
                 ? formatCourseSection(course.subject, course.courseNumber, course.section)
-                : `${course.subject} ${course.courseNumber}`;
+                : formatCourseCode(course.subject, course.courseNumber);
               return (
                 <div key={course.id} className="grid grid-cols-[88px_repeat(5,1fr)]">
                   <div className="flex items-center border-r px-2 text-[11px]" style={{ background: settings.timeBg, color: settings.timeText, borderColor: settings.gridLine }}>
@@ -193,7 +193,7 @@ export default function Timetable({
                 const course = item.event.course;
                 const label = settings.showSections
                   ? formatCourseSection(course.subject, course.courseNumber, course.section)
-                  : `${course.subject} ${course.courseNumber}`;
+                  : formatCourseCode(course.subject, course.courseNumber);
                 return (
                   <button
                     key={item.event.id}

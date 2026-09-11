@@ -19,8 +19,10 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { EnumSelect } from "@/components/ui/enum-select";
+import { parseManualCourseCode } from "@/parser/courseListingParser";
 import { useScheduleStore } from "@/stores";
 import { colorsForPreset } from "@/utils/colors";
+import { isStartBeforeEnd, normalizeTime } from "@/utils/time";
 
 interface CourseFormProps {
   initial?: Partial<ManualCourseInput>;
@@ -56,15 +58,11 @@ export default function CourseForm({ initial, submitLabel, onCancel, onSubmit }:
       className="grid gap-3"
       onSubmit={(event) => {
         event.preventDefault();
-        if (!courseCode.trim()) {
+        if (!parseManualCourseCode(courseCode)) {
           setError(t("formErrorCode", { ns: PAGE.App }));
           return;
         }
-        if (days.length === 0) {
-          setError(t("formErrorDays", { ns: PAGE.App }));
-          return;
-        }
-        if (startTime >= endTime) {
+        if (days.length > 0 && !isStartBeforeEnd(startTime, endTime)) {
           setError(t("formErrorTime", { ns: PAGE.App }));
           return;
         }
@@ -76,8 +74,8 @@ export default function CourseForm({ initial, submitLabel, onCancel, onSubmit }:
           instructionalFormat,
           courseType,
           days,
-          startTime,
-          endTime,
+          startTime: normalizeTime(startTime) ?? startTime,
+          endTime: normalizeTime(endTime) ?? endTime,
           building,
           room,
           instructor,
@@ -89,11 +87,11 @@ export default function CourseForm({ initial, submitLabel, onCancel, onSubmit }:
         <Field label={t("formCode", { ns: PAGE.App })}>
           <Input value={courseCode} onChange={(e) => setCourseCode(e.target.value)} placeholder="CPEN 442" required />
         </Field>
-        <Field label={t("formSection", { ns: PAGE.App })}>
+        <Field label={t("formSection", { ns: PAGE.App })} optional={t("optional", { ns: PAGE.App })}>
           <Input value={section} onChange={(e) => setSection(e.target.value)} placeholder="101" />
         </Field>
       </div>
-      <Field label={t("formTitle", { ns: PAGE.App })}>
+      <Field label={t("formTitle", { ns: PAGE.App })} optional={t("optional", { ns: PAGE.App })}>
         <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Introduction to Cybersecurity" />
       </Field>
       <div className="grid gap-3 sm:grid-cols-2">
@@ -130,7 +128,10 @@ export default function CourseForm({ initial, submitLabel, onCancel, onSubmit }:
         <p className="mt-1 text-[11px] text-muted-foreground">{t("formCourseTypeHint", { ns: PAGE.App })}</p>
       </Field>
       <div>
-        <p className="mb-2 text-sm font-medium">{t("formDays", { ns: PAGE.App })}</p>
+        <p className="mb-2 text-sm font-medium">
+          {t("formDays", { ns: PAGE.App })}
+          <span className="ml-1 font-normal text-muted-foreground">({t("optional", { ns: PAGE.App })})</span>
+        </p>
         <div className="flex flex-wrap gap-3">
           {WEEK_DAYS.map((day) => (
             <label key={day} className="flex items-center gap-2 text-sm">
@@ -139,24 +140,25 @@ export default function CourseForm({ initial, submitLabel, onCancel, onSubmit }:
             </label>
           ))}
         </div>
+        <p className="mt-1 text-[11px] text-muted-foreground">{t("formDaysHint", { ns: PAGE.App })}</p>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label={t("formStart", { ns: PAGE.App })}>
+        <Field label={t("formStart", { ns: PAGE.App })} optional={t("optional", { ns: PAGE.App })}>
           <Input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
         </Field>
-        <Field label={t("formEnd", { ns: PAGE.App })}>
+        <Field label={t("formEnd", { ns: PAGE.App })} optional={t("optional", { ns: PAGE.App })}>
           <Input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
         </Field>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
-        <Field label={t("formBuilding", { ns: PAGE.App })}>
+        <Field label={t("formBuilding", { ns: PAGE.App })} optional={t("optional", { ns: PAGE.App })}>
           <Input value={building} onChange={(e) => setBuilding(e.target.value)} placeholder="CHBE" />
         </Field>
-        <Field label={t("formRoom", { ns: PAGE.App })}>
+        <Field label={t("formRoom", { ns: PAGE.App })} optional={t("optional", { ns: PAGE.App })}>
           <Input value={room} onChange={(e) => setRoom(e.target.value)} placeholder="102" />
         </Field>
       </div>
-      <Field label={t("formInstructor", { ns: PAGE.App })}>
+      <Field label={t("formInstructor", { ns: PAGE.App })} optional={t("optional", { ns: PAGE.App })}>
         <Input value={instructor} onChange={(e) => setInstructor(e.target.value)} />
       </Field>
       <div>
@@ -198,10 +200,13 @@ function termI18n(term: Term): "winterTerm1" | "winterTerm2" | "summerTerm1" | "
   }
 }
 
-function Field({ label, children }: { label: string; children: ReactNode }) {
+function Field({ label, optional, children }: { label: string; optional?: string; children: ReactNode }) {
   return (
     <div className="grid gap-1.5">
-      <Label>{label}</Label>
+      <Label>
+        {label}
+        {optional ? <span className="ml-1 font-normal text-muted-foreground">({optional})</span> : null}
+      </Label>
       {children}
     </div>
   );

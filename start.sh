@@ -3,17 +3,35 @@
 set -euo pipefail
 
 echo "==> loading menv (if present)"
+# AquaWorks: source with || true. use-menv.sh runs `rustc --version | head -1`;
+# SIGPIPE (141) would abort this script under set -e. MENV_RUST skips the TTY menu.
 export MENV_RUST="${MENV_RUST:-gnu}"
+MENV_SH=""
 if [ -f /volume1/Environments/use-menv.sh ]; then
-  # shellcheck source=/dev/null
-  . /volume1/Environments/use-menv.sh || true
+  MENV_SH=/volume1/Environments/use-menv.sh
 elif [ -f /home/ubuntu/Environments/use-menv.sh ]; then
+  MENV_SH=/home/ubuntu/Environments/use-menv.sh
+fi
+if [ -n "$MENV_SH" ]; then
+  set +e
   # shellcheck source=/dev/null
-  . /home/ubuntu/Environments/use-menv.sh || true
+  . "$MENV_SH" || true
+  set -e
+else
+  echo "WARN: use-menv.sh not found; using whatever node is on PATH" >&2
 fi
 
 cd "$(dirname "$0")"
 echo "==> cwd: $(pwd)"
+echo "==> menv: ${MENV_SH:-none}"
+echo "==> node: $(command -v node || true)"
+case "$(command -v node || true)" in
+  */Environments/.node/bin/node) ;;
+  *)
+    echo "ERROR: node must come from menv (Environments/.node/bin/node)" >&2
+    exit 1
+    ;;
+esac
 
 echo "==> loading .env.prod.local (if present)"
 set -a
@@ -27,11 +45,27 @@ HOST_PORT="${TIMETABLECRAFT_WEB_PORT:-10009}"
 RESTART="${TIMETABLECRAFT_WEB_RESTART:-unless-stopped}"
 
 # ASUSTOR 等精简 Linux 宿主机缺 libatk 等库，预渲染在 Playwright 官方镜像内执行
-# 镜像 tag 必须与 package.json 里 playwright 版本一致，否则 chromium 二进制会对不上
-echo "==> resolve Playwright version from package.json"
-PLAYWRIGHT_VERSION="$(node -p "require('./package.json').devDependencies.playwright.replace(/^[^\d]*/, '')" || true)"
-PLAYWRIGHT_VERSION="${PLAYWRIGHT_VERSION:-1.61.1}"
-PRERENDER_IMAGE="${PRERENDER_IMAGE:-mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble}"
+# 镜像 tag 必须与【实际安装的】playwright 一致（node_modules / lockfile），
+# 不能用 package.json 里的 ^range 去拼镜像，否则 chromium 路径会对不上
+resolve_playwright_version() {
+  node -e '
+    const fs = require("fs");
+    const read = (p) => { try { return JSON.parse(fs.readFileSync(p, "utf8")); } catch { return null; } };
+    const installed = read("node_modules/playwright/package.json");
+    if (installed?.version) { process.stdout.write(installed.version); process.exit(0); }
+    const lock = read("package-lock.json");
+    const locked = lock?.packages?.["node_modules/playwright"]?.version;
+    if (locked) { process.stdout.write(locked); process.exit(0); }
+    const declared = String(read("package.json")?.devDependencies?.playwright ?? "").replace(/^[^\d]*/, "");
+    process.stdout.write(declared.split(" ")[0] || "1.63.0");
+  ' 2>/dev/null || true
+}
+
+echo "==> resolve Playwright version from installed package / lockfile"
+PLAYWRIGHT_VERSION="$(resolve_playwright_version)"
+PLAYWRIGHT_VERSION="${PLAYWRIGHT_VERSION:-1.63.0}"
+PRERENDER_IMAGE_OVERRIDE="${PRERENDER_IMAGE:-}"
+PRERENDER_IMAGE="${PRERENDER_IMAGE_OVERRIDE:-mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble}"
 echo "    playwright=${PLAYWRIGHT_VERSION}"
 echo "    image=${PRERENDER_IMAGE}"
 echo "    web_image=${IMAGE_NAME}"
@@ -61,6 +95,12 @@ run_prerender() {
   else
     echo "==> node_modules/playwright present, skip npm ci"
   fi
+
+  PLAYWRIGHT_VERSION="$(resolve_playwright_version)"
+  PLAYWRIGHT_VERSION="${PLAYWRIGHT_VERSION:-1.63.0}"
+  PRERENDER_IMAGE="${PRERENDER_IMAGE_OVERRIDE:-mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble}"
+  echo "    playwright=${PLAYWRIGHT_VERSION}"
+  echo "    image=${PRERENDER_IMAGE}"
 
   local base_url="http://localhost:${HOST_PORT}"
   local run_mode="host"
