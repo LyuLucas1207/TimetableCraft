@@ -1,0 +1,75 @@
+{
+  "languageSwitcher": {
+    "english": "English",
+    "chinese": "中文",
+    "french": "Français"
+  },
+  "header": {
+    "home": "Home",
+    "tools": "Tools",
+    "guide": "Guide",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "preferences": "Preferences",
+    "theme": "Theme",
+    "appearance": "Appearance",
+    "appearanceMode": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": "Language",
+    "exportPng": "Export PNG",
+    "reset": "Reset"
+  },
+  "footer": {
+    "tag": "Timetable Craft — free UBC student tools in the browser. Start with Schedule Maker."
+  },
+  "common": {
+    "or": "OR",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "hide": "Hide",
+    "show": "Show",
+    "close": "Close",
+    "continue": "Continue",
+    "browse": "Browse files",
+    "addCourse": "Add course",
+    "winterTerm1": "Winter Term 1",
+    "winterTerm2": "Winter Term 2",
+    "summerTerm1": "Summer Term 1",
+    "summerTerm2": "Summer Term 2",
+    "customTitle": "Custom",
+    "time": "Time"
+  },
+  "days": {
+    "Monday": "Monday",
+    "Tuesday": "Tuesday",
+    "Wednesday": "Wednesday",
+    "Thursday": "Thursday",
+    "Friday": "Friday",
+    "Mon": "Mon",
+    "Tue": "Tue",
+    "Wed": "Wed",
+    "Thu": "Thu",
+    "Fri": "Fri"
+  },
+  "formats": {
+    "Lecture": "Lecture",
+    "Laboratory": "Lab",
+    "Discussion": "Discussion",
+    "Tutorial": "Tutorial",
+    "Thesis": "Thesis",
+    "Other": "Other"
+  },
+  "courseTypes": {
+    "Active": "Active",
+    "Waitlist": "Waitlist",
+    "Drop": "Dropped"
+  },
+  "logoTagline": "Free UBC student tools"
+}

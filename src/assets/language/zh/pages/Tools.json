@@ -1,0 +1,13 @@
+{
+  "title": "工具",
+  "lead": "给 UBC 学生用的免费浏览器工具。现在有一个能用，更多还在开发。",
+  "seoTitle": "工具 | Timetable Craft",
+  "seoDescription": "免费的 UBC 学生浏览器工具。打开课表制作器，或稍后再来看新工具。",
+  "scheduleMakerName": "课表制作器",
+  "scheduleMakerBody": "把 Workday View My Courses 的 Excel 变成周课表。勾选课程、改外观、导出 PNG。解析不会离开这台设备。",
+  "openTool": "打开课表制作器",
+  "comingSoonLabel": "即将推出",
+  "comingSoonName": "更多工具开发中",
+  "comingSoonBody": "之后的工具会放在这里。课表制作器是第一个，GPA、考试规划等还在做。",
+  "available": "可用"
+}

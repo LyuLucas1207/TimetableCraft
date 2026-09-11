@@ -1,0 +1,16 @@
+{
+  "title": "Exportez View My Courses depuis Workday.",
+  "lead": "L’analyseur attend l’Excel fourni par Workday, pas une capture d’écran ni un PDF.",
+  "step1": "Ouvrir Workday",
+  "step1b": "Connectez-vous, puis Academics → View My Courses.",
+  "step2": "Exporter Excel",
+  "step2b": "Utilisez l’export tableur en .xlsx ou .xls.",
+  "step3": "Importer le fichier",
+  "step3b": "Utilisez Importer Excel. Les colonnes sont lues par nom d’en-tête.",
+  "step4": "Choisissez la grille",
+  "step4b": "Rien n’est placé automatiquement. Cochez les cours inscrits, ajoutez la liste d’attente en pointillés, et laissez les abandons de côté.",
+  "note": "Les laboratoires sans horaire restent dans la liste pour que vous ajoutiez un créneau.",
+  "ctaOpen": "Ouvrir le créateur d’horaire",
+  "seoTitle": "Guide | Timetable Craft",
+  "seoDescription": "Comment exporter l’Excel UBC Workday View My Courses et construire un horaire localement."
+}

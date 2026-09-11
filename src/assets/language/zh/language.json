@@ -1,0 +1,75 @@
+{
+  "languageSwitcher": {
+    "english": "English",
+    "chinese": "中文",
+    "french": "Français"
+  },
+  "header": {
+    "home": "首页",
+    "tools": "工具",
+    "guide": "指南",
+    "faq": "常见问题",
+    "contact": "联系",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "preferences": "偏好设置",
+    "theme": "主题",
+    "appearance": "外观",
+    "appearanceMode": {
+      "light": "浅色",
+      "dark": "深色",
+      "system": "跟随系统"
+    },
+    "language": "语言",
+    "exportPng": "导出 PNG",
+    "reset": "重置"
+  },
+  "footer": {
+    "tag": "Timetable Craft — 给 UBC 学生用的免费浏览器工具。先从课表制作器开始。"
+  },
+  "common": {
+    "or": "或",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "hide": "隐藏",
+    "show": "显示",
+    "close": "关闭",
+    "continue": "继续",
+    "browse": "选择文件",
+    "addCourse": "添加课程",
+    "winterTerm1": "冬季学期 1",
+    "winterTerm2": "冬季学期 2",
+    "summerTerm1": "夏季学期 1",
+    "summerTerm2": "夏季学期 2",
+    "customTitle": "自定义",
+    "time": "时间"
+  },
+  "days": {
+    "Monday": "周一",
+    "Tuesday": "周二",
+    "Wednesday": "周三",
+    "Thursday": "周四",
+    "Friday": "周五",
+    "Mon": "周一",
+    "Tue": "周二",
+    "Wed": "周三",
+    "Thu": "周四",
+    "Fri": "周五"
+  },
+  "formats": {
+    "Lecture": "讲座",
+    "Laboratory": "实验",
+    "Discussion": "讨论课",
+    "Tutorial": "辅导课",
+    "Thesis": "论文",
+    "Other": "其他"
+  },
+  "courseTypes": {
+    "Active": "在读",
+    "Waitlist": "候补",
+    "Drop": "已退"
+  },
+  "logoTagline": "免费 UBC 学生工具"
+}

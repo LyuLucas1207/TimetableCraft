@@ -1,0 +1,13 @@
+{
+  "title": "Tools",
+  "lead": "Free browser tools for UBC students. One is ready now; more are in development.",
+  "seoTitle": "Tools | Timetable Craft",
+  "seoDescription": "Free UBC student tools in the browser. Open Schedule Maker, or check back for more.",
+  "scheduleMakerName": "Schedule Maker",
+  "scheduleMakerBody": "Turn a Workday View My Courses Excel file into a weekly timetable. Pick courses, restyle the card, export PNG. Parsing never leaves this device.",
+  "openTool": "Open Schedule Maker",
+  "comingSoonLabel": "Coming soon",
+  "comingSoonName": "More tools in development",
+  "comingSoonBody": "The next tools will live here. Schedule Maker is the first — GPA, exam planners, and the rest are still being built.",
+  "available": "Available"
+}

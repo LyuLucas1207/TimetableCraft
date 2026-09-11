@@ -1,0 +1,23 @@
+{
+  "kicker": "Timetable Craft",
+  "headline": "Des outils gratuits pour une semaine UBC plus claire.",
+  "support": "Une petite suite publique, gratuite, qui reste dans le navigateur. Commencez par le créateur d’horaire : importez l’Excel Workday, choisissez les cours, exportez un PNG.",
+  "ctaOpen": "Ouvrir le créateur d’horaire",
+  "ctaTools": "Voir les outils",
+  "ctaGuide": "Exporter l’Excel",
+  "privacyBadge": "Privé par conception",
+  "featuredLabel": "Outil mis en avant",
+  "featuredName": "Créateur d’horaire",
+  "featuredBody": "Importez View My Courses, choisissez la grille, personnalisez la carte, téléchargez un PNG. Rien n’est envoyé.",
+  "howTitle": "Comment fonctionne le premier outil",
+  "how1": "Import local",
+  "how1b": "L’Excel est analysé dans cet onglet. Fermer la page n’envoie pas le fichier.",
+  "how2": "Vous choisissez la grille",
+  "how2b": "Rien n’est placé automatiquement. Cochez les cours inscrits, ajoutez la liste d’attente en pointillés, laissez les abandons de côté.",
+  "how3": "Export à la demande",
+  "how3b": "Le PNG capture la carte d’horaire, pas les boutons d’édition autour.",
+  "privacyTitle": "Sans compte. Sans envoi.",
+  "privacyBody": "L’horaire reste dans ce navigateur jusqu’à la réinitialisation. Workday reste la source ; confirmez-y les horaires.",
+  "seoTitle": "Timetable Craft — outils UBC gratuits",
+  "seoDescription": "Outils gratuits dans le navigateur pour les étudiants UBC. Ouvrez le créateur d’horaire pour transformer un Excel Workday en grille, sans envoyer le fichier."
+}

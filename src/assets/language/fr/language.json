@@ -1,0 +1,75 @@
+{
+  "languageSwitcher": {
+    "english": "English",
+    "chinese": "中文",
+    "french": "Français"
+  },
+  "header": {
+    "home": "Accueil",
+    "tools": "Outils",
+    "guide": "Guide",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "preferences": "Préférences",
+    "theme": "Thème",
+    "appearance": "Apparence",
+    "appearanceMode": {
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système"
+    },
+    "language": "Langue",
+    "exportPng": "Exporter PNG",
+    "reset": "Réinitialiser"
+  },
+  "footer": {
+    "tag": "Timetable Craft — outils UBC gratuits dans le navigateur. Commencez par le créateur d’horaire."
+  },
+  "common": {
+    "or": "OU",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "hide": "Masquer",
+    "show": "Afficher",
+    "close": "Fermer",
+    "continue": "Continuer",
+    "browse": "Parcourir",
+    "addCourse": "Ajouter un cours",
+    "winterTerm1": "Trimestre d’hiver 1",
+    "winterTerm2": "Trimestre d’hiver 2",
+    "summerTerm1": "Trimestre d’été 1",
+    "summerTerm2": "Trimestre d’été 2",
+    "customTitle": "Personnalisé",
+    "time": "Heure"
+  },
+  "days": {
+    "Monday": "Lundi",
+    "Tuesday": "Mardi",
+    "Wednesday": "Mercredi",
+    "Thursday": "Jeudi",
+    "Friday": "Vendredi",
+    "Mon": "Lun",
+    "Tue": "Mar",
+    "Wed": "Mer",
+    "Thu": "Jeu",
+    "Fri": "Ven"
+  },
+  "formats": {
+    "Lecture": "Cours",
+    "Laboratory": "Laboratoire",
+    "Discussion": "Discussion",
+    "Tutorial": "Tutorat",
+    "Thesis": "Mémoire",
+    "Other": "Autre"
+  },
+  "courseTypes": {
+    "Active": "Inscrit",
+    "Waitlist": "Liste d’attente",
+    "Drop": "Abandonné"
+  },
+  "logoTagline": "Outils UBC gratuits"
+}

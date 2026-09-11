@@ -1,0 +1,19 @@
+{
+  "title": "Questions fréquentes.",
+  "lead": "Fichiers, types de cours et export.",
+  "q1": "Mon Excel est-il envoyé ?",
+  "a1": "Non. L’analyse se fait dans le navigateur. Fermer l’onglet n’envoie pas le fichier.",
+  "q2": "Pourquoi un laboratoire n’apparaît pas ?",
+  "a2": "Si l’horaire est vide, ajoutez d’abord un créneau, puis placez le cours sur la grille.",
+  "q3": "Inscrit, liste d’attente, abandonné ?",
+  "a3": "Inscrit : trait plein. Liste d’attente : pointillés. Abandonné : points. Rien n’est placé tant que vous ne cochez pas le cours.",
+  "q4": "Comment les crédits sont-ils comptés ?",
+  "a4": "Par cours unique (sigle + numéro + session). Un cours et sa discussion ne doublent pas les crédits.",
+  "q5": "Puis-je modifier un cours importé ?",
+  "a5": "Oui. La modification met à jour la liste dans le navigateur. L’Excel original n’est pas réécrit.",
+  "seoTitle": "FAQ | Timetable Craft",
+  "seoDescription": "Réponses sur l’analyse Excel locale, listes d’attente, laboratoires, crédits et export PNG.",
+  "contactTitle": "Autre chose ?",
+  "contactBody": "Suggestions ou questions : {{email}}.",
+  "contactCta": "Envoyer un e-mail"
+}

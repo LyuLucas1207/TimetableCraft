@@ -1,0 +1,13 @@
+{
+  "title": "Outils",
+  "lead": "Outils gratuits dans le navigateur pour les étudiants UBC. Un est prêt ; d’autres sont en cours.",
+  "seoTitle": "Outils | Timetable Craft",
+  "seoDescription": "Outils UBC gratuits dans le navigateur. Ouvrez le créateur d’horaire, ou revenez pour la suite.",
+  "scheduleMakerName": "Créateur d’horaire",
+  "scheduleMakerBody": "Transformez un Excel Workday View My Courses en horaire hebdomadaire. Choisissez les cours, personnalisez, exportez en PNG. L’analyse reste sur l’appareil.",
+  "openTool": "Ouvrir le créateur d’horaire",
+  "comingSoonLabel": "Bientôt",
+  "comingSoonName": "D’autres outils en développement",
+  "comingSoonBody": "Les prochains outils apparaîtront ici. Le créateur d’horaire est le premier ; GPA, planning d’examens et le reste sont encore en construction.",
+  "available": "Disponible"
+}

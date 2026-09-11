@@ -1,0 +1,23 @@
+{
+  "kicker": "Timetable Craft",
+  "headline": "Free tools for a clearer UBC week.",
+  "support": "A small public toolkit that stays in your browser. Start with Schedule Maker: import Workday Excel, choose courses, export a timetable PNG.",
+  "ctaOpen": "Open Schedule Maker",
+  "ctaTools": "Browse tools",
+  "ctaGuide": "How to export Excel",
+  "privacyBadge": "Private by design",
+  "featuredLabel": "Featured tool",
+  "featuredName": "Schedule Maker",
+  "featuredBody": "Upload View My Courses, pick what belongs on the grid, restyle the card, and download a PNG. Nothing is uploaded.",
+  "howTitle": "How the first tool works",
+  "how1": "Import locally",
+  "how1b": "The Excel is parsed in this tab. Closing the page does not send the file anywhere.",
+  "how2": "You choose the grid",
+  "how2b": "Nothing is placed automatically. Check Active courses, add Waitlist as dashed blocks, keep Dropped off.",
+  "how3": "Export when you need it",
+  "how3b": "PNG captures the timetable card only — not the editors around it.",
+  "privacyTitle": "No account. No upload.",
+  "privacyBody": "Schedules live in this browser until you reset them. Workday remains the source of record; always confirm times there.",
+  "seoTitle": "Timetable Craft — free UBC student tools",
+  "seoDescription": "Free browser tools for UBC students. Open Schedule Maker to turn Workday Excel into a weekly timetable without uploading your file."
+}

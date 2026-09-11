@@ -1,0 +1,21 @@
+{
+  "title": "Un outil d’horaire local pour les étudiants UBC.",
+  "lead": "Voyez la semaine clairement, sans envoyer vos inscriptions ailleurs.",
+  "body": "Workday reste la source. Ce site lit un Excel dans le navigateur, liste chaque section, puis vous laisse choisir la grille.",
+  "bodyMore": "Non affilié à l’UBC. Horaires et salles peuvent changer ; confirmez dans Workday.",
+  "p1": "Un seul modèle de cours",
+  "p1b": "Import Excel et saisie manuelle deviennent les mêmes objets. L’horaire ignore la provenance.",
+  "p2": "Sans compte",
+  "p2b": "Pas de connexion serveur. L’horaire reste dans ce navigateur jusqu’à la réinitialisation.",
+  "p3": "Export à la demande",
+  "p3b": "Le PNG capture la carte d’horaire, pas les boutons d’édition.",
+  "privacyTitle": "Confidentialité",
+  "privacyBody": "Votre Excel ne quitte pas l’appareil. Analyse, mise en page et export se font localement. Réinitialiser efface l’horaire de ce navigateur.",
+  "ctaTools": "Voir les outils",
+  "ctaGuide": "Lire le guide",
+  "contactTitle": "Contact",
+  "contactBody": "Suggestions, bugs ou questions : écrivez à {{email}}. Projet étudiant indépendant, pas un service officiel UBC ou Workday.",
+  "contactCta": "Envoyer un e-mail",
+  "seoTitle": "Contact | Timetable Craft",
+  "seoDescription": "Timetable Craft est un générateur d’horaire UBC 100 % navigateur. Suggestions : lyuchongkai@gmail.com. Non affilié à l’université."
+}
