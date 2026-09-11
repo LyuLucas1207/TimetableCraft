@@ -1,14 +1,18 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import { cn } from "cn";
 
-import { DownloadIcon, ExpandIcon, EyeIcon, FileDescriptionIcon, LayoutBottombarCollapseIcon, RefreshIcon, SlidersHorizontalIcon, UserPlusIcon } from "@/animations";
+import { DownloadIcon, ExpandIcon, EyeIcon, FocusIcon, LayoutBottombarCollapseIcon, MagnifierIcon, RefreshIcon, SlidersHorizontalIcon, UserPlusIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
 import Logo from "@/components/Logo";
 import PreferencesPopover from "@/components/PreferencesPopover";
 import CourseList from "@/components/courses/CourseList";
 import ExcelUploader from "@/components/import/ExcelUploader";
+import ImportExcelButton from "@/components/import/ImportExcelButton";
+import WorkdayExportHint from "@/components/import/WorkdayExportHint";
 import ExportOptionsPopover from "@/components/schedule/ExportOptionsPopover";
+import FitWidthFrame from "@/components/schedule/FitWidthFrame";
 import AppearanceEditor, { ColorField, RegionEdit, SizeField, ToggleRow } from "@/components/timetable/AppearanceEditor";
 import TitlePicker from "@/components/timetable/TitlePicker";
 import Timetable from "@/components/timetable/Timetable";
@@ -28,10 +32,12 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { parseManualCourseCode, courseKeyOf, formatCourseCode, normalizeFormat } from "@/parser/courseListingParser";
 import { hideModal, ModalTypeEnum, selectTimetableCourses, showCourseModal, useModalStore, useScheduleStore, type ManualCourseInput } from "@/stores";
-import { ColorPreset, CourseType, EXPORT_ASPECT_RATIO, ImportMode, TitlePreset, termFromTitlePreset, type Course, type WeekDay } from "@/types/course";
+import { ColorPreset, CourseType, ImportMode, TitlePreset, termFromTitlePreset, type Course, type WeekDay } from "@/types/course";
 import { createId } from "@/utils/ids";
-import { exportNodeToPng } from "@/utils/exportImage";
+import { exportNodeToPng, resolveExportAspectRatio } from "@/utils/exportImage";
 import { parseOptionalTimeRange } from "@/utils/time";
+
+const FIT_TO_WIDTH_MQ = "(max-width: 1023px)";
 
 export default function ScheduleWorkspace() {
   const { t } = useTranslation([PAGE.App, LANG_NS]);
@@ -62,6 +68,26 @@ export default function ScheduleWorkspace() {
   const [resetOpen, setResetOpen] = useState(false);
   const [customizeOpen, setCustomizeOpen] = useState(false);
   const [focusCourseId, setFocusCourseId] = useState<string | null>(null);
+  const [mobilePane, setMobilePane] = useState<"courses" | "timetable">("timetable");
+  const [fitToWidth, setFitToWidth] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia(FIT_TO_WIDTH_MQ).matches,
+  );
+  const fitUserSetRef = useRef(false);
+
+  useLayoutEffect(() => {
+    const mq = window.matchMedia(FIT_TO_WIDTH_MQ);
+    const sync = () => {
+      if (!fitUserSetRef.current) setFitToWidth(mq.matches);
+    };
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  const toggleFitToWidth = () => {
+    fitUserSetRef.current = true;
+    setFitToWidth((on) => !on);
+  };
 
   const openCreate = () => {
     showCourseModal({
@@ -194,13 +220,48 @@ export default function ScheduleWorkspace() {
       return;
     }
     await exportNodeToPng(exportRef.current, `${slugify(settings.title)}.png`, {
-      aspectRatio: EXPORT_ASPECT_RATIO[settings.exportAspect],
+      aspectRatio: resolveExportAspectRatio(settings),
     });
   };
 
   return (
-    <div className="grid h-full min-h-0 grid-cols-1 grid-rows-[minmax(12rem,42%)_minmax(0,1fr)] gap-4 overflow-hidden lg:grid-cols-[minmax(280px,360px)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-5">
-      <aside className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border bg-card shadow-sm">
+    <div className="flex h-full min-h-0 flex-col gap-3 overflow-hidden lg:grid lg:grid-cols-[minmax(260px,340px)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-5">
+      <div className="flex shrink-0 items-center gap-2 lg:hidden">
+        <div className="grid min-w-0 flex-1 grid-cols-2 rounded-xl border bg-card p-1 shadow-sm">
+          <button
+            type="button"
+            className={cn(
+              "rounded-lg px-3 py-2 text-sm font-medium",
+              mobilePane === "courses" ? "bg-foreground text-background" : "text-muted-foreground",
+            )}
+            onClick={() => setMobilePane("courses")}
+          >
+            {t("courseList")}
+          </button>
+          <button
+            type="button"
+            className={cn(
+              "rounded-lg px-3 py-2 text-sm font-medium",
+              mobilePane === "timetable" ? "bg-foreground text-background" : "text-muted-foreground",
+            )}
+            onClick={() => setMobilePane("timetable")}
+          >
+            {t("mobileTimetable")}
+          </button>
+        </div>
+        <ImportExcelButton compact className="shrink-0" onClick={() => setImportOpen(true)} />
+        <HoverIconButton size="sm" className="shrink-0" icon={UserPlusIcon} aria-label={t("common.addCourse", { ns: LANG_NS })} onClick={openCreate}>
+          <span className="sr-only">{t("common.addCourse", { ns: LANG_NS })}</span>
+        </HoverIconButton>
+      </div>
+
+      <aside
+        className={cn(
+          "min-h-0 flex-col overflow-hidden rounded-2xl border bg-card shadow-sm",
+          mobilePane === "courses" ? "flex flex-1" : "hidden",
+          "lg:flex lg:h-full lg:min-h-0",
+        )}
+      >
         <div className="shrink-0 space-y-3 p-4 pb-3">
           <div className="flex items-baseline justify-between gap-2">
             <h2 className="text-lg font-semibold">{t("courseList")}</h2>
@@ -208,10 +269,8 @@ export default function ScheduleWorkspace() {
               {t("catalogCounts", { total: courses.length, on: onTimetableCount })}
             </p>
           </div>
-          <div className="flex gap-2">
-            <HoverIconButton variant="outline" size="sm" className="min-w-0 flex-1" icon={FileDescriptionIcon} onClick={() => setImportOpen(true)}>
-              {t("importExcel")}
-            </HoverIconButton>
+          <div className="hidden gap-2 lg:flex">
+            <ImportExcelButton className="min-w-0 flex-1" onClick={() => setImportOpen(true)} />
             <HoverIconButton size="sm" className="min-w-0 flex-1" icon={UserPlusIcon} onClick={openCreate}>
               {t("common.addCourse", { ns: LANG_NS })}
             </HoverIconButton>
@@ -234,38 +293,55 @@ export default function ScheduleWorkspace() {
         </div>
       </aside>
 
-      <section className="flex min-h-0 min-w-0 flex-col gap-4 overflow-hidden">
+      <section
+        className={cn(
+          "min-h-0 min-w-0 flex-col gap-3 overflow-hidden lg:gap-4",
+          mobilePane === "timetable" ? "flex flex-1" : "hidden",
+          "lg:flex lg:min-h-0",
+        )}
+      >
         <TitlePicker settings={settings} selectedTerm={selectedTerm} onSelectPreset={onSelectPreset} />
-        <div className="flex shrink-0 flex-wrap items-center gap-2">
-          <Logo />
-          <HoverIconButton variant="outline" size="sm" icon={SlidersHorizontalIcon} onClick={() => setCustomizeOpen(true)}>
-            {t("customize")}
+        <div className="flex shrink-0 flex-wrap items-center gap-1.5 md:gap-2">
+          <Logo compact className="mr-1 hidden min-[420px]:flex" />
+          <HoverIconButton variant="outline" size="sm" icon={SlidersHorizontalIcon} aria-label={t("customize")} onClick={() => setCustomizeOpen(true)}>
+            <span className="max-md:sr-only">{t("customize")}</span>
           </HoverIconButton>
-          <HoverIconButton variant="outline" size="sm" icon={EyeIcon} onClick={() => setPreviewOpen(true)} disabled={visible.length === 0}>
-            {t("preview")}
+          <HoverIconButton variant="outline" size="sm" icon={EyeIcon} aria-label={t("preview")} onClick={() => setPreviewOpen(true)} disabled={visible.length === 0}>
+            <span className="max-md:sr-only">{t("preview")}</span>
           </HoverIconButton>
           <HoverIconButton
             variant={settings.collapseEmptyTime ? "default" : "outline"}
             size="sm"
             icon={settings.collapseEmptyTime ? ExpandIcon : LayoutBottombarCollapseIcon}
+            aria-label={settings.collapseEmptyTime ? t("collapseToggleUnfold") : t("collapseToggleFold")}
             onClick={() => setSettings({ collapseEmptyTime: !settings.collapseEmptyTime })}
           >
-            {settings.collapseEmptyTime ? t("collapseToggleUnfold") : t("collapseToggleFold")}
+            <span className="max-md:sr-only">{settings.collapseEmptyTime ? t("collapseToggleUnfold") : t("collapseToggleFold")}</span>
           </HoverIconButton>
-          <HoverIconButton variant="outline" size="sm" icon={RefreshIcon} onClick={() => setResetOpen(true)}>
-            {t("header.reset", { ns: LANG_NS })}
+          <HoverIconButton
+            variant={fitToWidth ? "default" : "outline"}
+            size="sm"
+            className="lg:hidden"
+            icon={fitToWidth ? MagnifierIcon : FocusIcon}
+            aria-label={fitToWidth ? t("fitToggleScroll") : t("fitToggleShrink")}
+            onClick={toggleFitToWidth}
+          >
+            <span className="max-md:sr-only">{fitToWidth ? t("fitToggleScroll") : t("fitToggleShrink")}</span>
           </HoverIconButton>
-          <div className="ml-auto flex shrink-0 items-center gap-2">
+          <HoverIconButton variant="outline" size="sm" icon={RefreshIcon} aria-label={t("header.reset", { ns: LANG_NS })} onClick={() => setResetOpen(true)}>
+            <span className="max-md:sr-only">{t("header.reset", { ns: LANG_NS })}</span>
+          </HoverIconButton>
+          <div className="ml-auto flex shrink-0 items-center gap-1.5 md:gap-2">
             <PreferencesPopover />
-            <HoverIconButton size="sm" icon={DownloadIcon} onClick={() => void exportPng()} disabled={visible.length === 0}>
-              {t("header.exportPng", { ns: LANG_NS })}
+            <HoverIconButton size="sm" icon={DownloadIcon} aria-label={t("header.exportPng", { ns: LANG_NS })} onClick={() => void exportPng()} disabled={visible.length === 0}>
+              <span className="max-md:sr-only">{t("header.exportPng", { ns: LANG_NS })}</span>
             </HoverIconButton>
             <ExportOptionsPopover />
           </div>
         </div>
 
         <div className="relative min-h-0 flex-1 overflow-hidden">
-          <div className="h-full overflow-auto overscroll-contain pt-1">
+          <FitWidthFrame enabled={fitToWidth} className="pt-1">
             <Timetable
               courses={visible}
               settings={settings}
@@ -285,28 +361,43 @@ export default function ScheduleWorkspace() {
                 </RegionEdit>
               }
             />
-          </div>
+          </FitWidthFrame>
         </div>
       </section>
 
       <Dialog open={importOpen} onOpenChange={setImportOpen}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="max-h-[85dvh] overflow-y-auto sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>{t("importExcel", { ns: PAGE.App })}</DialogTitle>
             <DialogDescription>{t("uploadBody", { ns: PAGE.App })}</DialogDescription>
           </DialogHeader>
+          <WorkdayExportHint />
           <ExcelUploader onFile={handleFile} />
         </DialogContent>
       </Dialog>
 
       <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
-        <DialogContent className="flex max-h-[90vh] flex-col overflow-hidden sm:max-w-5xl">
-          <DialogHeader>
-            <DialogTitle>{t("preview", { ns: PAGE.App })}</DialogTitle>
-            <DialogDescription>{t("previewBody", { ns: PAGE.App })}</DialogDescription>
+        <DialogContent className="flex max-h-[90dvh] w-[calc(100%-1.25rem)] min-h-0 flex-col overflow-hidden sm:max-w-5xl">
+          <DialogHeader className="flex-row items-start justify-between gap-2 pr-8">
+            <div className="min-w-0 space-y-2">
+              <DialogTitle>{t("preview", { ns: PAGE.App })}</DialogTitle>
+              <DialogDescription>{t("previewBody", { ns: PAGE.App })}</DialogDescription>
+            </div>
+            <HoverIconButton
+              variant={fitToWidth ? "default" : "outline"}
+              size="sm"
+              className="lg:hidden shrink-0"
+              icon={fitToWidth ? MagnifierIcon : FocusIcon}
+              aria-label={fitToWidth ? t("fitToggleScroll") : t("fitToggleShrink")}
+              onClick={toggleFitToWidth}
+            >
+              <span className="sr-only">{fitToWidth ? t("fitToggleScroll") : t("fitToggleShrink")}</span>
+            </HoverIconButton>
           </DialogHeader>
-          <div className="min-h-0 flex-1 overflow-auto px-1 pb-2">
-            <Timetable courses={visible} settings={settings} interactive={false} />
+          <div className="min-h-0 flex-1 overflow-hidden">
+            <FitWidthFrame enabled={fitToWidth} className="px-1 pb-2">
+              <Timetable courses={visible} settings={settings} interactive={false} />
+            </FitWidthFrame>
           </div>
         </DialogContent>
       </Dialog>

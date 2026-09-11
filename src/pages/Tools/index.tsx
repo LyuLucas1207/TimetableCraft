@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ClockIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
 import MiniWeek from "@/components/marketing/MiniWeek";
+import WorkdayExportHint from "@/components/import/WorkdayExportHint";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { MarketingHero, PageFrame } from "@/layouts";
@@ -36,6 +37,7 @@ export default function ToolsPage() {
               <p className="text-xs font-bold tracking-wide text-[#002145] uppercase dark:text-sky-300">{t("available")}</p>
               <h2 className="mt-3 text-2xl font-semibold tracking-tight">{t("scheduleMakerName")}</h2>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">{t("scheduleMakerBody")}</p>
+              <WorkdayExportHint className="mt-4" />
               <div className="mt-5">
                 <MiniWeek />
               </div>

@@ -11,6 +11,8 @@
   "a4": "By unique course (subject + number + term). A lecture and its discussion do not double the credits.",
   "q5": "Can I edit an imported course?",
   "a5": "Yes. Editing updates the in-browser list only. The original Excel is never rewritten.",
+  "q6": "How do I get the Excel from Workday?",
+  "a6": "Open Workday, go to View My Courses, then under that title click the first icon (the one to the left of the PDF icon). Import the downloaded .xlsx in Schedule Maker.",
   "seoTitle": "FAQ | Timetable Craft",
   "seoDescription": "Answers about local Excel parsing, waitlists, unscheduled labs, credits, and PNG export.",
   "contactTitle": "Something else?",

@@ -10,7 +10,7 @@ import { absoluteUrl, breadcrumbJsonLd, softwareJsonLd } from "@/utils/seo";
 export default function ScheduleMakerPage() {
   const { t } = useTranslation([PAGE.Tools, LANG_NS]);
   return (
-    <PageFrame className="flex h-full min-h-0 flex-col overflow-hidden py-4 md:py-5" maxWidth={1680}>
+    <PageFrame className="flex h-full min-h-0 flex-col overflow-hidden px-3 py-3 md:px-6 md:py-5" maxWidth={1680}>
       <Seo
         title={t("scheduleMakerSeoTitle")}
         description={t("scheduleMakerSeoDescription")}

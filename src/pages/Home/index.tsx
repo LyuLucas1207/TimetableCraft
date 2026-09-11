@@ -29,10 +29,10 @@ export default function HomePage() {
         jsonLd={[softwareJsonLd(t("featuredBody"), absoluteUrl(ROUTES.TOOL_SCHEDULE_MAKER))]}
       />
       <MarketingHero kicker={t("kicker")} title={t("headline")} lead={t("support")}>
-        <HoverIconButton size="lg" icon={ClockIcon} nativeButton={false} render={<Link to={ROUTES.TOOL_SCHEDULE_MAKER} />}>
+        <HoverIconButton size="lg" className="w-full sm:w-auto" icon={ClockIcon} nativeButton={false} render={<Link to={ROUTES.TOOL_SCHEDULE_MAKER} />}>
           {t("ctaOpen")}
         </HoverIconButton>
-        <HoverIconButton size="lg" variant="outline" icon={UnorderedListIcon} nativeButton={false} render={<Link to={ROUTES.TOOLS} />}>
+        <HoverIconButton size="lg" className="w-full sm:w-auto" variant="outline" icon={UnorderedListIcon} nativeButton={false} render={<Link to={ROUTES.TOOLS} />}>
           {t("ctaTools")}
         </HoverIconButton>
       </MarketingHero>
@@ -59,6 +59,21 @@ export default function HomePage() {
             <p className="mt-3 text-sm font-medium text-foreground">{t("featuredName")}</p>
             <p className="mt-1 text-xs text-muted-foreground">{t("privacyBadge")}</p>
           </Link>
+        </div>
+
+        <h2 className="mt-20 text-2xl font-semibold tracking-tight">{t("excelHowTitle")}</h2>
+        <ol className="mt-6">
+          {(["excelHow1", "excelHow2", "excelHow3"] as const).map((key, index) => (
+            <li key={key} className="border-t py-6">
+              <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">{index + 1}</p>
+              <p className="mt-2 max-w-[48ch] text-sm leading-7 text-muted-foreground">{t(key)}</p>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-2">
+          <HoverIconButton variant="outline" icon={UploadIcon} nativeButton={false} render={<Link to={ROUTES.GUIDE} />}>
+            {t("ctaGuide")}
+          </HoverIconButton>
         </div>
 
         <h2 className="mt-20 text-2xl font-semibold tracking-tight">{t("howTitle")}</h2>

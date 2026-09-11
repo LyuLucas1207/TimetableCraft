@@ -106,6 +106,8 @@ export const DEFAULT_SETTINGS: TimetableSettings = {
   autoBounds: true,
   collapseEmptyTime: true,
   exportAspect: ExportAspect.Original,
+  exportScreenWidth: 0,
+  exportScreenHeight: 0,
   startTime: "08:00",
   endTime: "18:30",
   colorPreset: ColorPreset.Pastel,

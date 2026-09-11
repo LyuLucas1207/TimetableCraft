@@ -166,7 +166,7 @@ export default function CourseForm({
           {t("formMeeting", { ns: PAGE.App })}
           <span className="ml-1 font-normal text-muted-foreground">({t("optional", { ns: PAGE.App })})</span>
         </p>
-        <div className="flex items-center justify-between gap-3 rounded-xl border bg-muted/30 px-3 py-2.5">
+        <div className="flex flex-col gap-2 rounded-xl border bg-muted/30 px-3 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
           <p className="min-w-0 text-sm text-muted-foreground">
             <MeetingSummary days={days} startTime={startTime} endTime={endTime} />
           </p>
@@ -204,7 +204,7 @@ export default function CourseForm({
         </div>
       </div>
       {error ? <p className="text-sm text-destructive">{error}</p> : null}
-      <div className="flex justify-end gap-2 pt-2">
+      <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
         <Button type="button" variant="outline" onClick={onCancel}>
           {t("common.cancel", { ns: "language" })}
         </Button>

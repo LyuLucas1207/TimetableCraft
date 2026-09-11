@@ -24,7 +24,7 @@ export default function Course() {
         if (!open) close();
       }}
     >
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
+      <DialogContent className="max-h-[85dvh] w-[calc(100%-1.25rem)] overflow-y-auto p-3 sm:max-w-lg sm:p-4">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{t("buildTitle")}</DialogDescription>

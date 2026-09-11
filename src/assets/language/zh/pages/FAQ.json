@@ -11,6 +11,8 @@
   "a4": "按唯一课程（科目 + 课号 + 学期）。讲座和讨论课不会把学分算两次。",
   "q5": "导入的课能改吗？",
   "a5": "能。修改只更新浏览器里的列表，不会改原来的 Excel。",
+  "q6": "Workday 的 Excel 在哪下载？",
+  "a6": "打开 Workday，进入 View My Courses，在标题下方点 PDF 左边的第一个图标。下载后的 .xlsx 再导入课表制作器。",
   "seoTitle": "常见问题 | Timetable Craft",
   "seoDescription": "关于本地解析 Excel、候补、未排实验课、学分和 PNG 导出的说明。",
   "contactTitle": "还有别的问题？",

@@ -26,11 +26,11 @@ export default function MarketingHero({
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.28] [background-image:linear-gradient(to_right,color-mix(in_oklab,var(--foreground)_8%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklab,var(--foreground)_7%,transparent)_1px,transparent_1px)] [background-size:48px_64px] [mask-image:radial-gradient(ellipse_90%_80%_at_50%_40%,#000_35%,transparent_100%)]"
       />
-      <div className="relative mx-auto max-w-5xl px-4 py-16 md:px-6 md:py-24">
+      <div className="relative mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-24">
         <p className="text-xs font-bold tracking-wide text-[#002145] uppercase dark:text-sky-300">{kicker}</p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl">{title}</h1>
-        <p className="mt-4 max-w-[46ch] text-lg leading-7 text-muted-foreground">{lead}</p>
-        {children ? <div className="mt-8 flex flex-wrap gap-3">{children}</div> : null}
+        <h1 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">{title}</h1>
+        <p className="mt-4 max-w-[46ch] text-base leading-7 text-muted-foreground md:text-lg">{lead}</p>
+        {children ? <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{children}</div> : null}
       </div>
     </section>
   );

@@ -8,13 +8,25 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverHeader, PopoverTitle, PopoverTrigger } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { useScheduleStore } from "@/stores";
-import { EXPORT_ASPECTS, EXPORT_ASPECT_RATIO } from "@/types/course";
+import { ExportAspect, EXPORT_ASPECTS, EXPORT_ASPECT_RATIO } from "@/types/course";
+import { measureScreenSize } from "@/utils/exportImage";
 
 export default function ExportOptionsPopover() {
   const { t } = useTranslation(PAGE.App);
   const collapseEmptyTime = useScheduleStore((s) => s.settings.collapseEmptyTime);
   const exportAspect = useScheduleStore((s) => s.settings.exportAspect);
+  const exportScreenWidth = useScheduleStore((s) => s.settings.exportScreenWidth);
+  const exportScreenHeight = useScheduleStore((s) => s.settings.exportScreenHeight);
   const setSettings = useScheduleStore((s) => s.setSettings);
+
+  const selectAspect = (aspect: ExportAspect) => {
+    if (aspect === ExportAspect.Screen) {
+      const { width, height } = measureScreenSize();
+      setSettings({ exportAspect: aspect, exportScreenWidth: width, exportScreenHeight: height });
+      return;
+    }
+    setSettings({ exportAspect: aspect });
+  };
 
   return (
     <Popover>
@@ -28,7 +40,7 @@ export default function ExportOptionsPopover() {
           />
         }
       />
-      <PopoverContent align="end" className="w-80">
+      <PopoverContent align="end" className="w-[min(20rem,calc(100vw-2rem))]">
         <PopoverHeader>
           <PopoverTitle>{t("exportOptions")}</PopoverTitle>
         </PopoverHeader>
@@ -49,6 +61,15 @@ export default function ExportOptionsPopover() {
               {EXPORT_ASPECTS.map((aspect) => {
                 const ratio = EXPORT_ASPECT_RATIO[aspect];
                 const active = exportAspect === aspect;
+                const screenMeasured = exportScreenWidth > 0 && exportScreenHeight > 0;
+                const detail =
+                  aspect === ExportAspect.Screen
+                    ? screenMeasured
+                      ? `${exportScreenWidth} × ${exportScreenHeight}`
+                      : t("exportScreenTap")
+                    : ratio
+                      ? formatRatio(ratio)
+                      : null;
                 return (
                   <button
                     key={aspect}
@@ -56,13 +77,11 @@ export default function ExportOptionsPopover() {
                     className={`flex items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-muted ${
                       active ? "bg-muted" : ""
                     }`}
-                    onClick={() => setSettings({ exportAspect: aspect })}
+                    onClick={() => selectAspect(aspect)}
                   >
                     <span>
                       {t(`exportAspects.${aspect}`)}
-                      {ratio ? (
-                        <span className="ml-1.5 text-[11px] text-muted-foreground">{formatRatio(ratio)}</span>
-                      ) : null}
+                      {detail ? <span className="ml-1.5 text-[11px] text-muted-foreground">{detail}</span> : null}
                     </span>
                     {active ? <CheckIcon className="size-4" /> : null}
                   </button>

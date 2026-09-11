@@ -146,6 +146,7 @@ export enum ThemeMode {
 
 export enum ExportAspect {
   Original = "original",
+  Screen = "screen",
   Phone = "phone",
   Desktop = "desktop",
   DesktopWide = "desktopWide",
@@ -154,15 +155,17 @@ export enum ExportAspect {
 
 export const EXPORT_ASPECTS = [
   ExportAspect.Original,
+  ExportAspect.Screen,
   ExportAspect.Phone,
   ExportAspect.Desktop,
   ExportAspect.DesktopWide,
   ExportAspect.Square,
 ] as const;
 
-/** Width / height. `null` keeps the timetable’s natural size. */
+/** Width / height. `null` keeps the timetable’s natural size. Screen is measured on click. */
 export const EXPORT_ASPECT_RATIO: Record<ExportAspect, number | null> = {
   [ExportAspect.Original]: null,
+  [ExportAspect.Screen]: null,
   [ExportAspect.Phone]: 9 / 16,
   [ExportAspect.Desktop]: 16 / 9,
   [ExportAspect.DesktopWide]: 16 / 10,
@@ -238,6 +241,8 @@ export interface TimetableSettings {
   autoBounds: boolean;
   collapseEmptyTime: boolean;
   exportAspect: ExportAspect;
+  exportScreenWidth: number;
+  exportScreenHeight: number;
   startTime: string;
   endTime: string;
   theme: TimetableTheme;

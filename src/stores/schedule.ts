@@ -313,6 +313,8 @@ export const useScheduleStore = create<ScheduleState>()(
             exportAspect: EXPORT_ASPECTS.includes(mergedSettings.exportAspect as ExportAspect)
               ? mergedSettings.exportAspect
               : ExportAspect.Original,
+            exportScreenWidth: Number(mergedSettings.exportScreenWidth) > 0 ? Number(mergedSettings.exportScreenWidth) : 0,
+            exportScreenHeight: Number(mergedSettings.exportScreenHeight) > 0 ? Number(mergedSettings.exportScreenHeight) : 0,
           },
           courses: (persisted.courses ?? []).map((course) => migrateCourse(course as Course & { registrationStatus?: string })),
         };

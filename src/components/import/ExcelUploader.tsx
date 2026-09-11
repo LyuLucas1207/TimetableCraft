@@ -25,7 +25,7 @@ export default function ExcelUploader({ onFile }: ExcelUploaderProps) {
 
   return (
     <div
-      className={`rounded-2xl border-2 border-dashed bg-background p-8 text-center transition-colors ${
+      className={`rounded-2xl border-2 border-dashed bg-background p-5 text-center transition-colors sm:p-8 ${
         dragging ? "border-foreground/40 bg-muted/40" : "border-border"
       }`}
       onDragOver={(event) => {

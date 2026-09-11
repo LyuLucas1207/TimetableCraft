@@ -1,5 +1,24 @@
 import { toPng } from "html-to-image";
 
+import { ExportAspect, EXPORT_ASPECT_RATIO, type TimetableSettings } from "@/types/course";
+
+export function measureScreenSize(): { width: number; height: number; ratio: number } {
+  const width = Math.max(1, Math.round(window.screen?.width || window.innerWidth || 1));
+  const height = Math.max(1, Math.round(window.screen?.height || window.innerHeight || 1));
+  return { width, height, ratio: width / height };
+}
+
+export function resolveExportAspectRatio(settings: TimetableSettings): number | null {
+  if (settings.exportAspect !== ExportAspect.Screen) {
+    return EXPORT_ASPECT_RATIO[settings.exportAspect];
+  }
+  if (settings.exportScreenWidth > 0 && settings.exportScreenHeight > 0) {
+    return settings.exportScreenWidth / settings.exportScreenHeight;
+  }
+  if (typeof window === "undefined") return null;
+  return measureScreenSize().ratio;
+}
+
 export async function exportNodeToPng(
   node: HTMLElement,
   filename: string,

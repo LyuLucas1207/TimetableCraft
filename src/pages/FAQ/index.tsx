@@ -13,6 +13,7 @@ export default function FAQPage() {
   const { t } = useTranslation([PAGE.FAQ, LANG_NS]);
   const items = [
     ["q1", "a1"],
+    ["q6", "a6"],
     ["q2", "a2"],
     ["q3", "a3"],
     ["q4", "a4"],

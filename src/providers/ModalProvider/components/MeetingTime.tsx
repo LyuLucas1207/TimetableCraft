@@ -72,7 +72,7 @@ export default function MeetingTime() {
         if (!open) handleCancel();
       }}
     >
-      <DialogContent className="z-[65] sm:max-w-lg" overlayClassName="z-[65]" showCloseButton={false}>
+      <DialogContent className="z-[65] max-h-[85dvh] w-[calc(100%-1.25rem)] overflow-y-auto p-3 sm:max-w-lg sm:p-4" overlayClassName="z-[65]" showCloseButton={false}>
         <DialogHeader>
           <DialogTitle>{t("formMeetingTitle", { ns: PAGE.App })}</DialogTitle>
           <DialogDescription>{t("formDurationHint", { ns: PAGE.App })}</DialogDescription>

@@ -16,7 +16,7 @@ export default function Tool() {
   }, []);
 
   return (
-    <div className="h-dvh overflow-hidden bg-slate-50 text-foreground dark:bg-zinc-950">
+    <div className="flex h-dvh flex-col overflow-hidden bg-slate-50 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] text-foreground dark:bg-zinc-950">
       <Outlet />
     </div>
   );

@@ -11,6 +11,8 @@
   "a4": "Par cours unique (sigle + numéro + session). Un cours et sa discussion ne doublent pas les crédits.",
   "q5": "Puis-je modifier un cours importé ?",
   "a5": "Oui. La modification met à jour la liste dans le navigateur. L’Excel original n’est pas réécrit.",
+  "q6": "Où télécharger l’Excel Workday ?",
+  "a6": "Ouvrez Workday, allez dans View My Courses, puis sous ce titre cliquez sur la première icône (à gauche de l’icône PDF). Importez le .xlsx dans le créateur d’horaire.",
   "seoTitle": "FAQ | Timetable Craft",
   "seoDescription": "Réponses sur l’analyse Excel locale, listes d’attente, laboratoires, crédits et export PNG.",
   "contactTitle": "Autre chose ?",
