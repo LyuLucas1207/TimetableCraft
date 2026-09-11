@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 
 import { DownloadIcon, EyeIcon, FileDescriptionIcon, RefreshIcon, SlidersHorizontalIcon, UserPlusIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
+import Logo from "@/components/Logo";
+import PreferencesPopover from "@/components/PreferencesPopover";
 import CourseList from "@/components/courses/CourseList";
 import CourseModal from "@/components/courses/CourseModal";
 import ExcelUploader from "@/components/import/ExcelUploader";
@@ -183,6 +185,7 @@ export default function ScheduleWorkspace() {
       <section className="flex min-h-0 min-w-0 flex-col gap-4 overflow-hidden">
         <TitlePicker settings={settings} selectedTerm={selectedTerm} onSelectPreset={onSelectPreset} />
         <div className="flex shrink-0 flex-wrap items-center gap-2">
+          <Logo />
           <HoverIconButton variant="outline" size="sm" icon={SlidersHorizontalIcon} onClick={() => setCustomizeOpen(true)}>
             {t("customize")}
           </HoverIconButton>
@@ -192,9 +195,12 @@ export default function ScheduleWorkspace() {
           <HoverIconButton variant="outline" size="sm" icon={RefreshIcon} onClick={() => setResetOpen(true)}>
             {t("header.reset", { ns: LANG_NS })}
           </HoverIconButton>
-          <HoverIconButton className="ml-auto shrink-0" size="sm" icon={DownloadIcon} onClick={() => void exportPng()} disabled={visible.length === 0}>
-            {t("header.exportPng", { ns: LANG_NS })}
-          </HoverIconButton>
+          <div className="ml-auto flex shrink-0 items-center gap-2">
+            <PreferencesPopover />
+            <HoverIconButton size="sm" icon={DownloadIcon} onClick={() => void exportPng()} disabled={visible.length === 0}>
+              {t("header.exportPng", { ns: LANG_NS })}
+            </HoverIconButton>
+          </div>
         </div>
 
         <div className="relative min-h-0 flex-1 overflow-hidden">

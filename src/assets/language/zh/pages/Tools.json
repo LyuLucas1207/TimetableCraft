@@ -5,6 +5,8 @@
   "seoDescription": "免费的 UBC 学生浏览器工具。打开课表制作器，或稍后再来看新工具。",
   "scheduleMakerName": "课表制作器",
   "scheduleMakerBody": "把 Workday View My Courses 的 Excel 变成周课表。勾选课程、改外观、导出 PNG。解析不会离开这台设备。",
+  "scheduleMakerSeoTitle": "课表制作器 | Timetable Craft — UBC Workday Excel 转课表",
+  "scheduleMakerSeoDescription": "在浏览器里导入 UBC Workday View My Courses Excel，勾选课程放到周课表，再导出 PNG。文件不会被上传。",
   "openTool": "打开课表制作器",
   "comingSoonLabel": "即将推出",
   "comingSoonName": "更多工具开发中",

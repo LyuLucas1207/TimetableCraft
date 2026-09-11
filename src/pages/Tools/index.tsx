@@ -2,19 +2,32 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 
 import { ClockIcon } from "@/animations";
-import { PAGE } from "@/assets/language";
+import { LANG_NS, PAGE } from "@/assets/language";
 import MiniWeek from "@/components/marketing/MiniWeek";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { MarketingHero, PageFrame } from "@/layouts";
 import { ROUTES } from "@/navigations";
+import { absoluteUrl, breadcrumbJsonLd, collectionJsonLd, softwareJsonLd } from "@/utils/seo";
 
 export default function ToolsPage() {
-  const { t } = useTranslation(PAGE.Tools);
+  const { t } = useTranslation([PAGE.Tools, LANG_NS]);
 
   return (
     <>
-      <Seo title={t("seoTitle")} description={t("seoDescription")} path={ROUTES.TOOLS} />
+      <Seo
+        title={t("seoTitle")}
+        description={t("seoDescription")}
+        path={ROUTES.TOOLS}
+        jsonLd={[
+          collectionJsonLd(t("seoTitle"), t("seoDescription"), absoluteUrl(ROUTES.TOOLS)),
+          softwareJsonLd(t("scheduleMakerSeoDescription"), absoluteUrl(ROUTES.TOOL_SCHEDULE_MAKER), t("scheduleMakerName")),
+          breadcrumbJsonLd([
+            { name: t("header.home", { ns: LANG_NS }), path: ROUTES.HOME },
+            { name: t("header.tools", { ns: LANG_NS }), path: ROUTES.TOOLS },
+          ]),
+        ]}
+      />
       <MarketingHero title={t("title")} lead={t("lead")} />
       <PageFrame maxWidth={1100} className="py-12 md:py-16">
         <div className="grid gap-6 md:grid-cols-2">

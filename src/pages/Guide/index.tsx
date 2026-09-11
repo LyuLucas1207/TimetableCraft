@@ -2,14 +2,15 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 
 import { ClockIcon } from "@/animations";
-import { PAGE } from "@/assets/language";
+import { LANG_NS, PAGE } from "@/assets/language";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { MarketingHero, PageFrame } from "@/layouts";
 import { ROUTES } from "@/navigations";
+import { breadcrumbJsonLd, howToJsonLd } from "@/utils/seo";
 
 export default function GuidePage() {
-  const { t } = useTranslation(PAGE.Guide);
+  const { t } = useTranslation([PAGE.Guide, LANG_NS]);
   const steps = [
     ["step1", "step1b"],
     ["step2", "step2b"],
@@ -19,7 +20,22 @@ export default function GuidePage() {
 
   return (
     <>
-      <Seo title={t("seoTitle")} description={t("seoDescription")} path={ROUTES.GUIDE} />
+      <Seo
+        title={t("seoTitle")}
+        description={t("seoDescription")}
+        path={ROUTES.GUIDE}
+        jsonLd={[
+          howToJsonLd(
+            t("title"),
+            t("seoDescription"),
+            steps.map(([title, body]) => ({ name: t(title), text: t(body) })),
+          ),
+          breadcrumbJsonLd([
+            { name: t("header.home", { ns: LANG_NS }), path: ROUTES.HOME },
+            { name: t("header.guide", { ns: LANG_NS }), path: ROUTES.GUIDE },
+          ]),
+        ]}
+      />
       <MarketingHero title={t("title")} lead={t("lead")} />
       <PageFrame maxWidth={800} className="py-12 md:py-16">
         <ol>

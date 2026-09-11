@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ubcexceltoschedule.app/sitemap.xml
+Sitemap: https://timetablecraft.com/sitemap.xml

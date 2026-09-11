@@ -1,6 +1,12 @@
+import { APP_NAME } from "@/constants";
+
 export default function MiniWeek() {
   return (
     <div className="overflow-hidden rounded-xl border bg-background/80" aria-hidden>
+      <div className="px-3 py-2" style={{ background: "#eef3fb", color: "#002145" }}>
+        <p className="text-[9px] font-semibold tracking-wide uppercase">{APP_NAME}</p>
+        <p className="text-xs font-semibold leading-tight">Winter Term 1</p>
+      </div>
       <div className="grid grid-cols-6 border-b text-[10px] font-medium text-muted-foreground">
         {["", "Mon", "Tue", "Wed", "Thu", "Fri"].map((label) => (
           <div key={label || "time"} className="px-1.5 py-1.5">

@@ -1,15 +1,16 @@
 import { useTranslation } from "react-i18next";
 
 import { GmailIcon } from "@/animations";
-import { PAGE } from "@/assets/language";
+import { LANG_NS, PAGE } from "@/assets/language";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/constants";
 import { MarketingHero, PageFrame } from "@/layouts";
 import { ROUTES } from "@/navigations";
+import { breadcrumbJsonLd, faqJsonLd } from "@/utils/seo";
 
 export default function FAQPage() {
-  const { t } = useTranslation(PAGE.FAQ);
+  const { t } = useTranslation([PAGE.FAQ, LANG_NS]);
   const items = [
     ["q1", "a1"],
     ["q2", "a2"],
@@ -20,7 +21,18 @@ export default function FAQPage() {
 
   return (
     <>
-      <Seo title={t("seoTitle")} description={t("seoDescription")} path={ROUTES.FAQ} />
+      <Seo
+        title={t("seoTitle")}
+        description={t("seoDescription")}
+        path={ROUTES.FAQ}
+        jsonLd={[
+          faqJsonLd(items.map(([q, a]) => ({ question: t(q), answer: t(a) }))),
+          breadcrumbJsonLd([
+            { name: t("header.home", { ns: LANG_NS }), path: ROUTES.HOME },
+            { name: t("header.faq", { ns: LANG_NS }), path: ROUTES.FAQ },
+          ]),
+        ]}
+      />
       <MarketingHero title={t("title")} lead={t("lead")} />
       <PageFrame maxWidth={800} className="py-12 md:py-16">
         {items.map(([q, a]) => (

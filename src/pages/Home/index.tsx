@@ -10,6 +10,7 @@ import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { APP_NAME } from "@/constants";
 import { MarketingHero, PageFrame } from "@/layouts";
 import { ROUTES } from "@/navigations";
+import { absoluteUrl, softwareJsonLd } from "@/utils/seo";
 
 export default function HomePage() {
   const { t } = useTranslation(PAGE.Home);
@@ -21,7 +22,12 @@ export default function HomePage() {
 
   return (
     <>
-      <Seo title={t("seoTitle")} description={t("seoDescription")} path={ROUTES.HOME} />
+      <Seo
+        title={t("seoTitle")}
+        description={t("seoDescription")}
+        path={ROUTES.HOME}
+        jsonLd={[softwareJsonLd(t("featuredBody"), absoluteUrl(ROUTES.TOOL_SCHEDULE_MAKER))]}
+      />
       <MarketingHero kicker={t("kicker")} title={t("headline")} lead={t("support")}>
         <HoverIconButton size="lg" icon={ClockIcon} nativeButton={false} render={<Link to={ROUTES.TOOL_SCHEDULE_MAKER} />}>
           {t("ctaOpen")}
@@ -35,7 +41,7 @@ export default function HomePage() {
         <p className="text-xs font-bold tracking-wide text-[#002145] uppercase dark:text-sky-300">{t("featuredLabel")}</p>
         <div className="mt-4 grid items-stretch gap-8 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="flex min-h-[280px] flex-col justify-end">
-            <img src={logoMark} alt="" width={48} height={48} className="mb-3 size-12 object-contain dark:rounded-lg dark:bg-white dark:p-1" />
+            <img src={logoMark} alt={APP_NAME} width={48} height={48} className="mb-3 size-12 object-contain dark:rounded-lg dark:bg-white dark:p-1" />
             <p className="text-sm text-muted-foreground">{APP_NAME}</p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight">{t("featuredName")}</h2>
             <p className="mt-3 max-w-[46ch] text-sm leading-7 text-muted-foreground">{t("featuredBody")}</p>

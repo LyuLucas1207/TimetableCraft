@@ -2,15 +2,16 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 
 import { ClockIcon, GmailIcon, UnorderedListIcon } from "@/animations";
-import { PAGE } from "@/assets/language";
+import { LANG_NS, PAGE } from "@/assets/language";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { CONTACT_EMAIL, CONTACT_MAILTO } from "@/constants";
 import { MarketingHero, PageFrame } from "@/layouts";
 import { ROUTES } from "@/navigations";
+import { breadcrumbJsonLd, contactJsonLd } from "@/utils/seo";
 
 export default function AboutPage() {
-  const { t } = useTranslation(PAGE.About);
+  const { t } = useTranslation([PAGE.About, LANG_NS]);
   const pillars = [
     ["p1", "p1b"],
     ["p2", "p2b"],
@@ -19,7 +20,18 @@ export default function AboutPage() {
 
   return (
     <>
-      <Seo title={t("seoTitle")} description={t("seoDescription")} path={ROUTES.CONTACT} />
+      <Seo
+        title={t("seoTitle")}
+        description={t("seoDescription")}
+        path={ROUTES.CONTACT}
+        jsonLd={[
+          contactJsonLd(t("seoTitle"), t("seoDescription")),
+          breadcrumbJsonLd([
+            { name: t("header.home", { ns: LANG_NS }), path: ROUTES.HOME },
+            { name: t("header.contact", { ns: LANG_NS }), path: ROUTES.CONTACT },
+          ]),
+        ]}
+      />
       <MarketingHero title={t("title")} lead={t("lead")} />
       <PageFrame maxWidth={1100} className="py-12 md:py-16">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">

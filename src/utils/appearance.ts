@@ -111,7 +111,7 @@ export const DEFAULT_SETTINGS: TimetableSettings = {
   title: TITLE_PRESET_DEFAULTS[TitlePreset.W1],
   customTitles: [],
   subtitle: "",
-  showBrand: false,
+  showBrand: true,
   showFooter: true,
   showCredits: true,
   footerText: APP_DOMAIN,

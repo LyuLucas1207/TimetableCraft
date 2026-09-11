@@ -11,7 +11,7 @@ export default function Logo() {
     <Link to={ROUTES.HOME} className="flex min-w-0 shrink items-center gap-2.5 text-foreground no-underline">
       <img
         src={logoMark}
-        alt=""
+        alt={APP_NAME}
         width={36}
         height={36}
         className="size-9 shrink-0 object-contain dark:rounded-md dark:bg-white dark:p-0.5"

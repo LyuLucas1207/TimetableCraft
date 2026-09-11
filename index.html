@@ -3,17 +3,73 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Timetable Craft turns your Workday course Excel into a beautiful weekly timetable. Parsed locally in your browser — nothing is uploaded."
+      content="Timetable Craft is a free browser toolkit for UBC students. Schedule Maker turns a Workday View My Courses Excel file into a weekly timetable without uploading it."
     />
+    <meta
+      name="keywords"
+      content="UBC, Workday, timetable, schedule, Excel, View My Courses, Timetable Craft, timetablecraft.com, Winter Term, course calendar"
+    />
+    <meta name="author" content="Timetable Craft" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#0f2744" />
-    <title>Timetable Craft — Workday Excel to Timetable</title>
-    <meta property="og:site_name" content="Timetable Craft" />
-    <meta property="og:image" content="/og.png" />
+    <title>Timetable Craft — free UBC student tools</title>
+    <link rel="canonical" href="https://timetablecraft.com/" />
+    <meta property="og:title" content="Timetable Craft — free UBC student tools" />
+    <meta
+      property="og:description"
+      content="Free browser tools for UBC students. Open Schedule Maker to turn Workday Excel into a weekly timetable without uploading your file."
+    />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://timetablecraft.com/" />
+    <meta property="og:site_name" content="Timetable Craft" />
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:image" content="https://timetablecraft.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Timetable Craft — UBC Workday Excel to weekly timetable" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Timetable Craft — free UBC student tools" />
+    <meta
+      name="twitter:description"
+      content="Free browser tools for UBC students. Open Schedule Maker to turn Workday Excel into a weekly timetable without uploading your file."
+    />
+    <meta name="twitter:image" content="https://timetablecraft.com/og.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://timetablecraft.com/#organization",
+            "name": "Timetable Craft",
+            "url": "https://timetablecraft.com",
+            "email": "lyuchongkai@gmail.com"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://timetablecraft.com/#website",
+            "name": "Timetable Craft",
+            "url": "https://timetablecraft.com",
+            "publisher": { "@id": "https://timetablecraft.com/#organization" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Timetable Craft Schedule Maker",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "Any",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+            "url": "https://timetablecraft.com/tools/schedule-maker",
+            "isAccessibleForFree": true
+          }
+        ]
+      }
+    </script>
     <script>
       (function () {
         try {
