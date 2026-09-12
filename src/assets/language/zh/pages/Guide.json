@@ -22,5 +22,5 @@
   "ctaOpen": "打开课表制作器",
   "ubcLink": "UBC 课表制作器说明",
   "seoTitle": "UBC Workday Excel 转课表 | Timetable Craft",
-  "seoDescription": "从 UBC Workday 导出 View My Courses Excel（含电脑与手机截图），在本课表制作器里本地解析、勾选课程并生成周课表。"
+  "seoDescription": "从 UBC Workday 导出 View My Courses Excel（含电脑与手机截图），在本课表制作器里本地解析、勾选课程，再导出 PNG 或日历 .ics。"
 }

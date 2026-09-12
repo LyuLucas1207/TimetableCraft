@@ -144,6 +144,13 @@ export enum ThemeMode {
   System = "system",
 }
 
+export enum ExportFormat {
+  Png = "png",
+  Ics = "ics",
+}
+
+export const EXPORT_FORMATS = [ExportFormat.Png, ExportFormat.Ics] as const;
+
 export enum ExportAspect {
   Original = "original",
   Screen = "screen",

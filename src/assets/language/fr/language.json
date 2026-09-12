@@ -21,7 +21,7 @@
       "system": "Système"
     },
     "language": "Langue",
-    "exportPng": "Exporter PNG",
+    "export": "Exporter",
     "reset": "Réinitialiser",
     "ubcTimetable": "Emploi du temps UBC"
   },

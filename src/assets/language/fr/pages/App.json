@@ -41,7 +41,19 @@
   "collapseToggleUnfold": "Déplier",
   "fitToggleShrink": "Ajuster",
   "fitToggleScroll": "Défiler",
-  "exportOptions": "Options d’export",
+  "export": "Exporter",
+  "exportFormats": {
+    "png": "Image",
+    "ics": "Calendrier"
+  },
+  "exportFormatMeta": {
+    "png": "PNG",
+    "ics": ".ics"
+  },
+  "exportCalendarHint": "Un fichier .ics pour Google, Apple, Outlook et Samsung.",
+  "exportDownloadPng": "Télécharger PNG",
+  "exportDownloadIcs": "Télécharger le calendrier",
+  "exportIcsEmpty": "Aucune date de cours à exporter. Importez l’Excel Workday, ou ajoutez des séances avec des dates.",
   "exportAspect": "Format d’export",
   "exportAspects": {
     "original": "Taille d’origine",
@@ -172,5 +184,5 @@
   "formErrorTime": "Indiquez le début et la fin, ou laissez les deux vides. Le début doit précéder la fin.",
   "parseError": "Impossible de lire ce fichier Excel. Exportez View My Courses depuis Workday.",
   "seoTitle": "Horaire | Timetable Craft",
-  "seoDescription": "Créez, modifiez et exportez un horaire hebdomadaire UBC à partir d’un Excel Workday."
+  "seoDescription": "Créez, modifiez et exportez un horaire hebdomadaire UBC en PNG ou en calendrier .ics à partir d’un Excel Workday."
 }

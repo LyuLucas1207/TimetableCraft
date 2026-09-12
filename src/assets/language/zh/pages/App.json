@@ -41,7 +41,19 @@
   "collapseToggleUnfold": "展开时间",
   "fitToggleShrink": "缩小课表",
   "fitToggleScroll": "横向滚动",
-  "exportOptions": "导出选项",
+  "export": "导出",
+  "exportFormats": {
+    "png": "图片",
+    "ics": "日历"
+  },
+  "exportFormatMeta": {
+    "png": "PNG",
+    "ics": ".ics"
+  },
+  "exportCalendarHint": "一份 .ics，Google、Apple、Outlook、三星都能导入。",
+  "exportDownloadPng": "下载 PNG",
+  "exportDownloadIcs": "下载日历",
+  "exportIcsEmpty": "课表里没有上课日期。请导入 Workday Excel，或给课程加上带日期的上课时间。",
   "exportAspect": "导出比例",
   "exportAspects": {
     "original": "原始大小",
@@ -171,5 +183,5 @@
   "formErrorTime": "请同时填写开始和结束时间，或全部留空；开始必须早于结束。",
   "parseError": "无法读取这个 Excel。请从 Workday 导出 View My Courses 后再试。",
   "seoTitle": "课表 | Timetable Craft",
-  "seoDescription": "从 Workday Excel 生成、编辑并导出 UBC 周课表。"
+  "seoDescription": "从 Workday Excel 生成、编辑 UBC 周课表，并导出 PNG 或日历 .ics。"
 }

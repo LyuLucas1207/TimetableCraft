@@ -21,7 +21,7 @@
       "system": "System"
     },
     "language": "Language",
-    "exportPng": "Export PNG",
+    "export": "Export",
     "reset": "Reset",
     "ubcTimetable": "UBC timetable maker"
   },

@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { cn } from "cn";
 
-import { DownloadIcon, ExpandIcon, EyeIcon, FocusIcon, LayoutBottombarCollapseIcon, MagnifierIcon, RefreshIcon, SlidersHorizontalIcon, UserPlusIcon } from "@/animations";
+import { ExpandIcon, EyeIcon, FocusIcon, LayoutBottombarCollapseIcon, MagnifierIcon, RefreshIcon, SlidersHorizontalIcon, UserPlusIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
 import Logo from "@/components/Logo";
 import PreferencesPopover from "@/components/PreferencesPopover";
@@ -11,7 +11,7 @@ import CourseList from "@/components/courses/CourseList";
 import ExcelUploader from "@/components/import/ExcelUploader";
 import ImportExcelButton from "@/components/import/ImportExcelButton";
 import WorkdayExportHint from "@/components/import/WorkdayExportHint";
-import ExportOptionsPopover from "@/components/schedule/ExportOptionsPopover";
+import ExportPopover from "@/components/schedule/ExportPopover";
 import FitWidthFrame from "@/components/schedule/FitWidthFrame";
 import AppearanceEditor, { ColorField, RegionEdit, SizeField, ToggleRow } from "@/components/timetable/AppearanceEditor";
 import TitlePicker from "@/components/timetable/TitlePicker";
@@ -34,7 +34,6 @@ import { parseManualCourseCode, courseKeyOf, formatCourseCode, normalizeFormat }
 import { hideModal, ModalTypeEnum, selectTimetableCourses, showCourseModal, useModalStore, useScheduleStore, type ManualCourseInput } from "@/stores";
 import { ColorPreset, CourseType, ImportMode, TitlePreset, termFromTitlePreset, type Course, type WeekDay } from "@/types/course";
 import { createId } from "@/utils/ids";
-import { exportNodeToPng, resolveExportAspectRatio } from "@/utils/exportImage";
 import { parseOptionalTimeRange } from "@/utils/time";
 
 const FIT_TO_WIDTH_MQ = "(max-width: 1023px)";
@@ -221,16 +220,6 @@ export default function ScheduleWorkspace() {
     }
   };
 
-  const exportPng = async () => {
-    if (!exportRef.current) {
-      toast.error(t("emptyTitle", { ns: PAGE.App }));
-      return;
-    }
-    await exportNodeToPng(exportRef.current, `${slugify(settings.title)}.png`, {
-      aspectRatio: resolveExportAspectRatio(settings),
-    });
-  };
-
   return (
     <div className="flex h-full min-h-0 flex-col gap-3 overflow-hidden lg:grid lg:grid-cols-[minmax(260px,340px)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-5">
       <div className="flex shrink-0 items-center gap-2 lg:hidden">
@@ -371,17 +360,7 @@ export default function ScheduleWorkspace() {
           </HoverIconButton>
           <div className="ml-auto flex shrink-0 items-center gap-1.5 md:gap-2">
             <PreferencesPopover />
-            <HoverIconButton
-              size="icon-sm"
-              className="md:h-7 md:w-auto md:gap-1 md:px-2.5"
-              icon={DownloadIcon}
-              aria-label={t("header.exportPng", { ns: LANG_NS })}
-              onClick={() => void exportPng()}
-              disabled={visible.length === 0}
-            >
-              <span className="hidden md:inline">{t("header.exportPng", { ns: LANG_NS })}</span>
-            </HoverIconButton>
-            <ExportOptionsPopover />
+            <ExportPopover disabled={visible.length === 0} courses={visible} title={settings.title} exportRef={exportRef} />
           </div>
         </div>
 
@@ -513,12 +492,4 @@ export default function ScheduleWorkspace() {
       </Sheet>
     </div>
   );
-}
-
-function slugify(title: string): string {
-  const slug = title
-    .trim()
-    .replace(/[^\w\u4e00-\u9fff]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-  return slug || "timetablecraft";
 }

@@ -41,7 +41,19 @@
   "collapseToggleUnfold": "Unfold hours",
   "fitToggleShrink": "Fit screen",
   "fitToggleScroll": "Scroll wide",
-  "exportOptions": "Export options",
+  "export": "Export",
+  "exportFormats": {
+    "png": "Image",
+    "ics": "Calendar"
+  },
+  "exportFormatMeta": {
+    "png": "PNG",
+    "ics": ".ics"
+  },
+  "exportCalendarHint": "One .ics file for Google, Apple, Outlook, and Samsung.",
+  "exportDownloadPng": "Download PNG",
+  "exportDownloadIcs": "Download calendar",
+  "exportIcsEmpty": "No class dates to put on a calendar. Import Workday Excel, or add meetings that include dates.",
   "exportAspect": "Export size",
   "exportAspects": {
     "original": "Original",
@@ -171,5 +183,5 @@
   "formErrorTime": "Fill both start and end, or leave both empty. Start must be before end.",
   "parseError": "We could not read this Excel file. Export View My Courses from Workday and try again.",
   "seoTitle": "Schedule | Timetable Craft",
-  "seoDescription": "Build, edit, and export a UBC weekly timetable from a Workday Excel file."
+  "seoDescription": "Build, edit, and export a UBC weekly timetable as PNG or calendar .ics from a Workday Excel file."
 }

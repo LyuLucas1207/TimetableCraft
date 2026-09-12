@@ -81,6 +81,7 @@ export function softwareJsonLd(
       "Weekly timetable grid",
       "Waitlist and dropped section styling",
       "PNG export",
+      "ICS calendar export",
     ],
   };
 }

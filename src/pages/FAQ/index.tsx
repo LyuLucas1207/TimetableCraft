@@ -22,6 +22,7 @@ export default function FAQPage() {
     ["q4", "a4"],
     ["q5", "a5"],
     ["q6", "a6"],
+    ["q11", "a11"],
     ["q7", "a7"],
     ["q8", "a8"],
     ["q10", "a10"],

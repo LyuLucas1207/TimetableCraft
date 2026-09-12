@@ -1,7 +1,7 @@
 {
   "name": "Timetable Craft",
   "short_name": "Timetable Craft",
-  "description": "Free timetable maker, schedule maker, and course table maker. Add classes or import UBC Workday Excel and export a weekly PNG.",
+  "description": "Free timetable maker, schedule maker, and course table maker. Add classes or import UBC Workday Excel, then export a weekly PNG or calendar .ics.",
   "start_url": "/",
   "scope": "/",
   "id": "/",

@@ -21,7 +21,7 @@
       "system": "跟随系统"
     },
     "language": "语言",
-    "exportPng": "导出 PNG",
+    "export": "导出",
     "reset": "重置",
     "ubcTimetable": "UBC 课表制作器"
   },

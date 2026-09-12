@@ -4,9 +4,9 @@
   "seoTitle": "Schedule maker et outils d’horaire | Timetable Craft",
   "seoDescription": "Schedule maker et course table maker gratuits dans le navigateur. Ouvrez l’outil d’emploi du temps, ou suivez le chemin Excel UBC Workday. Les autres campus peuvent envoyer un fichier.",
   "scheduleMakerName": "Créateur d’horaire",
-  "scheduleMakerBody": "Timetable maker gratuit pour la semaine de cours. Ajoutez les cours à la main ou importez l’Excel UBC Workday View My Courses, choisissez la grille, personnalisez, exportez en PNG. L’analyse reste sur l’appareil.",
+  "scheduleMakerBody": "Timetable maker gratuit pour la semaine de cours. Ajoutez les cours à la main ou importez l’Excel UBC Workday View My Courses, choisissez la grille, personnalisez, exportez en PNG ou en .ics. L’analyse reste sur l’appareil.",
   "scheduleMakerSeoTitle": "Créateur d’horaire de cours gratuit | Timetable Craft",
-  "scheduleMakerSeoDescription": "Schedule maker gratuit pour la semaine de cours. Ajoutez des cours ou importez l’Excel UBC Workday, personnalisez et téléchargez un PNG. Sans inscription.",
+  "scheduleMakerSeoDescription": "Schedule maker gratuit pour la semaine de cours. Ajoutez des cours ou importez l’Excel UBC Workday, personnalisez et téléchargez un PNG ou un .ics. Sans inscription.",
   "openTool": "Ouvrir le créateur d’horaire",
   "ubcName": "Créateur d’emploi du temps UBC",
   "ubcBody": "Page pour les recherches UBC schedule maker et UBC course table maker : Excel Workday, sessions UBC et statuts d’inscription.",
@@ -16,5 +16,5 @@
   "comingSoonBody": "Les prochains outils apparaîtront ici. Le créateur d’horaire est le premier ; GPA, planning d’examens et le reste sont encore en construction.",
   "available": "Disponible",
   "scheduleMakerHeading": "Créateur gratuit de planning de cours",
-  "scheduleMakerIntro": "Ajoutez vos cours ou importez Excel Workday, choisissez les cours à afficher et exportez en PNG."
+  "scheduleMakerIntro": "Ajoutez vos cours ou importez Excel Workday, choisissez les cours à afficher et exportez en PNG ou en .ics."
 }
