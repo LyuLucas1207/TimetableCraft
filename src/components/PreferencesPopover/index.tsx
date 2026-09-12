@@ -1,7 +1,7 @@
 import { CheckIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { GearIcon } from "@/animations";
+import { BrightnessDownIcon, MoonIcon } from "@/animations";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { AppLanguage } from "@/config";
@@ -16,12 +16,13 @@ const LANGUAGES = [
 
 export default function PreferencesPopover() {
   const { t, i18n } = useTranslation("language");
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const currentLng = (i18n.resolvedLanguage ?? AppLanguage.En).slice(0, 2) as AppLanguage;
+  const Icon = resolvedTheme === ThemeMode.Dark ? MoonIcon : BrightnessDownIcon;
 
   return (
     <Popover>
-      <PopoverTrigger render={<HoverIconButton variant="outline" size="icon-sm" className="md:size-8" icon={GearIcon} aria-label={t("header.preferences")} />} />
+      <PopoverTrigger render={<HoverIconButton variant="outline" size="icon-sm" className="md:size-8" icon={Icon} aria-label={t("header.theme")} />} />
       <PopoverContent align="end" className="w-72">
         <div className="flex flex-col gap-4">
           <div>

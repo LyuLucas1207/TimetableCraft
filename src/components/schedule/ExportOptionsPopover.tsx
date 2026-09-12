@@ -1,7 +1,7 @@
 import { CheckIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { ExpandIcon } from "@/animations";
+import { GearIcon } from "@/animations";
 import { PAGE } from "@/assets/language";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { Label } from "@/components/ui/label";
@@ -36,7 +36,7 @@ export default function ExportOptionsPopover() {
             variant="outline"
             size="icon-sm"
             className="md:size-8"
-            icon={ExpandIcon}
+            icon={GearIcon}
             aria-label={t("exportOptions")}
           />
         }
