@@ -233,6 +233,12 @@ export interface ImportSummary {
   unregisteredCount: number;
 }
 
+export interface CustomTimetable {
+  id: string;
+  title: string;
+  courseIds: string[];
+}
+
 export interface TimetableSettings {
   intervalMinutes: GridInterval;
   showTitles: boolean;
@@ -249,7 +255,8 @@ export interface TimetableSettings {
   colorPreset: ColorPreset;
   titlePreset: TitlePreset;
   title: string;
-  customTitles: string[];
+  customTimetables: CustomTimetable[];
+  activeCustomId: string | null;
   subtitle: string;
   showBrand: boolean;
   showFooter: boolean;

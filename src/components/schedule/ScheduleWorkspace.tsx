@@ -48,6 +48,9 @@ export default function ScheduleWorkspace() {
   const setSettings = useScheduleStore((s) => s.setSettings);
   const setTitlePreset = useScheduleStore((s) => s.setTitlePreset);
   const commitTitle = useScheduleStore((s) => s.commitTitle);
+  const addCustomTimetable = useScheduleStore((s) => s.addCustomTimetable);
+  const selectCustomTimetable = useScheduleStore((s) => s.selectCustomTimetable);
+  const removeCustomTimetable = useScheduleStore((s) => s.removeCustomTimetable);
   const importExcel = useScheduleStore((s) => s.importExcel);
   const addManualCourse = useScheduleStore((s) => s.addManualCourse);
   const updateCourse = useScheduleStore((s) => s.updateCourse);
@@ -149,6 +152,10 @@ export default function ScheduleWorkspace() {
     if (term) {
       toast.success(t("termPlaced", { ns: PAGE.App, count }));
     }
+  };
+
+  const onAddCustom = () => {
+    addCustomTimetable(t("common.customTitle", { ns: LANG_NS }));
   };
 
   const handleFile = (file: File) => {
@@ -304,7 +311,13 @@ export default function ScheduleWorkspace() {
           "lg:flex lg:min-h-0",
         )}
       >
-        <TitlePicker settings={settings} selectedTerm={selectedTerm} onSelectPreset={onSelectPreset} />
+        <TitlePicker
+          settings={settings}
+          onSelectPreset={onSelectPreset}
+          onSelectCustom={selectCustomTimetable}
+          onAddCustom={onAddCustom}
+          onRemoveCustom={removeCustomTimetable}
+        />
         <div className="flex shrink-0 flex-wrap items-center gap-1.5 md:gap-2">
           <Logo compact className="mr-1 hidden min-[420px]:flex" />
           <HoverIconButton

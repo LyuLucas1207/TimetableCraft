@@ -19,6 +19,7 @@ import {
   EXPORT_ASPECTS,
   type Course,
   type CourseMeeting,
+  type CustomTimetable,
   type ImportSummary,
   type InstructionalFormat,
   type TimetableSettings,
@@ -55,6 +56,9 @@ interface ScheduleState {
   setSettings: (patch: Partial<TimetableSettings>) => void;
   setTitlePreset: (preset: TitlePreset, customTitle?: string) => void;
   commitTitle: (name: string) => void;
+  addCustomTimetable: (baseTitle: string) => void;
+  selectCustomTimetable: (id: string) => void;
+  removeCustomTimetable: (id: string) => void;
   importExcel: (file: File, mode: ImportMode) => Promise<ImportSummary>;
   addManualCourse: (input: ManualCourseInput) => Course;
   updateCourse: (id: string, patch: Partial<Course>) => void;
@@ -77,6 +81,74 @@ function placeTermOnTimetable(courses: Course[], term: Term): Course[] {
     ...course,
     onTimetable: course.term === term && course.courseType !== CourseType.Drop,
   }));
+}
+
+function snapshotCustomCourseIds(courses: Course[]): string[] {
+  return courses.filter((course) => course.onTimetable).map((course) => course.id);
+}
+
+function applyCustomCourseIds(courses: Course[], ids: string[]): Course[] {
+  const selected = new Set(ids);
+  return courses.map((course) => ({
+    ...course,
+    onTimetable: selected.has(course.id),
+  }));
+}
+
+function nextCustomTitle(existing: CustomTimetable[], base: string): string {
+  const names = new Set(existing.map((item) => item.title));
+  if (!names.has(base)) return base;
+  let n = 2;
+  while (names.has(`${base} ${n}`)) n += 1;
+  return `${base} ${n}`;
+}
+
+function writeActiveCustom(settings: TimetableSettings, courses: Course[]): CustomTimetable[] {
+  if (settings.titlePreset !== TitlePreset.Custom || !settings.activeCustomId) return settings.customTimetables ?? [];
+  const courseIds = snapshotCustomCourseIds(courses);
+  const title = settings.title.trim() || settings.customTimetables.find((item) => item.id === settings.activeCustomId)?.title || "";
+  return (settings.customTimetables ?? []).map((item) =>
+    item.id === settings.activeCustomId ? { ...item, courseIds, title: title || item.title } : item,
+  );
+}
+
+function withActiveCustom(settings: TimetableSettings, customTimetables: CustomTimetable[], active: CustomTimetable): TimetableSettings {
+  return {
+    ...settings,
+    titlePreset: TitlePreset.Custom,
+    title: active.title,
+    customTimetables,
+    activeCustomId: active.id,
+  };
+}
+
+function migrateCustomTimetables(settings: TimetableSettings & { customTitles?: string[]; customCourseIds?: string[] }): {
+  customTimetables: CustomTimetable[];
+  activeCustomId: string | null;
+} {
+  const existing = Array.isArray(settings.customTimetables)
+    ? settings.customTimetables.filter(
+        (item): item is CustomTimetable =>
+          Boolean(item) && typeof item.id === "string" && typeof item.title === "string" && Array.isArray(item.courseIds),
+      )
+    : [];
+  if (existing.length > 0) {
+    const active =
+      existing.some((item) => item.id === settings.activeCustomId) ? settings.activeCustomId : settings.titlePreset === TitlePreset.Custom ? existing[0].id : null;
+    return { customTimetables: existing, activeCustomId: active };
+  }
+  const titles = (settings.customTitles ?? []).filter((name): name is string => typeof name === "string" && name.trim().length > 0);
+  if (titles.length === 0) return { customTimetables: [], activeCustomId: null };
+  const courseIds = Array.isArray(settings.customCourseIds) ? settings.customCourseIds.filter((id): id is string => typeof id === "string" && id.length > 0) : [];
+  const customTimetables = titles.map((title, index) => ({
+    id: `migrated-custom-${index}`,
+    title,
+    courseIds: index === 0 ? courseIds : [],
+  }));
+  return {
+    customTimetables,
+    activeCustomId: settings.titlePreset === TitlePreset.Custom ? customTimetables[0].id : null,
+  };
 }
 
 function termToPlaceAfterImport(courses: Course[], preferred: Term): Term {
@@ -121,30 +193,110 @@ export const useScheduleStore = create<ScheduleState>()(
       setSettings: (patch) => set({ settings: { ...get().settings, ...patch } }),
       setTitlePreset: (preset, customTitle) => {
         const settings = get().settings;
-        const title =
-          customTitle?.trim() ||
-          (isDefaultPresetTitle(settings.titlePreset, settings.title) ? titleFromPreset(preset, settings.title) : settings.title);
+        const currentCourses = get().courses;
+        const customTimetables = writeActiveCustom(settings, currentCourses);
+        const leavingCustom = settings.titlePreset === TitlePreset.Custom;
+        const usePresetTitle = leavingCustom || isDefaultPresetTitle(settings.titlePreset, settings.title);
+        const title = customTitle?.trim() || (usePresetTitle ? titleFromPreset(preset, settings.title) : settings.title);
         const term = termFromTitlePreset(preset);
-        const courses = term == null ? get().courses : placeTermOnTimetable(get().courses, term);
+        if (preset === TitlePreset.Custom) {
+          const active = customTimetables.find((item) => item.id === settings.activeCustomId) ?? customTimetables[0];
+          if (!active) return;
+          set({
+            settings: withActiveCustom(settings, customTimetables, active),
+            courses: applyCustomCourseIds(currentCourses, active.courseIds),
+          });
+          return;
+        }
         set({
-          settings: { ...settings, titlePreset: preset, title, customTitles: [] },
+          settings: {
+            ...settings,
+            titlePreset: preset,
+            title,
+            customTimetables,
+            activeCustomId: null,
+          },
           selectedTerm: term ?? get().selectedTerm,
-          courses,
+          courses: term == null ? currentCourses : placeTermOnTimetable(currentCourses, term),
         });
       },
       commitTitle: (name) => {
         const title = name.trim();
         if (!title) return;
         const settings = get().settings;
-        const titlePreset =
-          settings.titlePreset === TitlePreset.Custom ? titlePresetFromTerm(get().selectedTerm) : settings.titlePreset;
+        if (settings.titlePreset === TitlePreset.Custom && settings.activeCustomId) {
+          set({
+            settings: {
+              ...settings,
+              title,
+              customTimetables: (settings.customTimetables ?? []).map((item) =>
+                item.id === settings.activeCustomId ? { ...item, title } : item,
+              ),
+            },
+          });
+          return;
+        }
         set({
           settings: {
             ...settings,
             title,
-            titlePreset,
-            customTitles: [],
           },
+        });
+      },
+      addCustomTimetable: (baseTitle) => {
+        const settings = get().settings;
+        const currentCourses = get().courses;
+        const customTimetables = writeActiveCustom(settings, currentCourses);
+        const title = nextCustomTitle(customTimetables, baseTitle.trim() || "Custom");
+        const created: CustomTimetable = {
+          id: createId(),
+          title,
+          courseIds: snapshotCustomCourseIds(currentCourses),
+        };
+        set({
+          settings: withActiveCustom(settings, [...customTimetables, created], created),
+          courses: currentCourses,
+        });
+      },
+      selectCustomTimetable: (id) => {
+        const settings = get().settings;
+        const currentCourses = get().courses;
+        const customTimetables = writeActiveCustom(settings, currentCourses);
+        const active = customTimetables.find((item) => item.id === id);
+        if (!active) return;
+        set({
+          settings: withActiveCustom(settings, customTimetables, active),
+          courses: applyCustomCourseIds(currentCourses, active.courseIds),
+        });
+      },
+      removeCustomTimetable: (id) => {
+        const settings = get().settings;
+        const currentCourses = get().courses;
+        const customTimetables = writeActiveCustom(settings, currentCourses).filter((item) => item.id !== id);
+        const removingActive = settings.activeCustomId === id;
+        if (!removingActive) {
+          set({ settings: { ...settings, customTimetables } });
+          return;
+        }
+        const next = customTimetables[0];
+        if (next) {
+          set({
+            settings: withActiveCustom(settings, customTimetables, next),
+            courses: applyCustomCourseIds(currentCourses, next.courseIds),
+          });
+          return;
+        }
+        const term = get().selectedTerm;
+        const preset = titlePresetFromTerm(term);
+        set({
+          settings: {
+            ...settings,
+            titlePreset: preset,
+            title: titleFromPreset(preset, settings.title),
+            customTimetables: [],
+            activeCustomId: null,
+          },
+          courses: placeTermOnTimetable(currentCourses, term),
         });
       },
       importExcel: async (file, mode) => {
@@ -182,7 +334,16 @@ export const useScheduleStore = create<ScheduleState>()(
         set({
           courses: placeTermOnTimetable(nextCourses, term),
           selectedTerm: term,
-          settings: { ...settings, titlePreset, title, customTitles: [] },
+          settings: {
+            ...settings,
+            titlePreset,
+            title,
+            customTimetables: (settings.customTimetables ?? []).map((item) => ({
+              ...item,
+              courseIds: mode === ImportMode.Replace ? [] : item.courseIds.filter((id) => nextCourses.some((course) => course.id === id)),
+            })),
+            activeCustomId: null,
+          },
           importSummary: summary,
         });
         return summary;
@@ -225,7 +386,20 @@ export const useScheduleStore = create<ScheduleState>()(
           onTimetable: true,
           courseKey,
         };
-        set({ courses: [...get().courses, course] });
+        const nextCourses = [...get().courses, course];
+        const settings = get().settings;
+        set({
+          courses: nextCourses,
+          settings:
+            settings.titlePreset === TitlePreset.Custom && settings.activeCustomId
+              ? {
+                  ...settings,
+                  customTimetables: (settings.customTimetables ?? []).map((item) =>
+                    item.id === settings.activeCustomId ? { ...item, courseIds: [...item.courseIds, course.id] } : item,
+                  ),
+                }
+              : settings,
+        });
         return course;
       },
       updateCourse: (id, patch) => {
@@ -245,7 +419,19 @@ export const useScheduleStore = create<ScheduleState>()(
           }),
         });
       },
-      deleteCourse: (id) => set({ courses: get().courses.filter((course) => course.id !== id) }),
+      deleteCourse: (id) => {
+        const settings = get().settings;
+        set({
+          courses: get().courses.filter((course) => course.id !== id),
+          settings: {
+            ...settings,
+            customTimetables: (settings.customTimetables ?? []).map((item) => ({
+              ...item,
+              courseIds: item.courseIds.filter((courseId) => courseId !== id),
+            })),
+          },
+        });
+      },
       setCourseColor: (id, color) => {
         const target = get().courses.find((course) => course.id === id);
         if (!target) return;
@@ -259,8 +445,19 @@ export const useScheduleStore = create<ScheduleState>()(
         });
       },
       setOnTimetable: (id, onTimetable) => {
+        const courses = get().courses.map((course) => (course.id === id ? { ...course, onTimetable } : course));
+        const settings = get().settings;
         set({
-          courses: get().courses.map((course) => (course.id === id ? { ...course, onTimetable } : course)),
+          courses,
+          settings:
+            settings.titlePreset === TitlePreset.Custom && settings.activeCustomId
+              ? {
+                  ...settings,
+                  customTimetables: (settings.customTimetables ?? []).map((item) =>
+                    item.id === settings.activeCustomId ? { ...item, courseIds: snapshotCustomCourseIds(courses) } : item,
+                  ),
+                }
+              : settings,
         });
       },
       applyColorPreset: (preset) => {
@@ -297,17 +494,15 @@ export const useScheduleStore = create<ScheduleState>()(
       merge: (persistedState, currentState) => {
         const persisted = (persistedState ?? {}) as Partial<ScheduleState>;
         const mergedSettings = { ...DEFAULT_SETTINGS, ...persisted.settings };
-        const titlePreset =
-          mergedSettings.titlePreset === TitlePreset.Custom
-            ? titlePresetFromTerm(persisted.selectedTerm ?? currentState.selectedTerm)
-            : mergedSettings.titlePreset;
+        const mergedCustom = migrateCustomTimetables(mergedSettings);
         return {
           ...currentState,
           ...persisted,
           settings: {
             ...mergedSettings,
-            titlePreset,
-            customTitles: [],
+            titlePreset: mergedSettings.titlePreset,
+            customTimetables: mergedCustom.customTimetables,
+            activeCustomId: mergedCustom.activeCustomId,
             footerText: migrateFooterText(mergedSettings.footerText),
             collapseEmptyTime: mergedSettings.collapseEmptyTime !== false,
             exportAspect: EXPORT_ASPECTS.includes(mergedSettings.exportAspect as ExportAspect)

@@ -45,6 +45,8 @@
     "summerTerm1": "夏季学期 1",
     "summerTerm2": "夏季学期 2",
     "customTitle": "自定义",
+    "addTimetable": "添加课表",
+    "removeTimetable": "移除课表",
     "time": "时间"
   },
   "days": {

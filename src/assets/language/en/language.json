@@ -45,6 +45,8 @@
     "summerTerm1": "Summer Term 1",
     "summerTerm2": "Summer Term 2",
     "customTitle": "Custom",
+    "addTimetable": "Add timetable",
+    "removeTimetable": "Remove timetable",
     "time": "Time"
   },
   "days": {

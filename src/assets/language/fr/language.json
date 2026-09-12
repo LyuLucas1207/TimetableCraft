@@ -45,6 +45,8 @@
     "summerTerm1": "Trimestre d’été 1",
     "summerTerm2": "Trimestre d’été 2",
     "customTitle": "Personnalisé",
+    "addTimetable": "Ajouter un horaire",
+    "removeTimetable": "Retirer l’horaire",
     "time": "Heure"
   },
   "days": {
