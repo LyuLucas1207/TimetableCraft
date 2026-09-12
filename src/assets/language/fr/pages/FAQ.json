@@ -18,7 +18,7 @@
   "q8": "Faut-il un fichier Excel UBC ?",
   "a8": "Non. Ajoutez n’importe quel horaire à la main. L’import Workday UBC est facultatif.",
   "q9": "Où télécharger l’Excel Workday ?",
-  "a9": "Ouvrez Workday, allez dans View My Courses, puis sous ce titre cliquez sur la première icône (à gauche de l’icône PDF). Importez le .xlsx dans le créateur d’horaire.",
+  "a9": "Ouvrez Workday et connectez-vous. Sur l’accueil, cliquez sur View My Courses. Puis cliquez sur l’icône tableur (grille avec un X) à côté du PDF — pas le PDF. Sur ordinateur elle est à droite de la barre bleue ; sur téléphone, sous le titre. Importez le .xlsx dans le créateur d’horaire.",
   "q10": "Pouvez-vous importer les horaires de SFU, Waterloo ou d’autres universités ?",
   "a10": "Pas encore en un clic. Envoyez un export de Quest, goSFU, ACORN, Minerva ou d’un autre portail, et nous ajouterons l’analyse. Vous pouvez déjà saisir ces cours à la main.",
   "seoTitle": "FAQ emploi du temps et schedule maker | Timetable Craft",
@@ -26,5 +26,6 @@
   "contactTitle": "Autre chose ?",
   "contactBody": "Suggestions ou questions : {{email}}. Pour un autre campus, joignez un export d’horaire.",
   "contactCta": "Envoyer un e-mail",
-  "ubcLink": "Aperçu du créateur d’horaire UBC"
+  "ubcLink": "Aperçu du créateur d’horaire UBC",
+  "guideLink": "Ouvrir le guide illustré"
 }

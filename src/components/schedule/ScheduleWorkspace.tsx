@@ -371,7 +371,7 @@ export default function ScheduleWorkspace() {
             <DialogTitle>{t("importExcel", { ns: PAGE.App })}</DialogTitle>
             <DialogDescription>{t("uploadBody", { ns: PAGE.App })}</DialogDescription>
           </DialogHeader>
-          <WorkdayExportHint />
+          <WorkdayExportHint showImages />
           <ExcelUploader onFile={handleFile} />
         </DialogContent>
       </Dialog>

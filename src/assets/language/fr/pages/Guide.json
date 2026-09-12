@@ -1,10 +1,19 @@
 {
   "title": "Exporter l’Excel UBC Workday vers ce timetable maker.",
-  "lead": "Le UBC schedule maker attend l’Excel fourni par Workday depuis View My Courses — pas une capture d’écran ni un PDF.",
-  "step1": "Ouvrir Workday",
-  "step1b": "Connectez-vous, puis ouvrez View My Courses.",
-  "step2": "Télécharger l’Excel",
-  "step2b": "Sous le titre « View My Courses », cliquez sur la première icône — celle à gauche de l’icône PDF. Conservez le fichier .xlsx ou .xls.",
+  "lead": "Le UBC schedule maker attend l’Excel fourni par Workday depuis View My Courses — pas une capture d’écran ni un PDF. Les captures ci-dessous montrent où cliquer.",
+  "step1": "Ouvrir Workday et cliquer sur View My Courses",
+  "step1b": "Connectez-vous. Sur l’accueil, cliquez sur View My Courses — entre « View My Saved Schedules » et « View Account Activity ». N’utilisez pas Find Course Sections.",
+  "step1Caption": "Après connexion : cliquez sur View My Courses.",
+  "step1Alt": "Accueil Workday avec le bouton View My Courses entouré.",
+  "step2": "Télécharger l’Excel — pas le PDF",
+  "step2b": "Sur View My Courses, cliquez sur l’icône tableur (une petite grille avec un X), juste à gauche de l’icône PDF. Ne touchez ni le PDF ni le signet. Conservez le fichier .xlsx ou .xls téléchargé.",
+  "step2same": "L’icône est la même sur ordinateur et téléphone. Seule la position change.",
+  "step2web": "Sur ordinateur",
+  "step2webCaption": "Les trois icônes sont à droite de la barre bleu foncé. Cliquez sur l’icône tableur, à gauche du PDF.",
+  "step2webAlt": "View My Courses sur ordinateur, icône Excel entourée à droite de la barre de titre.",
+  "step2phone": "Sur téléphone",
+  "step2phoneCaption": "Les mêmes icônes sont sous le titre, à gauche. Cliquez sur l’icône tableur, à gauche du PDF.",
+  "step2phoneAlt": "View My Courses sur téléphone, icône Excel entourée sous le titre.",
   "step3": "Importer le fichier",
   "step3b": "Ouvrez le créateur d’horaire et utilisez Importer Excel. Les colonnes sont lues par nom d’en-tête.",
   "step4": "Choisissez la grille",
@@ -13,5 +22,5 @@
   "ctaOpen": "Ouvrir le créateur d’horaire",
   "ubcLink": "Aperçu du créateur d’horaire UBC",
   "seoTitle": "Excel UBC Workday vers horaire | Timetable Craft",
-  "seoDescription": "Exportez l’Excel UBC Workday View My Courses et ouvrez-le dans ce timetable maker. Analyse locale, choix des cours, grille hebdomadaire."
+  "seoDescription": "Exportez l’Excel UBC Workday View My Courses — avec captures ordinateur et téléphone — et ouvrez-le dans ce timetable maker. Analyse locale, choix des cours, grille hebdomadaire."
 }

@@ -18,7 +18,7 @@
   "q8": "Do I need a UBC Excel file?",
   "a8": "No. Add any class schedule manually. The UBC Workday import is optional.",
   "q9": "How do I get the Excel from Workday?",
-  "a9": "Open Workday, go to View My Courses, then under that title click the first icon (the one to the left of the PDF icon). Import the downloaded .xlsx in Schedule Maker.",
+  "a9": "Open Workday and sign in. On the home screen click View My Courses. Then click the spreadsheet icon (a grid with an X) next to PDF — not PDF itself. On a computer it is on the right of the blue bar; on a phone it is under the title. Import the .xlsx in Schedule Maker.",
   "q10": "Can you import SFU, Waterloo, or other school timetables?",
   "a10": "Not as a one-click import yet. Email a sample export from Quest, goSFU, ACORN, Minerva, or any campus portal and we will add the parser. You can still add those classes by hand today.",
   "seoTitle": "Timetable & Schedule Maker FAQ | Timetable Craft",
@@ -26,5 +26,6 @@
   "contactTitle": "Something else?",
   "contactBody": "Send suggestions or questions to {{email}}. Building import for another school? Attach a timetable export.",
   "contactCta": "Send an email",
-  "ubcLink": "UBC timetable maker overview"
+  "ubcLink": "UBC timetable maker overview",
+  "guideLink": "Open the illustrated guide"
 }

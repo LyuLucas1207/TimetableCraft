@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { GmailIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
+import { WorkdayExcelShots, WorkdayHomeShot } from "@/components/import/WorkdayExportFigures";
 import CampusInvite from "@/components/marketing/CampusInvite";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
@@ -48,7 +49,16 @@ export default function FAQPage() {
         {items.map(([q, a]) => (
           <article key={q} className="border-t py-8">
             <h2 className="text-lg font-semibold">{t(q)}</h2>
-            <p className="mt-2 max-w-[48ch] text-sm leading-7 text-muted-foreground">{t(a)}</p>
+            <p className="mt-2 max-w-[52ch] text-sm leading-7 text-muted-foreground">{t(a)}</p>
+            {q === "q9" ? (
+              <div className="mt-5 space-y-4">
+                <WorkdayHomeShot />
+                <WorkdayExcelShots />
+                <Link to={ROUTES.GUIDE} className="inline-block text-sm underline underline-offset-4">
+                  {t("guideLink")}
+                </Link>
+              </div>
+            ) : null}
             {q === "q7" ? (
               <Link to={ROUTES.UBC_TIMETABLE_MAKER} className="mt-3 inline-block text-sm underline underline-offset-4">
                 {t("ubcLink")}

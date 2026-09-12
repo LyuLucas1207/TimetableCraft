@@ -1,10 +1,19 @@
 {
   "title": "Export UBC Workday Excel for this timetable maker.",
-  "lead": "The UBC schedule maker needs the Excel Workday gives you from View My Courses — not a screenshot and not a PDF.",
-  "step1": "Open Workday",
-  "step1b": "Sign in, then open View My Courses.",
-  "step2": "Download Excel",
-  "step2b": "Under the “View My Courses” title, click the first icon — the one to the left of the PDF icon. Keep the .xlsx or .xls file.",
+  "lead": "The UBC schedule maker needs the Excel Workday gives you from View My Courses — not a screenshot and not a PDF. The screenshots below show exactly where to tap.",
+  "step1": "Open Workday and click View My Courses",
+  "step1b": "Sign in. On the home screen, click the View My Courses button — it sits between “View My Saved Schedules” and “View Account Activity”. Do not use Find Course Sections.",
+  "step1Caption": "After login: click View My Courses.",
+  "step1Alt": "Workday home with the View My Courses button circled.",
+  "step2": "Download Excel — not the PDF",
+  "step2b": "On the View My Courses page, click the spreadsheet icon (a small grid with an X). It sits immediately left of the PDF icon. Do not tap PDF or the bookmark. Save the downloaded .xlsx or .xls file.",
+  "step2same": "The icon looks the same on computer and phone. Only the position changes.",
+  "step2web": "On a computer",
+  "step2webCaption": "The three icons sit on the right of the dark blue bar. Click the spreadsheet icon, left of PDF.",
+  "step2webAlt": "View My Courses on a computer, with the Excel export icon circled on the right of the title bar.",
+  "step2phone": "On a phone",
+  "step2phoneCaption": "The same three icons sit under the title, on the left. Click the spreadsheet icon, left of PDF.",
+  "step2phoneAlt": "View My Courses on a phone, with the Excel export icon circled under the title.",
   "step3": "Import the file",
   "step3b": "Open Schedule Maker and use Import Excel. Columns are read by header name: Course Listing, Section, Registration Status, Meeting Patterns, Instructor, and dates.",
   "step4": "Choose what goes on the grid",
@@ -13,5 +22,5 @@
   "ctaOpen": "Open Schedule Maker",
   "ubcLink": "UBC timetable maker overview",
   "seoTitle": "UBC Workday Excel to Timetable | Timetable Craft",
-  "seoDescription": "Export UBC Workday View My Courses Excel and open it in this timetable maker. Parse locally, pick classes, and build your weekly schedule."
+  "seoDescription": "Export UBC Workday View My Courses Excel — with screenshots for computer and phone — and open it in this timetable maker. Parse locally, pick classes, and build your weekly schedule."
 }

@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 
 import { ClockIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
+import { exportExcelWebShot, viewMyCoursesShot } from "@/assets/workday";
+import { WorkdayExcelShots, WorkdayHomeShot } from "@/components/import/WorkdayExportFigures";
 import CampusInvite from "@/components/marketing/CampusInvite";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
@@ -29,7 +31,12 @@ export default function GuidePage() {
           howToJsonLd(
             t("title"),
             t("seoDescription"),
-            steps.map(([title, body]) => ({ name: t(title), text: t(body) })),
+            [
+              { name: t("step1"), text: t("step1b"), image: absoluteUrl(viewMyCoursesShot) },
+              { name: t("step2"), text: `${t("step2b")} ${t("step2same")}`, image: absoluteUrl(exportExcelWebShot) },
+              { name: t("step3"), text: t("step3b") },
+              { name: t("step4"), text: t("step4b") },
+            ],
             absoluteUrl(ROUTES.GUIDE),
           ),
           breadcrumbJsonLd([
@@ -45,7 +52,14 @@ export default function GuidePage() {
             <li key={title} className="border-t py-8">
               <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">{index + 1}</p>
               <h2 className="mt-2 text-xl font-semibold">{t(title)}</h2>
-              <p className="mt-2 max-w-[48ch] text-sm leading-7 text-muted-foreground">{t(body)}</p>
+              <p className="mt-2 max-w-[58ch] text-sm leading-7 text-muted-foreground">{t(body)}</p>
+              {index === 0 ? <WorkdayHomeShot className="mt-5" /> : null}
+              {index === 1 ? (
+                <>
+                  <p className="mt-3 max-w-[58ch] text-sm leading-7 text-muted-foreground">{t("step2same")}</p>
+                  <WorkdayExcelShots className="mt-5" />
+                </>
+              ) : null}
             </li>
           ))}
         </ol>

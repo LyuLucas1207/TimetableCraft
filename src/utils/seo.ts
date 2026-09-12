@@ -112,7 +112,7 @@ export function faqJsonLd(entries: { question: string; answer: string }[], url?:
 export function howToJsonLd(
   name: string,
   description: string,
-  steps: { name: string; text: string }[],
+  steps: { name: string; text: string; image?: string }[],
   url?: string,
 ): JsonLd {
   return {
@@ -125,6 +125,7 @@ export function howToJsonLd(
       position: index + 1,
       name: step.name,
       text: step.text,
+      ...(step.image ? { image: step.image } : {}),
     })),
   };
 }

@@ -2,10 +2,17 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 
 import { LANG_NS, PAGE } from "@/assets/language";
+import { WorkdayExcelShots } from "@/components/import/WorkdayExportFigures";
 import { ROUTES } from "@/navigations";
 import { cn } from "cn";
 
-export default function WorkdayExportHint({ className }: { className?: string }) {
+export default function WorkdayExportHint({
+  className,
+  showImages = false,
+}: {
+  className?: string;
+  showImages?: boolean;
+}) {
   const { t } = useTranslation([PAGE.App, LANG_NS]);
   return (
     <div className={cn("rounded-xl border bg-muted/30 px-3 py-3 text-left", className)}>
@@ -15,6 +22,7 @@ export default function WorkdayExportHint({ className }: { className?: string })
         <li>{t("excelHow2", { ns: PAGE.App })}</li>
         <li>{t("excelHow3", { ns: PAGE.App })}</li>
       </ol>
+      {showImages ? <WorkdayExcelShots captions={false} className="mt-3 gap-2" /> : null}
       <Link
         to={ROUTES.GUIDE}
         className="mt-2 inline-block text-sm font-medium text-foreground underline-offset-2 hover:underline"
