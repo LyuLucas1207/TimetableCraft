@@ -21,7 +21,7 @@ export default function PreferencesPopover() {
 
   return (
     <Popover>
-      <PopoverTrigger render={<HoverIconButton variant="outline" size="icon" icon={GearIcon} aria-label={t("header.preferences")} />} />
+      <PopoverTrigger render={<HoverIconButton variant="outline" size="icon-sm" className="md:size-8" icon={GearIcon} aria-label={t("header.preferences")} />} />
       <PopoverContent align="end" className="w-72">
         <div className="flex flex-col gap-4">
           <div>

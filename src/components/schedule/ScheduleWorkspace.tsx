@@ -250,9 +250,13 @@ export default function ScheduleWorkspace() {
           </button>
         </div>
         <ImportExcelButton compact className="shrink-0" onClick={() => setImportOpen(true)} />
-        <HoverIconButton size="sm" className="shrink-0" icon={UserPlusIcon} aria-label={t("common.addCourse", { ns: LANG_NS })} onClick={openCreate}>
-          <span className="sr-only">{t("common.addCourse", { ns: LANG_NS })}</span>
-        </HoverIconButton>
+        <HoverIconButton
+          size="icon-sm"
+          className="shrink-0"
+          icon={UserPlusIcon}
+          aria-label={t("common.addCourse", { ns: LANG_NS })}
+          onClick={openCreate}
+        />
       </div>
 
       <aside
@@ -303,38 +307,66 @@ export default function ScheduleWorkspace() {
         <TitlePicker settings={settings} selectedTerm={selectedTerm} onSelectPreset={onSelectPreset} />
         <div className="flex shrink-0 flex-wrap items-center gap-1.5 md:gap-2">
           <Logo compact className="mr-1 hidden min-[420px]:flex" />
-          <HoverIconButton variant="outline" size="sm" icon={SlidersHorizontalIcon} aria-label={t("customize")} onClick={() => setCustomizeOpen(true)}>
-            <span className="max-md:sr-only">{t("customize")}</span>
+          <HoverIconButton
+            variant="outline"
+            size="icon-sm"
+            className="md:h-7 md:w-auto md:gap-1 md:px-2.5"
+            icon={SlidersHorizontalIcon}
+            aria-label={t("customize")}
+            onClick={() => setCustomizeOpen(true)}
+          >
+            <span className="hidden md:inline">{t("customize")}</span>
           </HoverIconButton>
-          <HoverIconButton variant="outline" size="sm" icon={EyeIcon} aria-label={t("preview")} onClick={() => setPreviewOpen(true)} disabled={visible.length === 0}>
-            <span className="max-md:sr-only">{t("preview")}</span>
+          <HoverIconButton
+            variant="outline"
+            size="icon-sm"
+            className="md:h-7 md:w-auto md:gap-1 md:px-2.5"
+            icon={EyeIcon}
+            aria-label={t("preview")}
+            onClick={() => setPreviewOpen(true)}
+            disabled={visible.length === 0}
+          >
+            <span className="hidden md:inline">{t("preview")}</span>
           </HoverIconButton>
           <HoverIconButton
             variant={settings.collapseEmptyTime ? "default" : "outline"}
-            size="sm"
+            size="icon-sm"
+            className="md:h-7 md:w-auto md:gap-1 md:px-2.5"
             icon={settings.collapseEmptyTime ? ExpandIcon : LayoutBottombarCollapseIcon}
             aria-label={settings.collapseEmptyTime ? t("collapseToggleUnfold") : t("collapseToggleFold")}
             onClick={() => setSettings({ collapseEmptyTime: !settings.collapseEmptyTime })}
           >
-            <span className="max-md:sr-only">{settings.collapseEmptyTime ? t("collapseToggleUnfold") : t("collapseToggleFold")}</span>
+            <span className="hidden md:inline">{settings.collapseEmptyTime ? t("collapseToggleUnfold") : t("collapseToggleFold")}</span>
           </HoverIconButton>
           <HoverIconButton
             variant={fitToWidth ? "default" : "outline"}
-            size="sm"
+            size="icon-sm"
             className="lg:hidden"
             icon={fitToWidth ? MagnifierIcon : FocusIcon}
             aria-label={fitToWidth ? t("fitToggleScroll") : t("fitToggleShrink")}
             onClick={toggleFitToWidth}
+          />
+          <HoverIconButton
+            variant="outline"
+            size="icon-sm"
+            className="md:h-7 md:w-auto md:gap-1 md:px-2.5"
+            icon={RefreshIcon}
+            aria-label={t("header.reset", { ns: LANG_NS })}
+            onClick={() => setResetOpen(true)}
           >
-            <span className="max-md:sr-only">{fitToWidth ? t("fitToggleScroll") : t("fitToggleShrink")}</span>
-          </HoverIconButton>
-          <HoverIconButton variant="outline" size="sm" icon={RefreshIcon} aria-label={t("header.reset", { ns: LANG_NS })} onClick={() => setResetOpen(true)}>
-            <span className="max-md:sr-only">{t("header.reset", { ns: LANG_NS })}</span>
+            <span className="hidden md:inline">{t("header.reset", { ns: LANG_NS })}</span>
           </HoverIconButton>
           <div className="ml-auto flex shrink-0 items-center gap-1.5 md:gap-2">
             <PreferencesPopover />
-            <HoverIconButton size="sm" icon={DownloadIcon} aria-label={t("header.exportPng", { ns: LANG_NS })} onClick={() => void exportPng()} disabled={visible.length === 0}>
-              <span className="max-md:sr-only">{t("header.exportPng", { ns: LANG_NS })}</span>
+            <HoverIconButton
+              size="icon-sm"
+              className="md:h-7 md:w-auto md:gap-1 md:px-2.5"
+              icon={DownloadIcon}
+              aria-label={t("header.exportPng", { ns: LANG_NS })}
+              onClick={() => void exportPng()}
+              disabled={visible.length === 0}
+            >
+              <span className="hidden md:inline">{t("header.exportPng", { ns: LANG_NS })}</span>
             </HoverIconButton>
             <ExportOptionsPopover />
           </div>

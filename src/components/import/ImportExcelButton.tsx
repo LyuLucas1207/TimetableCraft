@@ -1,4 +1,3 @@
-import type { MouseEvent, PointerEvent } from "react";
 import { useTranslation } from "react-i18next";
 
 import { FileDescriptionIcon, QuestionMark } from "@/animations";
@@ -7,11 +6,6 @@ import WorkdayExportHint from "@/components/import/WorkdayExportHint";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "cn";
-
-function stopHelpEvent(event: MouseEvent | PointerEvent) {
-  event.preventDefault();
-  event.stopPropagation();
-}
 
 function ExcelHowHelp() {
   const { t } = useTranslation(PAGE.App);
@@ -22,14 +16,10 @@ function ExcelHowHelp() {
         closeDelay={400}
         closeOnClick={false}
         render={
-          <span
-            role="note"
-            tabIndex={0}
+          <button
+            type="button"
+            className="inline-flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
             aria-label={t("excelHowTitle")}
-            className="ml-0.5 inline-flex size-4 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground"
-            data-icon="inline-end"
-            onClick={stopHelpEvent}
-            onPointerDown={stopHelpEvent}
           />
         }
       >
@@ -58,18 +48,34 @@ export default function ImportExcelButton({
   className?: string;
 }) {
   const { t } = useTranslation(PAGE.App);
+  if (compact) {
+    return (
+      <HoverIconButton
+        type="button"
+        variant="outline"
+        size="icon-sm"
+        className={className}
+        icon={FileDescriptionIcon}
+        aria-label={t("importExcel")}
+        onClick={onClick}
+      />
+    );
+  }
+
   return (
-    <HoverIconButton
-      type="button"
-      variant="outline"
-      size="sm"
-      className={cn(className)}
-      icon={FileDescriptionIcon}
-      aria-label={t("importExcel")}
-      onClick={onClick}
-    >
-      {compact ? <span className="sr-only">{t("importExcel")}</span> : t("importExcel")}
+    <div className={cn("flex min-w-0 items-center gap-0.5", className)}>
+      <HoverIconButton
+        type="button"
+        variant="outline"
+        size="sm"
+        className="min-w-0 flex-1"
+        icon={FileDescriptionIcon}
+        aria-label={t("importExcel")}
+        onClick={onClick}
+      >
+        {t("importExcel")}
+      </HoverIconButton>
       <ExcelHowHelp />
-    </HoverIconButton>
+    </div>
   );
 }

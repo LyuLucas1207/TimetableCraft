@@ -34,7 +34,8 @@ export default function ExportOptionsPopover() {
         render={
           <HoverIconButton
             variant="outline"
-            size="icon"
+            size="icon-sm"
+            className="md:size-8"
             icon={ExpandIcon}
             aria-label={t("exportOptions")}
           />

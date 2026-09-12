@@ -44,12 +44,13 @@ export function HoverIconButton({
   const { ref, hoverProps } = useAnimatedIconHover();
   const compact = size === "sm" || size === "icon-sm" || size === "xs" || size === "icon-xs";
   const resolvedSize = iconSize ?? (compact ? 14 : 16);
-  const hasLabel = children != null && children !== false;
+  const iconOnly = typeof size === "string" && size.startsWith("icon");
+  const hasLabel = !iconOnly && children != null && children !== false;
 
   return (
     <Button
       size={size}
-      className={cn("overflow-visible", className)}
+      className={cn("overflow-visible", iconOnly && "justify-center p-0", className)}
       {...props}
       onMouseEnter={(event) => {
         hoverProps.onMouseEnter();
