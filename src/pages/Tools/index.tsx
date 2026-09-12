@@ -38,7 +38,6 @@ export default function ToolsPage() {
               <p className="text-xs font-bold tracking-wide text-[#002145] uppercase dark:text-sky-300">{t("available")}</p>
               <h2 className="mt-3 text-2xl font-semibold tracking-tight">{t("scheduleMakerName")}</h2>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">{t("scheduleMakerBody")}</p>
-              <WorkdayExportHint className="mt-4" />
               <div className="mt-5">
                 <MiniWeek />
               </div>
@@ -54,6 +53,7 @@ export default function ToolsPage() {
               <p className="text-xs font-bold tracking-wide text-[#002145] uppercase dark:text-sky-300">{t("available")}</p>
               <h2 className="mt-3 text-2xl font-semibold tracking-tight">{t("ubcName")}</h2>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">{t("ubcBody")}</p>
+              <WorkdayExportHint className="mt-4" />
             </div>
             <div className="mt-6">
               <HoverIconButton variant="outline" icon={ClockIcon} nativeButton={false} render={<Link to={ROUTES.UBC_TIMETABLE_MAKER} />}>
