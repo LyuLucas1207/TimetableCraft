@@ -13,7 +13,8 @@
     "prerender": "node scripts/prerender.mjs",
     "lint": "oxlint",
     "preview": "vite preview --mode prod.local",
-    "test:seo": "node scripts/check-seo.mjs"
+    "test:seo": "node scripts/check-seo.mjs",
+    "test:planners": "node scripts/test-planners.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

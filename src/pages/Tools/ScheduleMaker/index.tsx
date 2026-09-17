@@ -1,3 +1,6 @@
+import { Link } from "react-router";
+import { ArrowNarrowLeftIcon } from "@/animations";
+import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { useTranslation } from "react-i18next";
 
 import { LANG_NS, PAGE } from "@/assets/language";
@@ -32,6 +35,7 @@ export default function ScheduleMakerPage() {
         ]}
       />
       <header className="mb-3 shrink-0">
+        <HoverIconButton className="mb-2" icon={ArrowNarrowLeftIcon} variant="outline" size="sm" nativeButton={false} render={<Link to={ROUTES.TOOLS} />}>{t("header.tools", { ns: LANG_NS })}</HoverIconButton>
         <h1 className="text-lg font-semibold">{t("scheduleMakerHeading")}</h1>
         <p className="text-xs text-muted-foreground">{t("scheduleMakerIntro")}</p>
       </header>

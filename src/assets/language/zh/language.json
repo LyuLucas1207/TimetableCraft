@@ -26,7 +26,7 @@
     "ubcTimetable": "UBC 课表制作器"
   },
   "footer": {
-    "tag": "Timetable Craft — 免费课表制作器、schedule maker 与 UBC course table maker，全部在浏览器里运行。其它学校可把课表文件发给我们补充。"
+    "tag": "为课程、工作和日常生活制作精美的时间表与计划。免费使用，保存在浏览器中。"
   },
   "common": {
     "or": "或",
@@ -59,7 +59,9 @@
     "Tue": "周二",
     "Wed": "周三",
     "Thu": "周四",
-    "Fri": "周五"
+    "Fri": "周五",
+    "Saturday": "星期六",
+    "Sunday": "星期日"
   },
   "formats": {
     "Lecture": "讲座",

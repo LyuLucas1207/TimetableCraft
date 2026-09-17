@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ClockIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
 import CampusInvite from "@/components/marketing/CampusInvite";
-import MiniWeek from "@/components/marketing/MiniWeek";
+import ToolCatalog from "@/components/marketing/ToolCatalog";
 import WorkdayExportHint from "@/components/import/WorkdayExportHint";
 import Seo from "@/components/Seo";
 import { HoverIconButton } from "@/components/ui/hover-icon-button";
@@ -32,41 +32,13 @@ export default function ToolsPage() {
       />
       <MarketingHero title={t("title")} lead={t("lead")} />
       <PageFrame maxWidth={1100} className="py-12 md:py-16">
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          <article className="flex min-h-[280px] flex-col justify-between rounded-2xl border bg-background p-6 shadow-sm">
-            <div>
-              <p className="text-xs font-bold tracking-wide text-[#002145] uppercase dark:text-sky-300">{t("available")}</p>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight">{t("scheduleMakerName")}</h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{t("scheduleMakerBody")}</p>
-              <div className="mt-5">
-                <MiniWeek />
-              </div>
-            </div>
-            <div className="mt-6">
-              <HoverIconButton icon={ClockIcon} nativeButton={false} render={<Link to={ROUTES.TOOL_SCHEDULE_MAKER} />}>
-                {t("openTool")}
-              </HoverIconButton>
-            </div>
-          </article>
-          <article className="flex min-h-[280px] flex-col justify-between rounded-2xl border bg-background p-6 shadow-sm">
-            <div>
-              <p className="text-xs font-bold tracking-wide text-[#002145] uppercase dark:text-sky-300">{t("available")}</p>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight">{t("ubcName")}</h2>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{t("ubcBody")}</p>
-              <WorkdayExportHint className="mt-4" />
-            </div>
-            <div className="mt-6">
-              <HoverIconButton variant="outline" icon={ClockIcon} nativeButton={false} render={<Link to={ROUTES.UBC_TIMETABLE_MAKER} />}>
-                {t("ubcCta")}
-              </HoverIconButton>
-            </div>
-          </article>
-          <article className="flex min-h-[280px] flex-col justify-end rounded-2xl border border-dashed bg-muted/20 p-6">
-            <p className="text-xs font-bold tracking-wide text-muted-foreground uppercase">{t("comingSoonLabel")}</p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-muted-foreground">{t("comingSoonName")}</h2>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">{t("comingSoonBody")}</p>
-          </article>
-        </div>
+        <ToolCatalog />
+        <aside className="mt-10 rounded-2xl border bg-muted/20 p-6">
+          <h2 className="text-xl font-semibold">{t("ubcName")}</h2>
+          <p className="mt-2 text-sm text-muted-foreground">{t("ubcBody")}</p>
+          <WorkdayExportHint className="my-4" />
+          <HoverIconButton variant="outline" icon={ClockIcon} nativeButton={false} render={<Link to={ROUTES.UBC_TIMETABLE_MAKER} />}>{t("ubcCta")}</HoverIconButton>
+        </aside>
         <CampusInvite className="mt-10" />
       </PageFrame>
     </>

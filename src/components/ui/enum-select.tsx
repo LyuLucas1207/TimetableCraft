@@ -13,12 +13,14 @@ export function EnumSelect<T extends string | number>({
   options,
   className,
   id,
+  "aria-label": ariaLabel,
 }: {
   value: T;
   onChange: (value: T) => void;
   options: readonly EnumSelectOption<T>[] | EnumSelectOption<T>[];
   className?: string;
   id?: string;
+  "aria-label"?: string;
 }) {
   const items = options.map((option) => ({ value: option.value, label: option.label }));
 
@@ -33,7 +35,7 @@ export function EnumSelect<T extends string | number>({
       modal={false}
       id={id}
     >
-      <SelectTrigger className={cn("w-full min-w-0", className)}>
+      <SelectTrigger aria-label={ariaLabel} className={cn("w-full min-w-0", className)}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent align="start" className="min-w-(--anchor-width)">

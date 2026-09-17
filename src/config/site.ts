@@ -2,9 +2,9 @@ import { APP_NAME, APP_URL } from "@/constants";
 
 export const SITE = {
   name: APP_NAME,
-  tagline: "Turn your UBC Excel into a beautiful timetable.",
+  tagline: "Craft your time.",
   description:
-    "Timetable Craft is a free course timetable and schedule maker. Add classes manually or import UBC Workday Excel, customize your weekly grid, and export PNG or calendar .ics locally.",
+    "Create beautiful timetables, schedules and planners for classes, study, work and everyday life. Customize events and templates, then export locally.",
   keywords:
     "UBC, Workday, timetable, schedule, Excel, View My Courses, Timetable Craft, timetablecraft.com, Winter Term, Summer Term, course calendar, PNG, ICS, iCalendar, Google Calendar, Apple Calendar, Outlook, student tools, SFU, Waterloo, goSFU, Quest",
   url: APP_URL,

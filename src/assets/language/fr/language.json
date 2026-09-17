@@ -26,7 +26,7 @@
     "ubcTimetable": "Emploi du temps UBC"
   },
   "footer": {
-    "tag": "Timetable Craft — timetable maker, schedule maker et UBC course table maker gratuits dans le navigateur. Autres campus : envoyez un fichier d’horaire."
+    "tag": "Créez de beaux plannings pour les cours, le travail et le quotidien. Gratuit, dans votre navigateur."
   },
   "common": {
     "or": "OU",
@@ -59,7 +59,9 @@
     "Tue": "Mar",
     "Wed": "Mer",
     "Thu": "Jeu",
-    "Fri": "Ven"
+    "Fri": "Ven",
+    "Saturday": "Samedi",
+    "Sunday": "Dimanche"
   },
   "formats": {
     "Lecture": "Cours",

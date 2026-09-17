@@ -5,5 +5,12 @@
   "/ubc-timetable-maker",
   "/guide",
   "/faq",
-  "/contact"
+  "/contact",
+  "/tools/weekly-schedule",
+  "/tools/study-planner",
+  "/tools/exam-timetable",
+  "/tools/work-schedule",
+  "/tools/daily-planner",
+  "/tools/routine-planner",
+  "/tools/custom-timetable"
 ]

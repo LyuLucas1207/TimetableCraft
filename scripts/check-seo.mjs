@@ -13,7 +13,7 @@ for (const path of required) {
 }
 
 const sitemap = read("public/sitemap.xml");
-for (const path of required) {
+for (const path of routes) {
   const loc = `https://timetablecraft.com${path === "/" ? "/" : path}`;
   if (!sitemap.includes(`<loc>${loc}</loc>`)) throw new Error(`sitemap.xml missing ${loc}`);
 }

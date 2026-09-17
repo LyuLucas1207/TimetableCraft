@@ -5,6 +5,9 @@ import { Main, Tool } from "@/layouts";
 import { ROUTES } from "@/navigations";
 import { AboutPage, FAQPage, GuidePage, HomePage, NotFoundPage, ToolsPage, UbcPage } from "@/pages";
 
+import { PLANNERS, plannerPath } from "@/config/planners";
+const PlannerPage = lazy(() => import("@/pages/Tools/Planner"));
+
 const ScheduleMakerPage = lazy(() => import("@/pages/Tools/ScheduleMaker"));
 
 export default function App() {
@@ -21,6 +24,7 @@ export default function App() {
       </Route>
 
       <Route element={<Tool />}>
+        {PLANNERS.map((planner) => <Route key={planner.id} path={plannerPath(planner)} element={<Suspense fallback={<p role="status" className="p-6">Loading…</p>}><PlannerPage planner={planner} /></Suspense>} />)}
         <Route path={ROUTES.TOOL_SCHEDULE_MAKER} element={<Suspense fallback={<p role="status" className="p-6">Loading Schedule Maker…</p>}><ScheduleMakerPage /></Suspense>} />
       </Route>
 

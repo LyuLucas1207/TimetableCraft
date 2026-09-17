@@ -1,3 +1,6 @@
+import frPlanner from "./fr/pages/Planner.json";
+import zhPlanner from "./zh/pages/Planner.json";
+import enPlanner from "./en/pages/Planner.json";
 import enLanguage from "./en/language.json";
 import enAbout from "./en/pages/About.json";
 import enApp from "./en/pages/App.json";
@@ -27,6 +30,7 @@ export const LANG_NS = "language" as const;
 
 export const PAGE = {
   Home: "pages.Home",
+  Planner: "pages.Planner",
   Ubc: "pages.Ubc",
   App: "pages.App",
   Tools: "pages.Tools",
@@ -44,6 +48,7 @@ export const RESOURCES = {
     [PAGE.Ubc]: enUbc,
     [PAGE.App]: enApp,
     [PAGE.Tools]: enTools,
+    [PAGE.Planner]: enPlanner,
     [PAGE.Guide]: enGuide,
     [PAGE.About]: enAbout,
     [PAGE.FAQ]: enFAQ,
@@ -54,6 +59,7 @@ export const RESOURCES = {
     [PAGE.Ubc]: zhUbc,
     [PAGE.App]: zhApp,
     [PAGE.Tools]: zhTools,
+    [PAGE.Planner]: zhPlanner,
     [PAGE.Guide]: zhGuide,
     [PAGE.About]: zhAbout,
     [PAGE.FAQ]: zhFAQ,
@@ -64,6 +70,7 @@ export const RESOURCES = {
     [PAGE.Ubc]: frUbc,
     [PAGE.App]: frApp,
     [PAGE.Tools]: frTools,
+    [PAGE.Planner]: frPlanner,
     [PAGE.Guide]: frGuide,
     [PAGE.About]: frAbout,
     [PAGE.FAQ]: frFAQ,

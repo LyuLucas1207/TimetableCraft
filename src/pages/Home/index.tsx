@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ClockIcon, UnorderedListIcon, UploadIcon } from "@/animations";
 import { LANG_NS, PAGE } from "@/assets/language";
 import logoMark from "@/assets/logo_no_background.png";
+import ToolCatalog from "@/components/marketing/ToolCatalog";
 import CampusInvite from "@/components/marketing/CampusInvite";
 import MiniWeek from "@/components/marketing/MiniWeek";
 import Seo from "@/components/Seo";
@@ -47,6 +48,7 @@ export default function HomePage() {
       </MarketingHero>
 
       <PageFrame maxWidth={1100} className="py-14 md:py-20">
+        <div className="mb-16"><ToolCatalog /></div>
         <p className="text-xs font-bold tracking-wide text-[#002145] uppercase dark:text-sky-300">{t("featuredLabel")}</p>
         <div className="mt-4 grid items-stretch gap-8 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="flex min-h-[280px] flex-col justify-end">

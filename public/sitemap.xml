@@ -42,4 +42,11 @@
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url><loc>https://timetablecraft.com/tools/weekly-schedule</loc></url>
+  <url><loc>https://timetablecraft.com/tools/study-planner</loc></url>
+  <url><loc>https://timetablecraft.com/tools/exam-timetable</loc></url>
+  <url><loc>https://timetablecraft.com/tools/work-schedule</loc></url>
+  <url><loc>https://timetablecraft.com/tools/daily-planner</loc></url>
+  <url><loc>https://timetablecraft.com/tools/routine-planner</loc></url>
+  <url><loc>https://timetablecraft.com/tools/custom-timetable</loc></url>
 </urlset>

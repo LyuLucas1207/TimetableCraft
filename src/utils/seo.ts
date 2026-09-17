@@ -59,13 +59,14 @@ export function softwareJsonLd(
   url: string,
   name = `${APP_NAME} Schedule Maker`,
   alternateName: string[] = ["TimetableCraft Schedule Maker"],
+  options?: { category?: string; features?: string[] },
 ): JsonLd {
   return {
     "@type": "SoftwareApplication",
     "@id": `${url.replace(/#.*$/, "")}#app`,
     name,
     alternateName,
-    applicationCategory: "EducationalApplication",
+    applicationCategory: options?.category ?? "EducationalApplication",
     applicationSubCategory: "Timetable maker",
     operatingSystem: "Any",
     offers: { "@type": "Offer", price: "0", priceCurrency: "CAD" },
@@ -75,7 +76,7 @@ export function softwareJsonLd(
     author: { "@id": `${APP_URL}/#organization` },
     isAccessibleForFree: true,
     browserRequirements: "Requires JavaScript. Runs entirely in the browser.",
-    featureList: [
+    featureList: options?.features ?? [
       "Manual course entry",
       "Local UBC Workday Excel parsing",
       "Weekly timetable grid",

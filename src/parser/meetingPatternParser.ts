@@ -173,6 +173,8 @@ export function formatDaysShort(days: WeekDay[]): string {
     Wednesday: "Wed",
     Thursday: "Thu",
     Friday: "Fri",
+    Saturday: "Sat",
+    Sunday: "Sun",
   };
   return days.map((day) => short[day]).join(" ");
 }

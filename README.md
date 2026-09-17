@@ -4,9 +4,9 @@
 
 # Timetable Craft
 
-**EN** — A frontend-only public toolkit for UBC students. The first tool, **Schedule Maker**, reads a Workday **View My Courses** Excel file in the browser (or you add courses by hand), places them on a weekly grid, and exports a PNG. Nothing is uploaded.
+**EN** — Craft your time. A frontend-only toolkit for class timetables, weekly schedules, study, exams, work, daily planning and routines. Start with a template or add events yourself. University Excel import remains available in Class Timetable. Nothing is uploaded.
 
-**中文** — 给 UBC 学生用的纯前端公开工具站。第一个工具是 **课表制作器**：在浏览器里解析 Workday **View My Courses** Excel（也可手填），勾选课程上表，导出 PNG。文件不会上传。
+**中文** — 为课程、工作、学习与日常生活制作时间表的纯前端工具站。支持模板、手动事件和大学课程导入，数据保存在本地浏览器。
 
 | | |
 | --- | --- |
@@ -14,7 +14,7 @@
 | Contact / 联系 | [lyuchongkai@gmail.com](mailto:lyuchongkai@gmail.com) |
 | Languages / 语言 | English · 中文 · Français |
 | Theme / 主题 | light / dark / system |
-| Data / 数据 | `localStorage` only (`timetablecraft:v1`) |
+| Data / 数据 | `localStorage` only; separate keys per tool |
 | Affiliation / 关系 | Independent student project. **Not affiliated with UBC or Workday.** / 独立学生项目，**与 UBC、Workday 无关。** |
 
 Workday remains the source of record. Always confirm times and rooms there.
@@ -46,14 +46,17 @@ Workday remains the source of record. Always confirm times and rooms there.
 
 - Import a Workday **View My Courses** `.xlsx` / `.xls` locally. Columns are matched by header name (`Course Listing`, `Section`, `Registration Status`, `Meeting Patterns`, `Instructor`, dates, …).
 - 本地导入 Workday **View My Courses** 表格。按表头识别列，不把文件发到服务器。
-- One `Course[]` model feeds the catalog, the weekly grid, credit counts, and PNG export.
-- 同一套课程模型同时驱动列表、周课表、学分统计和 PNG。
+- `Course[]` stays in the course editor; an adapter converts it into `ScheduleEvent[]`. Every tool uses `TimetableEngine` for layout and rendering.
+- 课程与通用事件通过适配器衔接，全部工具共用渲染器。
 - **Active** = solid block, **Waitlist** = dashed, **Dropped** = dotted. Nothing is placed until you check it.
 - **在读**实线、**候补**虚线、**已退**点线。识别后不会自动上表，必须勾选。
 - Terms: Winter Term 1 / 2, Summer Term 1 / 2 (`W1` `W2` `S1` `S2`).
 - Appearance: brand, title, colors, grid, block style. PNG captures the timetable card only.
 - 外观可改品牌、标题、颜色和格子。PNG 只截课表卡片，不含周围编辑区。
-- More tools will land under `/tools`. Schedule Maker is the first.
+- Seven additional planners include editable starter templates, weekends, dated events, PNG / ICS export, and browser Print / Save as PDF.
+- Study Planner can copy the current class timetable; copied blocks can be edited independently.
+- Each planner has its own Zustand store and `timetablecraft:planner:<id>:v1` persistence key. A factory shares behavior without sharing state.
+- PDF uses the browser print dialog. Overnight shifts should be split into separate days; Smart Fill and semester milestone views remain planned.
 
 ---
 
@@ -63,7 +66,14 @@ Workday remains the source of record. Always confirm times and rooms there.
 | --- | --- | --- |
 | `/` | Landing / 首页 | yes |
 | `/tools` | Tool index / 工具列表 | yes |
-| `/tools/schedule-maker` | Schedule Maker / 课表制作器 | yes |
+| `/tools/schedule-maker` | Class Timetable / 课表制作器 | yes |
+| `/tools/weekly-schedule` | Weekly Schedule | yes |
+| `/tools/study-planner` | Study Planner | yes |
+| `/tools/exam-timetable` | Exam Timetable | yes |
+| `/tools/work-schedule` | Work Schedule | yes |
+| `/tools/daily-planner` | Daily Planner | yes |
+| `/tools/routine-planner` | Routine Planner | yes |
+| `/tools/custom-timetable` | Custom Timetable | yes |
 | `/guide` | How to export Excel from Workday / 导出指南 | yes |
 | `/faq` | FAQ / 常见问题 | yes |
 | `/contact` | About + email / 介绍与联系 | yes |
@@ -388,3 +398,20 @@ Parsing, layout, appearance, and PNG export all run in this tab. Closing the pag
 Not affiliated with the University of British Columbia or Workday.
 
 与 UBC、Workday 无隶属关系。
+
+
+## Planner development and verification
+
+- Roadmap and scope: [docs/planner-roadmap.md](docs/planner-roadmap.md).
+- Tool definitions/templates: `src/config/planners.ts`.
+- Event model/adapter: `src/types/schedule.ts`, `src/utils/schedule.ts`.
+- Shared renderer: `src/components/timetable/TimetableEngine.tsx`.
+- Independent stores: `src/stores/planners.ts` (one store instance and key per tool).
+- Shared planner editor: `src/components/planner/PlannerWorkspace.tsx`.
+
+Run `npm run build`, `npm run lint`, and `npm run test:seo`.
+For browser regression checks, start Vite on port 10020 and run
+`npm run test:planners`. Override `TEST_BASE_URL` or `CHROME_PATH` as needed.
+The tests use a fresh browser context, cover editing, persistence isolation,
+weekends, exact dates, class copying, templates, PNG/ICS downloads, print-image
+preparation, mobile layouts and translations. Screenshots go to `/tmp/timetablecraft-qa`.

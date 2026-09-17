@@ -9,6 +9,8 @@ const ICS_BYDAY: Record<WeekDay, string> = {
   [WeekDay.Wednesday]: "WE",
   [WeekDay.Thursday]: "TH",
   [WeekDay.Friday]: "FR",
+  [WeekDay.Saturday]: "SA",
+  [WeekDay.Sunday]: "SU",
 };
 
 const JS_WEEKDAY: Record<WeekDay, number> = {
@@ -17,6 +19,8 @@ const JS_WEEKDAY: Record<WeekDay, number> = {
   [WeekDay.Wednesday]: 3,
   [WeekDay.Thursday]: 4,
   [WeekDay.Friday]: 5,
+  [WeekDay.Saturday]: 6,
+  [WeekDay.Sunday]: 0,
 };
 
 export function buildIcsCalendar(courses: Course[], calendarName: string): string | null {

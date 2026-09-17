@@ -26,7 +26,7 @@
     "ubcTimetable": "UBC timetable maker"
   },
   "footer": {
-    "tag": "Timetable Craft — free timetable maker, schedule maker, and UBC course table maker in the browser. Other schools: send a timetable file."
+    "tag": "Create beautiful timetables, schedules and planners for classes, work and everyday life. Free, in your browser."
   },
   "common": {
     "or": "OR",
@@ -59,7 +59,9 @@
     "Tue": "Tue",
     "Wed": "Wed",
     "Thu": "Thu",
-    "Fri": "Fri"
+    "Fri": "Fri",
+    "Saturday": "Saturday",
+    "Sunday": "Sunday"
   },
   "formats": {
     "Lecture": "Lecture",

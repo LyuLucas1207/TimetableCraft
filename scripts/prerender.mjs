@@ -81,7 +81,7 @@ async function main() {
     console.log(`[prerender] live mode against ${base}, out -> ${OUT_DIR}`);
   }
 
-  const browser = await chromium.launch({ args: ["--no-sandbox"] });
+  const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || undefined, args: ["--no-sandbox"] });
   const context = await browser.newContext({ locale: "en-CA", reducedMotion: "reduce" });
   const results = [];
 

@@ -280,13 +280,15 @@ function TypeBadge({ type }: { type: CourseType }) {
   );
 }
 
-function shortDay(day: WeekDay): "Mon" | "Tue" | "Wed" | "Thu" | "Fri" {
+function shortDay(day: WeekDay): "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun" {
   const names = {
     [WeekDay.Monday]: "Mon",
     [WeekDay.Tuesday]: "Tue",
     [WeekDay.Wednesday]: "Wed",
     [WeekDay.Thursday]: "Thu",
     [WeekDay.Friday]: "Fri",
+    [WeekDay.Saturday]: "Sat",
+    [WeekDay.Sunday]: "Sun",
   } as const;
   return names[day];
 }
