@@ -401,25 +401,13 @@ export default function ScheduleWorkspace() {
       </Dialog>
 
       <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
-        <DialogContent className="flex max-h-[90dvh] w-[calc(100%-1.25rem)] min-h-0 flex-col overflow-hidden sm:max-w-5xl">
-          <DialogHeader className="flex-row items-start justify-between gap-2 pr-8">
-            <div className="min-w-0 space-y-2">
-              <DialogTitle>{t("preview", { ns: PAGE.App })}</DialogTitle>
-              <DialogDescription>{t("previewBody", { ns: PAGE.App })}</DialogDescription>
-            </div>
-            <HoverIconButton
-              variant={fitToWidth ? "default" : "outline"}
-              size="sm"
-              className="lg:hidden shrink-0"
-              icon={fitToWidth ? MagnifierIcon : FocusIcon}
-              aria-label={fitToWidth ? t("fitToggleScroll") : t("fitToggleShrink")}
-              onClick={toggleFitToWidth}
-            >
-              <span className="sr-only">{fitToWidth ? t("fitToggleScroll") : t("fitToggleShrink")}</span>
-            </HoverIconButton>
+        <DialogContent fullscreen className="min-h-0">
+          <DialogHeader className="shrink-0 pr-8">
+            <DialogTitle>{t("preview", { ns: PAGE.App })}</DialogTitle>
+            <DialogDescription>{t("previewBody", { ns: PAGE.App })}</DialogDescription>
           </DialogHeader>
           <div className="min-h-0 flex-1 overflow-hidden">
-            <FitWidthFrame enabled={fitToWidth} className="px-1 pb-2">
+            <FitWidthFrame enabled contain>
               <Timetable courses={visible} settings={settings} interactive={false} />
             </FitWidthFrame>
           </div>
