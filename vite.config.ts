@@ -8,7 +8,7 @@ const root = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, root, "");
-  const port = Number(env.VITE_PORT) || 10010;
+  const port = Number(env.VITE_PORT) || 10404;
   return {
     plugins: [react(), tailwindcss()],
     base: "/",

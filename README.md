@@ -99,9 +99,9 @@ TimetableCraft-WEB/
 ├── Dockerfile                 # Node 22 build → nginx 1.27 static
 ├── start.sh                   # menv → docker build/run → Playwright prerender
 ├── stop.sh                    # docker rm container
-├── .env.dev                   # Vite --mode dev        (port 10010)
+├── .env.dev                   # Vite --mode dev        (port 10404)
 ├── .env.prod                  # Vite --mode prod        (canonical https://timetablecraft.com)
-├── .env.prod.local            # Vite --mode prod.local  + docker names/port 10009
+├── .env.prod.local            # Vite --mode prod.local  + docker names/port 10401
 ├── nginx/
 │   ├── default.conf           # inside the container (SPA + cache)
 │   └── timetablecraft.com.conf  # host / edge TLS reverse proxy sample
@@ -171,14 +171,14 @@ npm ci
 npm run dev
 ```
 
-Vite reads `.env.dev` and listens on **http://localhost:10010** (`host: 0.0.0.0`).
+Vite reads `.env.dev` and listens on **http://localhost:10404** (`host: 0.0.0.0`).
 
 To run against the same env Docker uses:
 
 用和 Docker 相同的 `prod.local` 环境：
 
 ```bash
-npm run dev:prod-local    # http://localhost:10009
+npm run dev:prod-local    # http://192.168.1.64:10401
 ```
 
 To preview a production-canonical build (OG/canonical URLs point at timetablecraft.com):
@@ -186,7 +186,7 @@ To preview a production-canonical build (OG/canonical URLs point at timetablecra
 预览正式域名元数据（canonical / OG 指向线上）：
 
 ```bash
-npm run dev:prod          # http://localhost:10011
+npm run dev:prod          # http://localhost:10405
 ```
 
 ---
@@ -197,9 +197,9 @@ Vite `--mode X` loads `.env` then `.env.X`. Scripts pass `--mode` explicitly.
 
 | File | Mode | `VITE_PORT` | `VITE_SITE_URL` | Also used by |
 | --- | --- | --- | --- | --- |
-| `.env.dev` | `dev` | `10010` | `http://localhost:10010` | `npm run dev` |
-| `.env.prod` | `prod` | `10011` | `https://timetablecraft.com` | `npm run build` / `dev:prod` |
-| `.env.prod.local` | `prod.local` | `10009` | `http://localhost:10009` | `build:prod-local`, `start.sh`, `stop.sh` |
+| `.env.dev` | `dev` | `10404` | `http://localhost:10404` | `npm run dev` |
+| `.env.prod` | `prod` | `10405` | `https://timetablecraft.com` | `npm run build` / `dev:prod` |
+| `.env.prod.local` | `prod.local` | `10401` | `http://192.168.1.64:10401` | `build:prod-local`, `start.sh`, `stop.sh` |
 
 `.env.prod.local` extra keys (docker):
 
@@ -207,7 +207,7 @@ Vite `--mode X` loads `.env` then `.env.X`. Scripts pass `--mode` explicitly.
 | --- | --- |
 | `TIMETABLECRAFT_WEB_IMAGE` | `timetablecraft-web:prod-local` |
 | `TIMETABLECRAFT_WEB_CONTAINER` | `TimetableCraft-WEB-Prod-Local` |
-| `TIMETABLECRAFT_WEB_PORT` | `10009` |
+| `TIMETABLECRAFT_WEB_PORT` | `10401` |
 | `TIMETABLECRAFT_WEB_RESTART` | `always` |
 
 `*.local` is gitignored; `!.env.prod.local` is force-included so the NAS deploy file is shared.
@@ -244,7 +244,7 @@ Same pattern as AquaWorks-WEB: multi-stage `Dockerfile`, container nginx, host r
 | --- | --- |
 | Image | `timetablecraft-web:prod-local` |
 | Container | `TimetableCraft-WEB-Prod-Local` |
-| Publish | **10009 → 80** |
+| Publish | **10401 → 80** |
 | Restart | `always` |
 | Build | `npm run build:prod-local` inside `node:22-alpine` |
 | Serve | `nginx:1.27-alpine` + `nginx/default.conf` |
@@ -260,7 +260,7 @@ Same pattern as AquaWorks-WEB: multi-stage `Dockerfile`, container nginx, host r
 
 ```bash
 chmod +x start.sh stop.sh
-./start.sh                 # menv → docker build → run :10009 → prerender into the container
+./start.sh                 # menv → docker build → run :10401 → prerender into the container
 ./stop.sh                  # docker rm -f TimetableCraft-WEB-Prod-Local
 ```
 
@@ -285,15 +285,15 @@ Pass extra `docker build` args through:
 ./start.sh --build-arg FOO=bar
 ```
 
-After a successful start: **http://localhost:10009**
+After a successful start: **http://192.168.1.64:10401**
 
 Prerender writes HTML snapshots for `/`, `/tools`, `/tools/schedule-maker`, `/guide`, `/faq`, `/contact`, `/404`, then `docker cp` them into `/usr/share/nginx/html/` so Googlebot can see real `<h1>` / JSON-LD without executing the SPA.
 
 预渲染把上述路由的 HTML 快照拷进容器。Googlebot 不依赖执行 SPA 空壳。
 
-ASUSTOR hosts often lack Playwright’s system libraries, so the default prerender path is the official Playwright Docker image, with `host.docker.internal` pointing at port 10009.
+ASUSTOR hosts often lack Playwright’s system libraries, so the default prerender path is the official Playwright Docker image, with `host.docker.internal` pointing at port 10401.
 
-ASUSTOR 等精简宿主机通常缺 Chromium 依赖，所以默认在 Playwright 官方镜像里跑预渲染，通过 `host.docker.internal:10009` 访问刚启动的站点。
+ASUSTOR 等精简宿主机通常缺 Chromium 依赖，所以默认在 Playwright 官方镜像里跑预渲染，通过 `NAS_IP:10401` 访问刚启动的站点。
 
 ---
 
@@ -303,7 +303,7 @@ Canonical host: **https://timetablecraft.com** (www should 301 to apex).
 
 Sample edge config: `nginx/timetablecraft.com.conf`
 
-1. Keep the container on `127.0.0.1:10009`.
+1. Keep the container on `NAS_IP:10401`.
 2. Install that server block on NAS / edge nginx (or the ASUSTOR reverse-proxy UI equivalent).
 3. Uncomment `ssl_certificate` / `ssl_certificate_key` (Let’s Encrypt or ASUSTOR certs).
 4. HTTP and `www` redirect to `https://timetablecraft.com`.

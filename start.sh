@@ -41,7 +41,8 @@ set +a
 
 IMAGE_NAME="${TIMETABLECRAFT_WEB_IMAGE:-timetablecraft-web:prod-local}"
 CONTAINER_NAME="${TIMETABLECRAFT_WEB_CONTAINER:-TimetableCraft-WEB-Prod-Local}"
-HOST_PORT="${TIMETABLECRAFT_WEB_PORT:-10009}"
+NAS_IP="${NAS_IP:-192.168.1.64}"
+HOST_PORT="${TIMETABLECRAFT_WEB_PORT:-10401}"
 RESTART="${TIMETABLECRAFT_WEB_RESTART:-unless-stopped}"
 
 # ASUSTOR 等精简 Linux 宿主机缺 libatk 等库，预渲染在 Playwright 官方镜像内执行
@@ -78,9 +79,9 @@ sudo -E docker build -t "$IMAGE_NAME" "$@" .
 echo "==> remove existing container (if any): ${CONTAINER_NAME}"
 sudo -E docker rm -f "$CONTAINER_NAME" || true
 
-echo "==> docker run ${CONTAINER_NAME} on :${HOST_PORT}"
+echo "==> docker run ${CONTAINER_NAME} on ${NAS_IP}:${HOST_PORT}"
 sudo -E docker run -d --name "$CONTAINER_NAME" --restart="$RESTART" \
-  -p "${HOST_PORT}:80" "$IMAGE_NAME"
+  -p "${NAS_IP}:${HOST_PORT}:80" "$IMAGE_NAME"
 sudo -E docker ps --filter "name=^/${CONTAINER_NAME}$"
 
 run_prerender() {
@@ -102,7 +103,7 @@ run_prerender() {
   echo "    playwright=${PLAYWRIGHT_VERSION}"
   echo "    image=${PRERENDER_IMAGE}"
 
-  local base_url="http://localhost:${HOST_PORT}"
+  local base_url="http://${NAS_IP}:${HOST_PORT}"
   local run_mode="host"
 
   if [ "${PRERENDER_ON_HOST:-0}" = "1" ]; then
@@ -139,7 +140,7 @@ run_prerender() {
       -v "$(pwd)/node_modules:/app/node_modules:ro" \
       -v "$(pwd)/${out_dir}:/app/${out_dir}" \
       -w /app \
-      -e PRERENDER_BASE_URL="http://host.docker.internal:${HOST_PORT}" \
+      -e PRERENDER_BASE_URL="http://${NAS_IP}:${HOST_PORT}" \
       -e PRERENDER_OUT="/app/${out_dir}" \
       -e PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 \
       "$PRERENDER_IMAGE" \
@@ -148,14 +149,14 @@ run_prerender() {
 }
 
 if [ "${PRERENDER_SKIP:-0}" != "1" ]; then
-  echo "==> wait for http://localhost:${HOST_PORT}/ before SEO prerender"
+  echo "==> wait for http://${NAS_IP}:${HOST_PORT}/ before SEO prerender"
   ready=0
   for i in $(seq 1 30); do
     echo "    attempt ${i}/30 ..."
     if curl -f --max-time 2 \
       -w "    HTTP %{http_code}  bytes=%{size_download}  time=%{time_total}s\n" \
       -o ".prerender-health.html" \
-      "http://localhost:${HOST_PORT}/"; then
+      "http://${NAS_IP}:${HOST_PORT}/"; then
       echo "==> site ready (response saved to .prerender-health.html)"
       ready=1
       break
@@ -180,4 +181,4 @@ else
 fi
 
 echo "==> done"
-echo "Timetable Craft → http://localhost:${HOST_PORT}"
+echo "Timetable Craft → http://${NAS_IP}/timetablecraft.com/  (also http://${NAS_IP}:${HOST_PORT})"
