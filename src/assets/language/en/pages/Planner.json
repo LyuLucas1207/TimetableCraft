@@ -78,36 +78,103 @@
     "lateShift": "Late shift",
     "morning": "Morning routine",
     "reading": "Reading",
-    "yourEvent": "Your event"
+    "yourEvent": "Your event",
+    "meetings": "Meetings",
+    "morningStudy": "Morning study",
+    "library": "Library session",
+    "weeklyReview": "Weekly review",
+    "clientWork": "Client work",
+    "admin": "Admin & invoices",
+    "practice": "Practice problems",
+    "pastPapers": "Past papers",
+    "examCalculus": "Calculus",
+    "examPhysics": "Physics",
+    "examProgramming": "Programming",
+    "examEconomics": "Economics",
+    "openShift": "Opening shift",
+    "midShift": "Mid shift",
+    "closeShift": "Closing shift",
+    "nightShift": "Night shift",
+    "roleCashier": "Cashier",
+    "roleFloor": "Floor",
+    "studyBlock": "Study block",
+    "break": "Break",
+    "slowMorning": "Slow morning",
+    "errands": "Errands",
+    "hobby": "Hobby time",
+    "social": "Friends & family",
+    "wakeUp": "Wake up",
+    "exercise": "Exercise",
+    "breakfast": "Breakfast",
+    "journal": "Journal",
+    "run": "Run",
+    "longRun": "Long run",
+    "stretch": "Stretch",
+    "dinner": "Dinner",
+    "meditation": "Meditation",
+    "windDown": "Wind down",
+    "period1": "Period 1",
+    "period2": "Period 2",
+    "period3": "Period 3",
+    "period4": "Period 4",
+    "booking": "Booking",
+    "roomA": "Room A",
+    "roomB": "Room B",
+    "roomC": "Room C",
+    "personA": "Alex",
+    "personB": "Sam",
+    "personC": "Jo",
+    "task": "Task"
   },
   "tools": {
     "weekly": {
       "name": "Weekly Schedule",
-      "description": "Make room for work, meals, exercise and downtime across all seven days."
+      "description": "Make room for work, meals, exercise and downtime across all seven days.",
+      "seoTitle": "Weekly Timetable Maker – Free Schedule Template",
+      "seoDescription": "Free weekly timetable maker. Plan work, meals, exercise and downtime across seven days with editable templates, then export a PNG, print or add it to your calendar.",
+      "maker": "Weekly timetable maker"
     },
     "study": {
       "name": "Study Planner",
-      "description": "Plan reviews, assignments and exam prep alongside a copy of your classes."
+      "description": "Plan reviews, assignments and exam prep alongside a copy of your classes.",
+      "seoTitle": "Study Timetable Maker – Free Study Planner",
+      "seoDescription": "Free study timetable maker. Plan reviews and assignments around your classes, set weekly hour goals per subject, auto-fill free slots and export your schedule.",
+      "maker": "Study timetable maker"
     },
     "exam": {
       "name": "Exam Timetable",
-      "description": "Keep exam dates, times and locations together in a clear dated timetable."
+      "description": "Keep exam dates, times and locations together in a clear dated timetable.",
+      "seoTitle": "Exam Timetable Maker – Free Exam Schedule Planner",
+      "seoDescription": "Free exam timetable maker. Keep exam dates, times, rooms and seats in one agenda with countdowns and clash warnings. Export a PNG, print or add it to your calendar.",
+      "maker": "Exam timetable maker"
     },
     "work": {
       "name": "Work Schedule",
-      "description": "Build your weekly shifts with clear times, locations and color-coded blocks."
+      "description": "Build your weekly shifts with clear times, locations and color-coded blocks.",
+      "seoTitle": "Work Schedule Maker – Free Weekly Shift Planner",
+      "seoDescription": "Free work schedule maker for weekly shifts. Set shift times, breaks and hourly rate, see weekly hours and overtime, then export a PNG, print or save to calendar.",
+      "maker": "Work schedule maker"
     },
     "daily": {
       "name": "Daily Planner",
-      "description": "Give each part of your day a purpose with focused time blocks on a chosen date."
+      "description": "Give each part of your day a purpose with focused time blocks on a chosen date.",
+      "seoTitle": "Daily Timetable Maker – Free Daily Planner Online",
+      "seoDescription": "Free daily timetable maker. Time-block your day on a timeline, add a to-do list and top priorities, copy yesterday’s plan, and export a PNG or calendar file.",
+      "maker": "Daily timetable maker"
     },
     "routine": {
       "name": "Routine Planner",
-      "description": "Create a repeatable rhythm for mornings, workouts, meals and reading."
+      "description": "Create a repeatable rhythm for mornings, workouts, meals and reading.",
+      "seoTitle": "Routine Timetable Maker – Free Daily Routine Planner",
+      "seoDescription": "Free routine timetable maker. Build a repeating weekly routine for mornings, workouts and reading, check off each day, track streaks and add it to your calendar.",
+      "maker": "Routine timetable maker"
     },
     "custom": {
       "name": "Custom Timetable",
-      "description": "Start with an open weekly canvas. Choose your events, hours, colors and title."
+      "description": "Start with an open weekly canvas. Choose your events, hours, colors and title.",
+      "seoTitle": "Custom Timetable Maker – Blank Timetable Template",
+      "seoDescription": "Free custom timetable maker. Design a blank timetable with your own columns for days, rooms or people, pick a theme, then export a PNG, print or calendar file.",
+      "maker": "Custom timetable maker"
     }
   },
   "views": {
@@ -136,7 +203,17 @@
       "unassigned": "Other study",
       "empty": "Add a study block or copy your classes to begin.",
       "emptySessions": "Add your first review or assignment block.",
-      "emptyClasses": "Copy your class timetable to see classes here."
+      "emptyClasses": "Copy your class timetable to see classes here.",
+      "addSubject": "Add a subject",
+      "addSubjectAction": "Add",
+      "done": "Done",
+      "goalFor": "Weekly goal for {{subject}}",
+      "goalLeft": "{{hours}} to plan",
+      "goalMet": "Goal met",
+      "goalsHint": "Set a weekly target per subject. Bars show planned hours.",
+      "goalsTitle": "Weekly goals",
+      "noSessions": "Nothing planned yet.",
+      "of": "of"
     },
     "exam": {
       "mobilePreview": "Exam agenda",
@@ -154,7 +231,25 @@
       "next": "First exam",
       "empty": "Add an exam date to build your agenda.",
       "count": "{{count}} exam",
-      "count_other": "{{count}} exams"
+      "count_other": "{{count}} exams",
+      "list": "List",
+      "month": "Month",
+      "addOn": "Add exam on {{date}}",
+      "allowed": "Allowed: {{items}}",
+      "clash": "Time clash",
+      "countdown": "Countdown",
+      "inDays": "in {{count}} day",
+      "inDays_other": "in {{count}} days",
+      "nextMonth": "Next month",
+      "prevMonth": "Previous month",
+      "noWarnings": "No clashes or tight gaps",
+      "passed": "Done",
+      "seat": "Seat {{seat}}",
+      "tightGap": "{{a}} and {{b}} on {{date}} are only {{minutes}} min apart.",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "warnings": "Heads-up",
+      "warningsHint": "Check the highlighted exams"
     },
     "work": {
       "mobilePreview": "Shift board",
@@ -170,7 +265,17 @@
       "description": "See coverage and hours for each day of the week.",
       "hours": "Hours / week",
       "shifts": "Weekly shifts",
-      "addShift": "Add shift"
+      "addShift": "Add shift",
+      "break": "{{minutes}} min break",
+      "currency": "Currency",
+      "grossHint": "{{hours}} before breaks",
+      "off": "Day off",
+      "overtime": "Overtime",
+      "overtimeAfter": "Overtime after (h/week)",
+      "overtimeHint": "Over {{hours}} h",
+      "pay": "Estimated pay",
+      "payHint": "Add an hourly rate to a shift",
+      "rulesHint": "Hours are shift time minus breaks. Pay and overtime are planning estimates, not payroll."
     },
     "daily": {
       "mobilePreview": "Day timeline",
@@ -183,7 +288,21 @@
       "sidebarTitle": "Time blocks",
       "sidebarEmpty": "Choose an open hour in the timeline or start with a template.",
       "description": "Block out one day, hour by hour.",
-      "addBlock": "Add block here"
+      "addBlock": "Add block here",
+      "addTodo": "Add a task…",
+      "addTodoAction": "Add",
+      "blocks": "Time blocks",
+      "carry": "Carry over {{count}} unfinished from yesterday",
+      "copyYesterday": "Copy yesterday's blocks",
+      "now": "Current time",
+      "pin": "Pin as top priority",
+      "planned": "Planned",
+      "schedule": "Schedule",
+      "tasks": "Tasks done",
+      "todoTitle": "To-do",
+      "topEmpty": "Pin up to three tasks that must happen today.",
+      "topHint": "Up to {{count}} tasks that matter most",
+      "topTitle": "Top priorities"
     },
     "routine": {
       "mobilePreview": "Routine matrix",
@@ -200,12 +319,312 @@
       "routines": "Routines",
       "repeat": "Times / week",
       "routine": "Routine",
-      "empty": "Add a recurring routine to build your weekly rhythm."
+      "empty": "Add a recurring routine to build your weekly rhythm.",
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "checked": "done",
+      "unchecked": "not done",
+      "days": "{{count}} day",
+      "days_other": "{{count}} days",
+      "matrix": "Week at a glance",
+      "nextWeek": "Next week",
+      "prevWeek": "Previous week",
+      "thisWeek": "This week",
+      "noneToday": "Nothing scheduled today.",
+      "rate": "Completion",
+      "rateHint": "Check-ins done so far this week",
+      "streak": "Best streak",
+      "streakChip": "{{count}}-day streak",
+      "today": "Today"
     },
     "custom": {
       "mobilePreview": "Design canvas",
       "kicker": "Design studio",
       "description": "Choose a theme and edit the canvas to make this timetable yours."
+    },
+    "weekly": {
+      "kicker": "Week overview",
+      "description": "See where your hours go and what is still free.",
+      "viewName": "Overview",
+      "scheduled": "Scheduled / week",
+      "free": "Free time",
+      "freeHint": "Within {{start}}–{{end}} on shown days",
+      "busiest": "Busiest day",
+      "blocks": "Blocks",
+      "byDay": "Hours by day",
+      "byCategory": "Hours by category"
+    }
+  },
+  "calendarSkipped": "Events without a date or weekday (for example room columns) are left out of the calendar file.",
+  "categories": {
+    "study": "Study",
+    "work": "Work",
+    "meal": "Meals",
+    "focus": "Focus",
+    "health": "Health",
+    "rest": "Rest",
+    "personal": "Personal",
+    "routine": "Routine",
+    "exam": "Exam",
+    "shift": "Shift",
+    "class": "Class",
+    "booking": "Booking"
+  },
+  "column": "Column",
+  "columns": {
+    "title": "Columns",
+    "hint": "Name your own columns: weekdays, dates, or anything like rooms, people or subjects. Each event sits in one column.",
+    "customize": "Customize columns",
+    "reset": "Back to the seven weekdays",
+    "name": "Column name",
+    "kind": "Type",
+    "kindText": "Label",
+    "kindDay": "Weekday",
+    "kindDate": "Date",
+    "weekday": "Weekday",
+    "color": "Column color",
+    "up": "Move left",
+    "down": "Move right",
+    "newDate": "New date",
+    "newText": "Column {{n}}",
+    "add": {
+      "text": "+ Label",
+      "day": "+ Weekday",
+      "date": "+ Date"
+    }
+  },
+  "conflictWarning": "Overlaps with: {{names}}",
+  "conflictWarning_other": "Overlaps with {{count}} events, including: {{names}}",
+  "copyDay": "Copy",
+  "copyDayAll": "All other days",
+  "copyDayDone": "Copied {{count}} blocks.",
+  "copyDayFrom": "Copy day",
+  "copyDayNothing": "Nothing new to copy.",
+  "copyDayTo": "to",
+  "data": {
+    "title": "Backup, import & share",
+    "hint": "Everything stays in this browser unless you download or share it.",
+    "open": "Backup & share",
+    "backup": "Backup",
+    "downloadJson": "Download backup (.json)",
+    "downloadCsv": "Download events (.csv)",
+    "import": "Import",
+    "importHint": "Choose a TimetableCraft backup (.json) or a CSV with the columns title, start, end and days or date.",
+    "chooseFile": "Choose file",
+    "jsonFound": "{{name}}: {{count}} events found.",
+    "csvFound": "{{name}}: {{count}} events found.",
+    "skipped": "{{count}} entries were skipped because they are not valid.",
+    "merge": "Add to my plan",
+    "replace": "Replace my plan",
+    "confirmReplace": "Yes, replace everything",
+    "share": "Share link",
+    "shareHint": "The plan is packed into the link itself. Anyone who opens it can add a copy; nothing is uploaded.",
+    "createLink": "Create link",
+    "copy": "Copy",
+    "danger": "Danger zone",
+    "clearHint": "Remove every event and setting of this tool from this browser. Undo stays available until you leave the page.",
+    "clear": "Clear this planner",
+    "confirmClear": "Yes, clear everything",
+    "cleared": "Planner cleared. Undo is available.",
+    "merged": "Plan updated.",
+    "replaced": "Plan replaced. Undo is available.",
+    "sharedTitle": "Open shared plan?",
+    "sharedHint": "This link contains {{count}} events. Nothing changes until you choose.",
+    "dismiss": "Not now"
+  },
+  "duplicate": "Duplicate",
+  "duplicated": "Copy created. Edit it here.",
+  "errorShareTooLong": "This plan is too large for a link. Download a backup file instead.",
+  "errorShareFormat": "This link could not be read.",
+  "errorSharePlanner": "This link belongs to a different tool.",
+  "errorImportFormat": "That file is not a valid TimetableCraft plan or CSV.",
+  "errorImportVersion": "This file was made by a newer version.",
+  "errorImportPlanner": "This backup belongs to a different tool.",
+  "errorReminder": "Choose a valid reminder.",
+  "fields": {
+    "allowed": "Allowed items",
+    "breakMin": "Break (min)",
+    "code": "Course code",
+    "duration": "Quick length",
+    "netHours": "Paid time: {{hours}} h after the break",
+    "overnightHint": "Runs past midnight and ends the next day ({{time}}).",
+    "presets": "Shift presets",
+    "preset": {
+      "morning": "Morning",
+      "mid": "Mid",
+      "evening": "Evening",
+      "night": "Night"
+    },
+    "rate": "Hourly rate",
+    "role": "Role",
+    "room": "Room / venue",
+    "seat": "Seat",
+    "subject": "Subject"
+  },
+  "filter": {
+    "label": "Show:",
+    "showAll": "Show all"
+  },
+  "linkCopied": "Link copied.",
+  "markDone": "Mark as done",
+  "nextDay": "Next day",
+  "prevDay": "Previous day",
+  "today": "Today",
+  "prefs": {
+    "title": "Display",
+    "weekStart": "Week starts on",
+    "hour24": "24-hour clock",
+    "showWeekend": "Show weekends",
+    "hint": "Events on hidden days stay saved."
+  },
+  "priority": "Priority",
+  "priorityOption": {
+    "none": "None",
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High"
+  },
+  "redo": "Redo",
+  "undo": "Undo",
+  "reminder": "Reminder",
+  "reminderNone": "None",
+  "reminderOption": {
+    "0": "At start",
+    "5": "5 minutes before",
+    "10": "10 minutes before",
+    "15": "15 minutes before",
+    "30": "30 minutes before",
+    "60": "1 hour before",
+    "120": "2 hours before",
+    "1440": "1 day before"
+  },
+  "smartFill": {
+    "title": "Smart Fill",
+    "hint": "Say how many hours each subject needs. It finds free slots around your classes and other blocks, and you review everything before it is added.",
+    "open": "Smart Fill study blocks",
+    "subjects": "Hours to add per subject",
+    "hoursFor": "Hours for {{subject}}",
+    "noSubjects": "Add a subject to begin.",
+    "days": "Study on",
+    "from": "Earliest",
+    "to": "Latest",
+    "min": "Shortest (min)",
+    "max": "Longest (min)",
+    "gap": "Gap (min)",
+    "invalid": "Choose at least one day and one subject with hours, and a window longer than the shortest session.",
+    "generate": "Find slots",
+    "preview": "{{count}} sessions found. Untick any you don't want.",
+    "none": "No free slot fits. Widen the window or shorten the sessions.",
+    "unmet": "Not enough room for: {{list}}.",
+    "back": "Back",
+    "add": "Add {{count}} sessions",
+    "added": "Added {{count}} study sessions."
+  },
+  "templateChoose": "Template",
+  "uncategorized": "Uncategorized",
+  "templates": {
+    "weekly": {
+      "workweek": {
+        "name": "Work week",
+        "hint": "Deep work, meetings, lunch, gym and a weekend slot."
+      },
+      "student": {
+        "name": "Student week",
+        "hint": "Daily study blocks, library sessions and a Sunday review."
+      },
+      "freelancer": {
+        "name": "Freelancer",
+        "hint": "Client work in two blocks per day, an admin afternoon and gym."
+      }
+    },
+    "study": {
+      "balanced": {
+        "name": "Balanced",
+        "hint": "Reviews, assignments, exam prep and a weekly review."
+      },
+      "examSeason": {
+        "name": "Exam season",
+        "hint": "Daily morning reviews, afternoon practice and a Saturday of past papers."
+      },
+      "light": {
+        "name": "Light",
+        "hint": "Four short evening reviews and one Sunday assignment block."
+      }
+    },
+    "exam": {
+      "midterms": {
+        "name": "Midterms",
+        "hint": "Three papers over about a week, with reminders."
+      },
+      "finals": {
+        "name": "Finals",
+        "hint": "Four three-hour finals spread over two weeks."
+      },
+      "single": {
+        "name": "Single exam",
+        "hint": "One exam to start from."
+      }
+    },
+    "work": {
+      "standard": {
+        "name": "Standard",
+        "hint": "Morning and late shifts with a one-hour break."
+      },
+      "retail": {
+        "name": "Retail rota",
+        "hint": "Opening, mid and closing shifts with roles."
+      },
+      "nights": {
+        "name": "Night shifts",
+        "hint": "Four overnight shifts that run past midnight."
+      }
+    },
+    "daily": {
+      "workday": {
+        "name": "Work day",
+        "hint": "Morning routine, deep work, lunch, meetings and gym."
+      },
+      "studyDay": {
+        "name": "Study day",
+        "hint": "Two study blocks, a break and an evening review."
+      },
+      "restDay": {
+        "name": "Rest day",
+        "hint": "A slow morning, errands, hobby time and friends."
+      }
+    },
+    "routine": {
+      "morning": {
+        "name": "Morning ritual",
+        "hint": "Wake up, exercise, breakfast and journal, every day."
+      },
+      "fitness": {
+        "name": "Fitness plan",
+        "hint": "Gym, runs, a long run and nightly stretching."
+      },
+      "evening": {
+        "name": "Evening wind-down",
+        "hint": "Dinner, reading, meditation and an early night."
+      }
+    },
+    "custom": {
+      "weekdays": {
+        "name": "Weekdays",
+        "hint": "Monday to Friday columns with two example events."
+      },
+      "periods": {
+        "name": "School periods",
+        "hint": "Weekday columns with numbered class periods."
+      },
+      "rooms": {
+        "name": "Room bookings",
+        "hint": "One column per room. Ideal for shared spaces."
+      },
+      "team": {
+        "name": "Team lanes",
+        "hint": "One column per person to plan who does what and when."
+      }
     }
   }
 }

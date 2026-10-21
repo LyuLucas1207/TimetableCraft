@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode, type Ref } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode, type Ref } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ClockIcon } from "@/animations";
@@ -25,7 +25,18 @@ interface TimetableEngineProps {
   interactive?: boolean;
   headerEdit?: ReactNode;
   onTitleCommit?: (title: string) => void;
+  /** Planner tools only. Show times as 24-hour. */
+  hour24?: boolean;
+  /** Planner tools only. Rendered inside the exported area, below the grid. */
+  legend?: ReactNode;
+  /** Planner tools only. Enables dragging a block to another column or start time. */
+  onBlockMove?: (event: ScheduleEvent, column: ScheduleColumn, startTime: string, from: ScheduleColumn) => void;
+  /** Planner tools only. Enables dragging a block's bottom edge to change its end time. */
+  onBlockResize?: (event: ScheduleEvent, endTime: string) => void;
 }
+
+interface DragState { id: string; dx: number; dy: number; mode: "move" | "resize" }
+interface DragStart { event: ScheduleEvent; mode: "move" | "resize"; x: number; y: number; col: number; startMin: number; endMin: number; moved: boolean }
 
 interface BlockEvent {
   id: string;
@@ -54,10 +65,20 @@ export default function TimetableEngine({
   interactive = true,
   headerEdit,
   onTitleCommit,
+  hour24 = false,
+  legend,
+  onBlockMove,
+  onBlockResize,
 }: TimetableEngineProps) {
   const { t } = useTranslation([PAGE.App, LANG_NS]);
-  const scheduled = events.filter((event) => event.date || event.days?.length);
-  const unscheduled = events.filter((event) => !event.date && !event.days?.length);
+  const scheduled = events.filter((event) => event.date || event.days?.length || event.columnKey);
+  const unscheduled = events.filter((event) => !event.date && !event.days?.length && !event.columnKey);
+  const fmt = (value: string) => (hour24 ? value : formatDisplayTime(value));
+  const fmtRange = (start: string, end: string) => (hour24 ? `${start} – ${end}` : formatTimeRange(start, end));
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const dragStart = useRef<DragStart | null>(null);
+  const justDragged = useRef(false);
+  const [drag, setDrag] = useState<DragState | null>(null);
   const layout = useMemo(() => buildLayout(scheduled, settings, columns), [scheduled, settings, columns]);
   const gridCols = `88px repeat(${Math.max(1, columns.length)}, minmax(0, 1fr))`;
 
@@ -122,7 +143,7 @@ export default function TimetableEngine({
             <div
               key={column.key}
               className={col === 0 ? "px-3 py-2" : "border-l px-3 py-2"}
-              style={{ background: settings.dayHeaderBg, color: settings.dayHeaderText, borderColor: settings.gridLine }}
+              style={{ background: settings.dayHeaderBg, color: settings.dayHeaderText, borderColor: settings.gridLine, ...(column.color ? { boxShadow: `inset 0 3px 0 ${column.color}` } : {}) }}
             >
               {column.label}
             </div>
@@ -200,7 +221,7 @@ export default function TimetableEngine({
                     paddingTop: 4,
                   }}
                 >
-                  {formatDisplayTime(slot)}
+                  {fmt(slot)}
                 </div>
                 {columns.map((column, col) =>
                   interactive && onSlotClick ? (
@@ -213,7 +234,7 @@ export default function TimetableEngine({
                         gridRow: row + 1,
                         borderColor: settings.gridLine,
                       }}
-                      aria-label={slotLabel?.(column, slot) ?? t("formSlotCreate", { ns: PAGE.App, day: column.label, time: formatDisplayTime(slot) })}
+                      aria-label={slotLabel?.(column, slot) ?? t("formSlotCreate", { ns: PAGE.App, day: column.label, time: fmt(slot) })}
                       onClick={() => onSlotClick(column, slot)}
                     />
                   ) : (
@@ -232,25 +253,64 @@ export default function TimetableEngine({
             ))}
           </div>
           <div
+            ref={overlayRef}
             className="pointer-events-none absolute inset-0 grid"
             style={{ gridTemplateColumns: gridCols }}
           >
             <div />
-            {columns.map((column) => (
+            {columns.map((column, columnIndex) => (
               <div key={column.key} className="relative min-w-0">
                 {layout.byColumn[column.key].map((item) => {
                   const top = ((item.event.startMin - layout.startMin) / settings.intervalMinutes) * rowHeight;
-                  const height = ((item.event.endMin - item.event.startMin) / settings.intervalMinutes) * rowHeight;
+                  const dragging = drag?.id === item.event.id ? drag : null;
+                  const height = ((item.event.endMin - item.event.startMin) / settings.intervalMinutes) * rowHeight + (dragging?.mode === "resize" ? dragging.dy : 0);
                   const width = 100 / item.columns;
                   const left = item.column * width;
                   const palette = resolvePaletteColor(item.event.item.color, settings.colorPreset);
                   const event = item.event.item;
                   const label = event.title;
+                  const canMove = interactive && Boolean(onBlockMove) && !event.baseId;
+                  const canResize = interactive && Boolean(onBlockResize) && !event.baseId;
+                  const begin = (mode: "move" | "resize") => (pointer: ReactPointerEvent<HTMLElement>) => {
+                    if (pointer.button !== 0 || pointer.pointerType === "touch") return;
+                    if (mode === "resize") pointer.stopPropagation();
+                    pointer.currentTarget.setPointerCapture(pointer.pointerId);
+                    dragStart.current = { event, mode, x: pointer.clientX, y: pointer.clientY, col: columnIndex, startMin: item.event.startMin, endMin: item.event.endMin, moved: false };
+                  };
+                  const track = (pointer: ReactPointerEvent<HTMLElement>) => {
+                    const start = dragStart.current;
+                    if (!start || start.event.id !== event.id) return;
+                    const dx = pointer.clientX - start.x;
+                    const dy = pointer.clientY - start.y;
+                    if (!start.moved && Math.hypot(dx, dy) < 5) return;
+                    start.moved = true;
+                    setDrag({ id: event.id, dx: start.mode === "move" ? dx : 0, dy, mode: start.mode });
+                  };
+                  const finish = (pointer: ReactPointerEvent<HTMLElement>) => {
+                    const start = dragStart.current;
+                    if (!start || start.event.id !== event.id) return;
+                    dragStart.current = null;
+                    setDrag(null);
+                    if (!start.moved) return;
+                    justDragged.current = true;
+                    window.setTimeout(() => { justDragged.current = false; }, 0);
+                    const steps = Math.round((pointer.clientY - start.y) / rowHeight);
+                    if (start.mode === "resize") {
+                      const end = Math.min(24 * 60, Math.max(start.startMin + settings.intervalMinutes, start.endMin + steps * settings.intervalMinutes));
+                      if (end !== start.endMin) onBlockResize?.(event, minutesToTime(end));
+                      return;
+                    }
+                    const width = ((overlayRef.current?.getBoundingClientRect().width ?? 0) - 88) / Math.max(1, columns.length);
+                    const target = width > 0 ? Math.min(columns.length - 1, Math.max(0, start.col + Math.round((pointer.clientX - start.x) / width))) : start.col;
+                    const length = start.endMin - start.startMin;
+                    const begin = Math.min(layout.endMin - length, Math.max(layout.startMin, start.startMin + steps * settings.intervalMinutes));
+                    if (target !== start.col || begin !== start.startMin) onBlockMove?.(event, columns[target], minutesToTime(Math.max(0, begin)), columns[start.col]);
+                  };
                   return (
                     <button
                       key={item.event.id}
                       type="button"
-                      className={`pointer-events-auto absolute box-border overflow-hidden px-1.5 py-1 text-left shadow-sm ${interactive ? "transition-transform hover:-translate-y-px" : "pointer-events-none"}`}
+                      className={`pointer-events-auto absolute box-border overflow-hidden px-1.5 py-1 text-left shadow-sm ${interactive ? (dragging ? "" : "transition-transform hover:-translate-y-px") : "pointer-events-none"} ${canMove ? "cursor-grab active:cursor-grabbing" : ""}`}
                       style={{
                         top: top + 2,
                         height: Math.max(height - 4, 24),
@@ -260,10 +320,14 @@ export default function TimetableEngine({
                         border: `1.5px ${(event.borderStyle ?? "solid")} ${palette.border}`,
                         color: palette.text,
                         borderRadius: settings.cornerRadius,
-                        opacity: event.muted ? 0.92 : 1,
+                        opacity: dragging ? 0.8 : event.muted || event.done ? 0.92 : 1,
+                        ...(dragging?.mode === "move" ? { transform: `translate(${dragging.dx}px, ${dragging.dy}px)`, zIndex: 30 } : {}),
+                        ...(event.done ? { textDecoration: "line-through" } : {}),
+                        ...(canMove ? { touchAction: "pan-y" } : {}),
                       }}
-                      title={`${label}\n${event.subtitle ?? ""}\n${formatTimeRange(event.startTime, event.endTime)}\n${event.location ?? ""}`}
-                      onClick={() => interactive && onBlockClick?.(event)}
+                      title={`${label}\n${event.subtitle ?? ""}\n${fmtRange(event.startTime, event.endTime)}\n${event.location ?? ""}`}
+                      onClick={() => { if (justDragged.current) return; if (interactive) onBlockClick?.(event); }}
+                      {...(canMove ? { onPointerDown: begin("move"), onPointerMove: track, onPointerUp: finish, onPointerCancel: () => { dragStart.current = null; setDrag(null); } } : {})}
                     >
                       <div className="truncate font-bold leading-tight" style={{ fontSize: settings.blockTitleFontSize }}>
                         {label}
@@ -275,13 +339,24 @@ export default function TimetableEngine({
                       ) : null}
                       {height > 54 ? (
                         <div className="truncate opacity-80" style={{ fontSize: settings.blockMetaFontSize }}>
-                          {formatTimeRange(event.startTime, event.endTime)}
+                          {fmtRange(event.startTime, event.endTime)}
                         </div>
                       ) : null}
                       {settings.showRooms && height > 68 ? (
                         <div className="truncate opacity-80" style={{ fontSize: settings.blockMetaFontSize }}>
                           {event.location ?? ""}
                         </div>
+                      ) : null}
+                      {canResize ? (
+                        <span
+                          data-export-hide=""
+                          aria-hidden="true"
+                          className="absolute inset-x-0 bottom-0 h-2 cursor-ns-resize"
+                          onPointerDown={begin("resize")}
+                          onPointerMove={track}
+                          onPointerUp={finish}
+                          onPointerCancel={() => { dragStart.current = null; setDrag(null); }}
+                        />
                       ) : null}
                     </button>
                   );
@@ -291,6 +366,7 @@ export default function TimetableEngine({
           </div>
         </div>
       </div>
+      {legend ? <div className="border-t px-5 py-2" style={{ borderColor: settings.gridLine, background: settings.pageBg, color: settings.timeText }}>{legend}</div> : null}
       {settings.showFooter ? (
         <p className="rounded-b-2xl px-5 py-3 text-xs" style={{ color: settings.footerColor }}>
           {settings.footerText || t("exportFooter", { ns: PAGE.App })}

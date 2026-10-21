@@ -12,15 +12,18 @@ import { HoverIconButton } from "@/components/ui/hover-icon-button";
 import { APP_NAME } from "@/constants";
 import { MarketingHero, PageFrame } from "@/layouts";
 import { ROUTES } from "@/navigations";
-import { absoluteUrl, breadcrumbJsonLd, softwareJsonLd } from "@/utils/seo";
+import { PLANNERS, plannerPath } from "@/config/planners";
+import { absoluteUrl, breadcrumbJsonLd, faqJsonLd, softwareJsonLd } from "@/utils/seo";
 
 export default function HomePage() {
-  const { t } = useTranslation([PAGE.Home, LANG_NS]);
+  const { t } = useTranslation([PAGE.Home, LANG_NS, "pages.Planner"]);
   const how = [
     ["how1", "how1b"],
     ["how2", "how2b"],
     ["how3", "how3b"],
   ] as const;
+
+  const faq = [1, 2, 3, 4].map((n) => ({ question: t(`hq${n}`), answer: t(`ha${n}`) }));
 
   return (
     <>
@@ -33,8 +36,9 @@ export default function HomePage() {
             t("seoDescription"),
             absoluteUrl(ROUTES.HOME),
             `${APP_NAME} Timetable Maker`,
-            ["timetable maker", "schedule maker", "course table maker"],
+            ["timetable maker", "free timetable maker", "online timetable maker", "schedule maker", "course table maker"],
           ),
+          faqJsonLd(faq, absoluteUrl(ROUTES.HOME)),
           breadcrumbJsonLd([{ name: t("header.home", { ns: LANG_NS }), path: ROUTES.HOME }]),
         ]}
       />
@@ -71,6 +75,19 @@ export default function HomePage() {
             <p className="mt-1 text-xs text-muted-foreground">{t("privacyBadge")}</p>
           </Link>
         </div>
+
+        <section className="mt-16 border-t pt-10">
+          <h2 className="text-2xl font-semibold tracking-tight">{t("tmTitle")}</h2>
+          <p className="mt-3 max-w-[64ch] text-sm leading-7 text-muted-foreground">{t("tmBody")}</p>
+          <nav aria-label={t("tmLinksTitle")} className="mt-6">
+            <h3 className="text-sm font-semibold">{t("tmLinksTitle")}</h3>
+            <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm underline underline-offset-4">
+              <li><Link to={ROUTES.TOOL_SCHEDULE_MAKER}>{t("className", { ns: "pages.Planner" })}</Link></li>
+              {PLANNERS.map((planner) => <li key={planner.id}><Link to={plannerPath(planner)}>{t(`tools.${planner.id}.maker`, { ns: "pages.Planner" })}</Link></li>)}
+              <li><Link to={ROUTES.UBC_TIMETABLE_MAKER}>{t("ubcLink")}</Link></li>
+            </ul>
+          </nav>
+        </section>
 
         <section className="mt-16 border-t pt-10">
           <h2 className="text-2xl font-semibold tracking-tight">{t("useTitle")}</h2>
@@ -124,6 +141,17 @@ export default function HomePage() {
             </HoverIconButton>
           </div>
         </div>
+        <section className="mt-12 border-t pt-10">
+          <h2 className="text-2xl font-semibold tracking-tight">{t("faqTitle")}</h2>
+          <dl className="mt-6 grid gap-6 md:grid-cols-2">
+            {faq.map((item) => (
+              <div key={item.question}>
+                <dt className="text-base font-semibold">{item.question}</dt>
+                <dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
         <nav aria-label={t("helpTitle")} className="flex flex-wrap gap-6 border-t pt-6 text-sm underline underline-offset-4">
           <Link to={ROUTES.GUIDE}>{t("ctaGuide")}</Link>
           <Link to={ROUTES.FAQ}>{t("faqLink")}</Link>

@@ -78,36 +78,103 @@
     "lateShift": "Service de l’après-midi",
     "morning": "Routine matinale",
     "reading": "Lecture",
-    "yourEvent": "Votre événement"
+    "yourEvent": "Votre événement",
+    "meetings": "Réunions",
+    "morningStudy": "Étude du matin",
+    "library": "Séance en bibliothèque",
+    "weeklyReview": "Bilan de la semaine",
+    "clientWork": "Travail client",
+    "admin": "Administratif et factures",
+    "practice": "Exercices",
+    "pastPapers": "Annales",
+    "examCalculus": "Analyse",
+    "examPhysics": "Physique",
+    "examProgramming": "Programmation",
+    "examEconomics": "Économie",
+    "openShift": "Ouverture",
+    "midShift": "Journée",
+    "closeShift": "Fermeture",
+    "nightShift": "Service de nuit",
+    "roleCashier": "Caissier",
+    "roleFloor": "Mise en rayon",
+    "studyBlock": "Bloc d’étude",
+    "break": "Pause",
+    "slowMorning": "Matinée tranquille",
+    "errands": "Courses",
+    "hobby": "Loisir",
+    "social": "Amis et famille",
+    "wakeUp": "Réveil",
+    "exercise": "Exercice",
+    "breakfast": "Petit-déjeuner",
+    "journal": "Journal",
+    "run": "Course",
+    "longRun": "Sortie longue",
+    "stretch": "Étirements",
+    "dinner": "Dîner",
+    "meditation": "Méditation",
+    "windDown": "Détente",
+    "period1": "Période 1",
+    "period2": "Période 2",
+    "period3": "Période 3",
+    "period4": "Période 4",
+    "booking": "Réservation",
+    "roomA": "Salle A",
+    "roomB": "Salle B",
+    "roomC": "Salle C",
+    "personA": "Alex",
+    "personB": "Sam",
+    "personC": "Jo",
+    "task": "Tâche"
   },
   "tools": {
     "weekly": {
       "name": "Planning hebdomadaire",
-      "description": "Organisez travail, repas, sport et repos sur les sept jours."
+      "description": "Organisez travail, repas, sport et repos sur les sept jours.",
+      "seoTitle": "Planning hebdomadaire gratuit – créateur d’horaire",
+      "seoDescription": "Créateur de planning hebdomadaire gratuit. Organisez travail, repas, sport et temps libre sur sept jours avec des modèles modifiables, puis exportez en PNG ou ajoutez au calendrier.",
+      "maker": "Planning hebdomadaire"
     },
     "study": {
       "name": "Planificateur d’études",
-      "description": "Planifiez révisions, devoirs et examens à côté de vos cours."
+      "description": "Planifiez révisions, devoirs et examens à côté de vos cours.",
+      "seoTitle": "Planning de révisions gratuit – créateur d’horaire",
+      "seoDescription": "Créateur de planning de révisions gratuit. Planifiez révisions et devoirs autour de vos cours, fixez des objectifs par matière, remplissez les créneaux libres et exportez.",
+      "maker": "Planning de révisions"
     },
     "exam": {
       "name": "Calendrier des examens",
-      "description": "Réunissez dates, horaires et lieux de vos examens dans un planning clair."
+      "description": "Réunissez dates, horaires et lieux de vos examens dans un planning clair.",
+      "seoTitle": "Calendrier d’examens gratuit – créateur d’horaire",
+      "seoDescription": "Créateur de calendrier d’examens gratuit. Réunissez dates, heures, salles et places avec compte à rebours et alertes de conflit. Export PNG, impression ou calendrier.",
+      "maker": "Calendrier d’examens"
     },
     "work": {
       "name": "Planning de travail",
-      "description": "Organisez vos services avec horaires, lieux et blocs colorés."
+      "description": "Organisez vos services avec horaires, lieux et blocs colorés.",
+      "seoTitle": "Planning de travail gratuit – services hebdomadaires",
+      "seoDescription": "Créateur de planning de travail gratuit. Définissez services, pauses et taux horaire, suivez heures et heures sup., puis exportez en PNG, imprimez ou ajoutez au calendrier.",
+      "maker": "Planning de travail"
     },
     "daily": {
       "name": "Planificateur quotidien",
-      "description": "Organisez une journée précise avec des créneaux dédiés à chaque activité."
+      "description": "Organisez une journée précise avec des créneaux dédiés à chaque activité.",
+      "seoTitle": "Agenda du jour gratuit – créateur d’horaire",
+      "seoDescription": "Créateur d’agenda quotidien gratuit. Organisez votre journée sur une ligne de temps, ajoutez tâches et priorités, copiez la veille et exportez un PNG ou un calendrier.",
+      "maker": "Agenda du jour"
     },
     "routine": {
       "name": "Planificateur de routines",
-      "description": "Créez un rythme hebdomadaire pour vos matins, le sport, les repas et la lecture."
+      "description": "Créez un rythme hebdomadaire pour vos matins, le sport, les repas et la lecture.",
+      "seoTitle": "Planning de routine gratuit – créateur d’horaire",
+      "seoDescription": "Créateur de routine gratuit. Construisez une routine hebdomadaire pour matins, sport et lecture, cochez chaque jour, suivez vos séries et ajoutez-la au calendrier.",
+      "maker": "Planning de routine"
     },
     "custom": {
       "name": "Planning personnalisé",
-      "description": "Partez d’une semaine libre et choisissez événements, horaires, couleurs et titre."
+      "description": "Partez d’une semaine libre et choisissez événements, horaires, couleurs et titre.",
+      "seoTitle": "Horaire personnalisé gratuit – modèle vierge",
+      "seoDescription": "Créateur d’horaire personnalisé gratuit. Concevez un horaire vierge avec vos colonnes (jours, salles, personnes), choisissez un thème et exportez un PNG ou un calendrier.",
+      "maker": "Horaire personnalisé"
     }
   },
   "views": {
@@ -136,7 +203,17 @@
       "unassigned": "Autres études",
       "empty": "Ajoutez une séance ou copiez vos cours.",
       "emptySessions": "Ajoutez votre première séance de révision ou de devoirs.",
-      "emptyClasses": "Copiez votre emploi du temps pour voir vos cours ici."
+      "emptyClasses": "Copiez votre emploi du temps pour voir vos cours ici.",
+      "addSubject": "Ajouter une matière",
+      "addSubjectAction": "Ajouter",
+      "done": "Fait",
+      "goalFor": "Objectif hebdomadaire pour {{subject}}",
+      "goalLeft": "{{hours}} à planifier",
+      "goalMet": "Objectif atteint",
+      "goalsHint": "Fixez un objectif hebdomadaire par matière. Les barres montrent les heures planifiées.",
+      "goalsTitle": "Objectifs hebdomadaires",
+      "noSessions": "Rien de planifié pour l’instant.",
+      "of": "sur"
     },
     "exam": {
       "mobilePreview": "Examens",
@@ -154,7 +231,25 @@
       "next": "Premier examen",
       "empty": "Ajoutez une date d’examen pour commencer.",
       "count": "{{count}} examen",
-      "count_other": "{{count}} examens"
+      "count_other": "{{count}} examens",
+      "list": "Liste",
+      "month": "Mois",
+      "addOn": "Ajouter un examen le {{date}}",
+      "allowed": "Autorisé : {{items}}",
+      "clash": "Conflit horaire",
+      "countdown": "Compte à rebours",
+      "inDays": "dans {{count}} jour",
+      "inDays_other": "dans {{count}} jours",
+      "nextMonth": "Mois suivant",
+      "prevMonth": "Mois précédent",
+      "noWarnings": "Aucun conflit ni écart trop court",
+      "passed": "Terminé",
+      "seat": "Place {{seat}}",
+      "tightGap": "{{a}} et {{b}}, le {{date}}, ne sont séparés que de {{minutes}} min.",
+      "today": "Aujourd’hui",
+      "tomorrow": "Demain",
+      "warnings": "Attention",
+      "warningsHint": "Vérifiez les examens en surbrillance"
     },
     "work": {
       "mobilePreview": "Services",
@@ -170,7 +265,17 @@
       "description": "Consultez les services et les heures de chaque jour.",
       "hours": "Heures / semaine",
       "shifts": "Services hebdomadaires",
-      "addShift": "Ajouter un service"
+      "addShift": "Ajouter un service",
+      "break": "pause de {{minutes}} min",
+      "currency": "Devise",
+      "grossHint": "{{hours}} avant les pauses",
+      "off": "Repos",
+      "overtime": "Heures sup.",
+      "overtimeAfter": "Heures sup. au-delà de (h/semaine)",
+      "overtimeHint": "Au-delà de {{hours}} h",
+      "pay": "Paie estimée",
+      "payHint": "Ajoutez un taux horaire à un service",
+      "rulesHint": "Les heures sont la durée du service moins les pauses. Paie et heures sup. sont des estimations de planning, pas de la paie."
     },
     "daily": {
       "mobilePreview": "Journée",
@@ -183,7 +288,21 @@
       "sidebarTitle": "Créneaux",
       "sidebarEmpty": "Choisissez une heure libre ou partez d’un modèle.",
       "description": "Organisez une journée, heure par heure.",
-      "addBlock": "Ajouter un créneau ici"
+      "addBlock": "Ajouter un créneau ici",
+      "addTodo": "Ajouter une tâche…",
+      "addTodoAction": "Ajouter",
+      "blocks": "Blocs horaires",
+      "carry": "Reporter {{count}} tâche non terminée d’hier",
+      "copyYesterday": "Copier les blocs d’hier",
+      "now": "Heure actuelle",
+      "pin": "Épingler en priorité",
+      "planned": "Planifié",
+      "schedule": "Planifier",
+      "tasks": "Tâches faites",
+      "todoTitle": "À faire",
+      "topEmpty": "Épinglez jusqu’à trois tâches à faire aujourd’hui.",
+      "topHint": "Jusqu’à {{count}} tâches essentielles",
+      "topTitle": "Priorités"
     },
     "routine": {
       "mobilePreview": "Routines",
@@ -200,12 +319,312 @@
       "routines": "Routines",
       "repeat": "Fois / semaine",
       "routine": "Routine",
-      "empty": "Ajoutez une routine récurrente pour créer votre rythme hebdomadaire."
+      "empty": "Ajoutez une routine récurrente pour créer votre rythme hebdomadaire.",
+      "morning": "Matin",
+      "afternoon": "Après-midi",
+      "evening": "Soir",
+      "checked": "fait",
+      "unchecked": "pas fait",
+      "days": "{{count}} jour",
+      "days_other": "{{count}} jours",
+      "matrix": "La semaine en un coup d’œil",
+      "nextWeek": "Semaine suivante",
+      "prevWeek": "Semaine précédente",
+      "thisWeek": "Cette semaine",
+      "noneToday": "Rien de prévu aujourd’hui.",
+      "rate": "Réussite",
+      "rateHint": "Validations faites cette semaine",
+      "streak": "Meilleure série",
+      "streakChip": "série de {{count}} jours",
+      "today": "Aujourd’hui"
     },
     "custom": {
       "mobilePreview": "Aperçu",
       "kicker": "Atelier de création",
       "description": "Choisissez un thème et personnalisez votre planning."
+    },
+    "weekly": {
+      "kicker": "Vue de la semaine",
+      "description": "Voyez où vont vos heures et ce qu’il reste de libre.",
+      "viewName": "Aperçu",
+      "scheduled": "Planifié / semaine",
+      "free": "Temps libre",
+      "freeHint": "Entre {{start}} et {{end}} sur les jours affichés",
+      "busiest": "Jour le plus chargé",
+      "blocks": "Blocs",
+      "byDay": "Heures par jour",
+      "byCategory": "Heures par catégorie"
+    }
+  },
+  "calendarSkipped": "Les événements sans date ni jour (par exemple des colonnes de salles) ne sont pas inclus dans le fichier de calendrier.",
+  "categories": {
+    "study": "Étude",
+    "work": "Travail",
+    "meal": "Repas",
+    "focus": "Concentration",
+    "health": "Santé",
+    "rest": "Repos",
+    "personal": "Perso",
+    "routine": "Routine",
+    "exam": "Examen",
+    "shift": "Service",
+    "class": "Cours",
+    "booking": "Réservation"
+  },
+  "column": "Colonne",
+  "columns": {
+    "title": "Colonnes",
+    "hint": "Nommez vos colonnes : jours, dates ou tout autre libellé comme salles, personnes ou matières. Chaque événement appartient à une colonne.",
+    "customize": "Personnaliser les colonnes",
+    "reset": "Revenir aux sept jours",
+    "name": "Nom de la colonne",
+    "kind": "Type",
+    "kindText": "Libellé",
+    "kindDay": "Jour",
+    "kindDate": "Date",
+    "weekday": "Jour",
+    "color": "Couleur de la colonne",
+    "up": "Déplacer à gauche",
+    "down": "Déplacer à droite",
+    "newDate": "Nouvelle date",
+    "newText": "Colonne {{n}}",
+    "add": {
+      "text": "+ Libellé",
+      "day": "+ Jour",
+      "date": "+ Date"
+    }
+  },
+  "conflictWarning": "Chevauche : {{names}}",
+  "conflictWarning_other": "Chevauche {{count}} événements, dont : {{names}}",
+  "copyDay": "Copier",
+  "copyDayAll": "Tous les autres jours",
+  "copyDayDone": "{{count}} blocs copiés.",
+  "copyDayFrom": "Copier le jour",
+  "copyDayNothing": "Rien de nouveau à copier.",
+  "copyDayTo": "vers",
+  "data": {
+    "title": "Sauvegarde, import et partage",
+    "hint": "Tout reste dans ce navigateur sauf si vous téléchargez ou partagez.",
+    "open": "Sauvegarde et partage",
+    "backup": "Sauvegarde",
+    "downloadJson": "Télécharger la sauvegarde (.json)",
+    "downloadCsv": "Télécharger les événements (.csv)",
+    "import": "Importer",
+    "importHint": "Choisissez une sauvegarde TimetableCraft (.json) ou un CSV avec les colonnes title, start, end et days ou date.",
+    "chooseFile": "Choisir un fichier",
+    "jsonFound": "{{name}} : {{count}} événements trouvés.",
+    "csvFound": "{{name}} : {{count}} événements trouvés.",
+    "skipped": "{{count}} entrées invalides ont été ignorées.",
+    "merge": "Ajouter à mon planning",
+    "replace": "Remplacer mon planning",
+    "confirmReplace": "Oui, tout remplacer",
+    "share": "Lien de partage",
+    "shareHint": "Le planning est contenu dans le lien lui-même. Quiconque l’ouvre peut en ajouter une copie ; rien n’est envoyé.",
+    "createLink": "Créer le lien",
+    "copy": "Copier",
+    "danger": "Zone sensible",
+    "clearHint": "Supprime tous les événements et réglages de cet outil dans ce navigateur. L’annulation reste possible tant que vous restez sur la page.",
+    "clear": "Vider ce planning",
+    "confirmClear": "Oui, tout vider",
+    "cleared": "Planning vidé. Vous pouvez annuler.",
+    "merged": "Planning mis à jour.",
+    "replaced": "Planning remplacé. Vous pouvez annuler.",
+    "sharedTitle": "Ouvrir le planning partagé ?",
+    "sharedHint": "Ce lien contient {{count}} événements. Rien ne change avant votre choix.",
+    "dismiss": "Pas maintenant"
+  },
+  "duplicate": "Dupliquer",
+  "duplicated": "Copie créée. Modifiez-la ici.",
+  "errorShareTooLong": "Ce planning est trop volumineux pour un lien. Téléchargez plutôt une sauvegarde.",
+  "errorShareFormat": "Ce lien est illisible.",
+  "errorSharePlanner": "Ce lien appartient à un autre outil.",
+  "errorImportFormat": "Ce fichier n’est pas un planning TimetableCraft ni un CSV valide.",
+  "errorImportVersion": "Ce fichier a été créé par une version plus récente.",
+  "errorImportPlanner": "Cette sauvegarde appartient à un autre outil.",
+  "errorReminder": "Choisissez un rappel valide.",
+  "fields": {
+    "allowed": "Matériel autorisé",
+    "breakMin": "Pause (min)",
+    "code": "Code du cours",
+    "duration": "Durée rapide",
+    "netHours": "Temps payé : {{hours}} h après la pause",
+    "overnightHint": "Dépasse minuit et se termine le lendemain ({{time}}).",
+    "presets": "Services types",
+    "preset": {
+      "morning": "Matin",
+      "mid": "Journée",
+      "evening": "Soir",
+      "night": "Nuit"
+    },
+    "rate": "Taux horaire",
+    "role": "Poste",
+    "room": "Salle / lieu",
+    "seat": "Place",
+    "subject": "Matière"
+  },
+  "filter": {
+    "label": "Afficher :",
+    "showAll": "Tout afficher"
+  },
+  "linkCopied": "Lien copié.",
+  "markDone": "Marquer comme fait",
+  "nextDay": "Lendemain",
+  "prevDay": "Jour précédent",
+  "today": "Aujourd’hui",
+  "prefs": {
+    "title": "Affichage",
+    "weekStart": "La semaine commence le",
+    "hour24": "Format 24 heures",
+    "showWeekend": "Afficher le week-end",
+    "hint": "Les événements des jours masqués restent enregistrés."
+  },
+  "priority": "Priorité",
+  "priorityOption": {
+    "none": "Aucune",
+    "low": "Basse",
+    "medium": "Moyenne",
+    "high": "Haute"
+  },
+  "redo": "Rétablir",
+  "undo": "Annuler",
+  "reminder": "Rappel",
+  "reminderNone": "Aucun",
+  "reminderOption": {
+    "0": "Au début",
+    "5": "5 minutes avant",
+    "10": "10 minutes avant",
+    "15": "15 minutes avant",
+    "30": "30 minutes avant",
+    "60": "1 heure avant",
+    "120": "2 heures avant",
+    "1440": "1 jour avant"
+  },
+  "smartFill": {
+    "title": "Remplissage intelligent",
+    "hint": "Indiquez les heures nécessaires par matière. L’outil trouve des créneaux libres autour de vos cours et autres blocs, et vous vérifiez tout avant l’ajout.",
+    "open": "Remplir les blocs d’étude",
+    "subjects": "Heures à ajouter par matière",
+    "hoursFor": "Heures pour {{subject}}",
+    "noSubjects": "Ajoutez une matière pour commencer.",
+    "days": "Jours d’étude",
+    "from": "Au plus tôt",
+    "to": "Au plus tard",
+    "min": "Plus court (min)",
+    "max": "Plus long (min)",
+    "gap": "Écart (min)",
+    "invalid": "Choisissez au moins un jour, une matière avec des heures et une plage plus longue que la séance minimale.",
+    "generate": "Chercher des créneaux",
+    "preview": "{{count}} séances trouvées. Décochez celles que vous ne voulez pas.",
+    "none": "Aucun créneau libre ne convient. Élargissez la plage ou raccourcissez les séances.",
+    "unmet": "Pas assez de place pour : {{list}}.",
+    "back": "Retour",
+    "add": "Ajouter {{count}} séances",
+    "added": "{{count}} séances d’étude ajoutées."
+  },
+  "templateChoose": "Modèle",
+  "uncategorized": "Sans catégorie",
+  "templates": {
+    "weekly": {
+      "workweek": {
+        "name": "Semaine de travail",
+        "hint": "Travail concentré, réunions, déjeuner, sport et un créneau le week-end."
+      },
+      "student": {
+        "name": "Semaine d’étudiant",
+        "hint": "Étude quotidienne, bibliothèque et bilan le dimanche."
+      },
+      "freelancer": {
+        "name": "Indépendant",
+        "hint": "Deux blocs de travail client par jour, un après-midi administratif et du sport."
+      }
+    },
+    "study": {
+      "balanced": {
+        "name": "Équilibré",
+        "hint": "Révisions, devoirs, préparation d’examens et bilan hebdomadaire."
+      },
+      "examSeason": {
+        "name": "Période d’examens",
+        "hint": "Révisions le matin, exercices l’après-midi et annales le samedi."
+      },
+      "light": {
+        "name": "Léger",
+        "hint": "Quatre courtes révisions le soir et un bloc de devoirs le dimanche."
+      }
+    },
+    "exam": {
+      "midterms": {
+        "name": "Partiels",
+        "hint": "Trois épreuves sur environ une semaine, avec rappels."
+      },
+      "finals": {
+        "name": "Examens finaux",
+        "hint": "Quatre examens de trois heures sur deux semaines."
+      },
+      "single": {
+        "name": "Un seul examen",
+        "hint": "Un examen pour commencer."
+      }
+    },
+    "work": {
+      "standard": {
+        "name": "Standard",
+        "hint": "Services du matin et de l’après-midi avec une heure de pause."
+      },
+      "retail": {
+        "name": "Planning magasin",
+        "hint": "Ouverture, journée et fermeture avec les postes."
+      },
+      "nights": {
+        "name": "Services de nuit",
+        "hint": "Quatre services de nuit qui dépassent minuit."
+      }
+    },
+    "daily": {
+      "workday": {
+        "name": "Jour de travail",
+        "hint": "Routine matinale, travail concentré, déjeuner, réunions et sport."
+      },
+      "studyDay": {
+        "name": "Jour d’étude",
+        "hint": "Deux blocs d’étude, une pause et une révision le soir."
+      },
+      "restDay": {
+        "name": "Jour de repos",
+        "hint": "Matinée tranquille, courses, loisir et amis."
+      }
+    },
+    "routine": {
+      "morning": {
+        "name": "Rituel du matin",
+        "hint": "Réveil, exercice, petit-déjeuner et journal, tous les jours."
+      },
+      "fitness": {
+        "name": "Programme sportif",
+        "hint": "Salle, courses, sortie longue et étirements le soir."
+      },
+      "evening": {
+        "name": "Détente du soir",
+        "hint": "Dîner, lecture, méditation et coucher tôt."
+      }
+    },
+    "custom": {
+      "weekdays": {
+        "name": "Jours ouvrés",
+        "hint": "Colonnes du lundi au vendredi avec deux exemples."
+      },
+      "periods": {
+        "name": "Périodes scolaires",
+        "hint": "Colonnes de jours avec périodes de cours numérotées."
+      },
+      "rooms": {
+        "name": "Réservation de salles",
+        "hint": "Une colonne par salle, idéal pour les espaces partagés."
+      },
+      "team": {
+        "name": "Équipe",
+        "hint": "Une colonne par personne pour planifier qui fait quoi et quand."
+      }
     }
   }
 }

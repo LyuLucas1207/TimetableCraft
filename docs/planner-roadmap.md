@@ -66,3 +66,18 @@ Work Schedule is a single-person weekly planner; split overnight shifts at the
  day boundary. PDF is provided through browser printing. Calendar times are
 floating local times. Printing was verified through image preparation and an
 intercepted print call; the operating-system print dialog was not automated.
+
+## Round 2 (2026-10-21): tool-specific planners
+- Shared: undo/redo (50 steps), duplicate, copy a day to other days, drag to move and drag the bottom edge to resize,
+  conflict hints in the editor, category legend and filter, reminders in `.ics` (VALARM), overnight blocks split at midnight,
+  JSON backup/import (merge or replace), CSV export/import, share link (`#plan=`, compressed, no upload), week-start / 24h / weekend preferences,
+  three or four starter templates per tool.
+- Weekly: hours by day and category, free time, copy day. Study: subjects, weekly goals, done state, Smart Fill (preview before adding).
+- Exam: course code, seat, allowed items, countdown, clash and tight-gap warnings, list and month views.
+- Work: shift presets, breaks, hourly rate, weekly hours, overtime threshold, estimated pay, overnight shifts.
+- Daily: previous/next day, now line, top priorities and to-do (schedule a task into a block), copy yesterday, carry over tasks.
+- Routine: per-day check-ins, streaks, weekly completion, morning/afternoon/evening groups, week navigation.
+- Custom: user-defined columns (weekday, date or label such as rooms and people), column colors, four starting structures.
+- SEO: per-tool titles/descriptions built around "timetable maker", home FAQ + FAQPage JSON-LD, footer/home links to every tool, sitemap lastmod.
+- Checks: `npm run test:logic` (no browser needed) and `npm run test:seo`; `npm run test:planners` still needs a browser.
+- Still open: URL locales (`/zh`, `/fr`) with `hreflang`; team availability and multi-person rotas.

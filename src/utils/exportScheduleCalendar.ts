@@ -1,15 +1,19 @@
 import { createEvents, type EventAttributes } from "ics";
 import { ALL_WEEK_DAYS, type ScheduleEvent } from "@/types/schedule";
-import { addDays, isValidDate, validateScheduleEvent } from "./schedule";
-import { timeToMinutes } from "./time";
+import { addDays, eventMinutes, isCalendarEvent, isValidDate, validateScheduleEvent, weekdayOf } from "./schedule";
 
 const BYDAY = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"];
 
+export interface CalendarOptions {
+  /** Extra description lines per event (exam room, shift role…). */
+  describe?: (event: ScheduleEvent) => string[];
+}
+
 /** Floating local times: calendar apps interpret these in their local timezone. */
-export function buildScheduleCalendar(events: ScheduleEvent[], title: string, range: { start: string; end: string }): string {
+export function buildScheduleCalendar(events: ScheduleEvent[], title: string, range: { start: string; end: string }, options: CalendarOptions = {}): string {
   if (!isValidDate(range.start) || !isValidDate(range.end) || range.end < range.start) throw new Error("errorDates");
   const entries: EventAttributes[] = [];
-  for (const event of events) {
+  for (const event of events.filter(isCalendarEvent)) {
     const error = validateScheduleEvent(event);
     if (error) throw new Error(error);
     const start = event.startDate && event.startDate > range.start ? event.startDate : range.start;
@@ -19,19 +23,20 @@ export function buildScheduleCalendar(events: ScheduleEvent[], title: string, ra
       if (end < start) continue;
       for (let offset = 0; offset < 7; offset++) {
         const candidate = addDays(start, offset);
-        const weekday = ALL_WEEK_DAYS[(new Date(`${candidate}T12:00:00Z`).getUTCDay() + 6) % 7];
-        if (candidate <= end && event.days?.includes(weekday)) { first = candidate; break; }
+        if (candidate <= end && event.days?.includes(weekdayOf(candidate))) { first = candidate; break; }
       }
     }
     if (!first) continue;
     const [year, month, day] = first.split("-").map(Number);
     const [hour, minute] = event.startTime.split(":").map(Number);
+    const description = [event.subtitle, event.category, ...(options.describe?.(event) ?? [])].filter(Boolean).join("\n");
     entries.push({
       uid: `${event.id}@timetablecraft.com`, title: event.title,
-      description: [event.subtitle, event.category].filter(Boolean).join("\n"), location: event.location,
+      description, location: event.location,
       start: [year, month, day, hour, minute], startInputType: "local", startOutputType: "local",
-      duration: { minutes: timeToMinutes(event.endTime) - timeToMinutes(event.startTime) },
-      ...(event.date ? {} : { recurrenceRule: `FREQ=WEEKLY;BYDAY=${event.days!.map((day) => BYDAY[ALL_WEEK_DAYS.indexOf(day)]).join(",")};UNTIL=${end.replaceAll("-", "")}T235959` }),
+      duration: { minutes: eventMinutes(event) },
+      ...(event.date ? {} : { recurrenceRule: `FREQ=WEEKLY;BYDAY=${event.days!.map((item) => BYDAY[ALL_WEEK_DAYS.indexOf(item)]).join(",")};UNTIL=${end.replaceAll("-", "")}T235959` }),
+      ...(event.reminderMinutes !== undefined ? { alarms: [{ action: "display" as const, description: event.title, trigger: { minutes: event.reminderMinutes, before: true } }] } : {}),
       status: "CONFIRMED", busyStatus: "BUSY",
     });
   }

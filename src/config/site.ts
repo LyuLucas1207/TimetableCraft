@@ -6,7 +6,7 @@ export const SITE = {
   description:
     "Create beautiful timetables, schedules and planners for classes, study, work and everyday life. Customize events and templates, then export locally.",
   keywords:
-    "UBC, Workday, timetable, schedule, Excel, View My Courses, Timetable Craft, timetablecraft.com, Winter Term, Summer Term, course calendar, PNG, ICS, iCalendar, Google Calendar, Apple Calendar, Outlook, student tools, SFU, Waterloo, goSFU, Quest",
+    "timetable maker, free timetable maker, online timetable maker, class timetable maker, school timetable maker, weekly schedule maker, study timetable, exam timetable maker, work schedule maker, daily planner, routine planner, custom timetable, course table maker, UBC timetable maker, Workday, View My Courses, PNG, ICS, Google Calendar, Apple Calendar, Outlook, TimetableCraft",
   url: APP_URL,
   locale: "en_CA",
 } as const;

@@ -29,5 +29,13 @@
   "contactBody": "Send suggestions or questions to {{email}}. Building import for another school? Attach a timetable export.",
   "contactCta": "Send an email",
   "ubcLink": "UBC timetable maker overview",
-  "guideLink": "Open the illustrated guide"
+  "guideLink": "Open the illustrated guide",
+  "q12": "What is a timetable maker?",
+  "a12": "A timetable maker is an online tool for laying classes, shifts, study sessions or exams out on a weekly or daily grid. TimetableCraft is a free timetable maker: add events, choose colors, and export a PNG, printable PDF or calendar .ics.",
+  "q13": "Is TimetableCraft a free timetable maker?",
+  "a13": "Yes. All tools are free, need no account and add no watermark. Your plans are saved only in your own browser, and you can back them up as a file.",
+  "q14": "How do I make a school or class timetable online?",
+  "a14": "Open the Class Timetable, add each lecture or lab with its days and times, or import a UBC Workday Excel. Choose the classes to show, restyle the card, then download a PNG or add it to your calendar.",
+  "q15": "Which timetable templates are included?",
+  "a15": "Weekly schedule, study timetable, exam timetable, work schedule, daily planner, routine planner and a custom timetable with your own columns. Each has editable starter templates."
 }

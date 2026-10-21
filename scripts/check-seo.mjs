@@ -56,4 +56,26 @@ for (const [file, titleKey, descKey] of checks) {
   }
 }
 
+// Every planner tool needs its own keyword-bearing title and description, and the head terms must be on the money pages.
+const planner = json("src/assets/language/en/pages/Planner.json");
+for (const id of ["weekly", "study", "exam", "work", "daily", "routine", "custom"]) {
+  const { seoTitle, seoDescription, maker } = planner.tools[id];
+  if (typeof seoTitle !== "string" || seoTitle.length < 30 || seoTitle.length > 62) throw new Error(`planner ${id} seoTitle length ${seoTitle?.length}`);
+  if (typeof seoDescription !== "string" || seoDescription.length < 120 || seoDescription.length > 165) throw new Error(`planner ${id} seoDescription length ${seoDescription?.length}`);
+  if (!/(timetable|schedule) maker|planner/i.test(`${seoTitle} ${maker}`)) throw new Error(`planner ${id} lacks a maker keyword`);
+}
+for (const [file, key] of [["Home", "seoTitle"], ["Tools", "seoTitle"], ["Tools", "scheduleMakerSeoTitle"], ["Ubc", "seoTitle"]]) {
+  const title = json(`src/assets/language/en/pages/${file}.json`)[key];
+  if (!/timetable maker/i.test(title)) throw new Error(`${file}.${key} should contain "timetable maker": ${title}`);
+}
+const titles = new Set();
+for (const id of Object.keys(planner.tools)) {
+  const title = planner.tools[id].seoTitle;
+  if (titles.has(title)) throw new Error(`duplicate title ${title}`);
+  titles.add(title);
+}
+for (const path of routes) {
+  if (!new RegExp(`<loc>https://timetablecraft.com${path === "/" ? "/" : path}</loc><lastmod>\\d{4}-\\d{2}-\\d{2}</lastmod>`).test(sitemap)) throw new Error(`sitemap.xml needs lastmod for ${path}`);
+}
+
 console.log("SEO checks passed.");

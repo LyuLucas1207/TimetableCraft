@@ -25,7 +25,7 @@ export default function ScheduleMakerPage() {
             t("scheduleMakerSeoDescription"),
             absoluteUrl(ROUTES.TOOL_SCHEDULE_MAKER),
             t("scheduleMakerName"),
-            ["schedule maker", "class schedule maker", "course table maker"],
+            ["timetable maker", "class timetable maker", "school timetable maker", "schedule maker", "course table maker"],
           ),
           breadcrumbJsonLd([
             { name: t("header.home", { ns: LANG_NS }), path: ROUTES.HOME },

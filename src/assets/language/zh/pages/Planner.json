@@ -78,36 +78,103 @@
     "lateShift": "晚班",
     "morning": "晨间安排",
     "reading": "阅读",
-    "yourEvent": "自定义事件"
+    "yourEvent": "自定义事件",
+    "meetings": "会议",
+    "morningStudy": "晨间学习",
+    "library": "图书馆自习",
+    "weeklyReview": "每周复盘",
+    "clientWork": "客户工作",
+    "admin": "行政与发票",
+    "practice": "刷题练习",
+    "pastPapers": "往年真题",
+    "examCalculus": "微积分",
+    "examPhysics": "物理",
+    "examProgramming": "编程",
+    "examEconomics": "经济学",
+    "openShift": "开店班",
+    "midShift": "中班",
+    "closeShift": "关店班",
+    "nightShift": "夜班",
+    "roleCashier": "收银",
+    "roleFloor": "理货",
+    "studyBlock": "学习时段",
+    "break": "休息",
+    "slowMorning": "慢悠悠的早晨",
+    "errands": "跑腿杂事",
+    "hobby": "兴趣时间",
+    "social": "朋友与家人",
+    "wakeUp": "起床",
+    "exercise": "晨练",
+    "breakfast": "早餐",
+    "journal": "写日记",
+    "run": "跑步",
+    "longRun": "长跑",
+    "stretch": "拉伸",
+    "dinner": "晚餐",
+    "meditation": "冥想",
+    "windDown": "睡前放松",
+    "period1": "第 1 节",
+    "period2": "第 2 节",
+    "period3": "第 3 节",
+    "period4": "第 4 节",
+    "booking": "预约",
+    "roomA": "房间 A",
+    "roomB": "房间 B",
+    "roomC": "房间 C",
+    "personA": "小明",
+    "personB": "小红",
+    "personC": "小李",
+    "task": "任务"
   },
   "tools": {
     "weekly": {
       "name": "一周计划",
-      "description": "安排一周七天的工作、用餐、运动和休息。"
+      "description": "安排一周七天的工作、用餐、运动和休息。",
+      "seoTitle": "周计划制作器 – 免费每周课表模板",
+      "seoDescription": "免费周计划制作器。用可编辑模板安排七天里的工作、吃饭、运动和空档,然后导出 PNG、打印或加入日历。",
+      "maker": "周计划制作器"
     },
     "study": {
       "name": "学习计划",
-      "description": "在课程副本旁安排复习、作业和考试准备。"
+      "description": "在课程副本旁安排复习、作业和考试准备。",
+      "seoTitle": "学习计划制作器 – 免费学习时间表",
+      "seoDescription": "免费学习时间表制作器。围绕课程安排复习与作业,为每个科目设每周目标,自动填充空档,导出清晰的学习计划。",
+      "maker": "学习时间表制作器"
     },
     "exam": {
       "name": "考试时间表",
-      "description": "按具体日期整理考试时间与地点。"
+      "description": "按具体日期整理考试时间与地点。",
+      "seoTitle": "考试时间表制作器 – 免费考试日程",
+      "seoDescription": "免费考试时间表制作器。把考试日期、时间、考场和座位放进一个日程,带倒计时与冲突提醒,可导出 PNG、打印或加入日历。",
+      "maker": "考试时间表制作器"
     },
     "work": {
       "name": "工作排班",
-      "description": "使用时间、地点和彩色区块规划每周班次。"
+      "description": "使用时间、地点和彩色区块规划每周班次。",
+      "seoTitle": "排班表制作器 – 免费每周班次计划",
+      "seoDescription": "免费每周排班表制作器。设置班次、休息与时薪,查看每周工时和加班,导出 PNG、打印或下载日历文件。",
+      "maker": "排班表制作器"
     },
     "daily": {
       "name": "每日计划",
-      "description": "选定日期，用时间区块安排专注的一天。"
+      "description": "选定日期，用时间区块安排专注的一天。",
+      "seoTitle": "每日计划制作器 – 免费在线日程表",
+      "seoDescription": "免费每日时间表制作器。在时间轴上安排一天,加入待办与重点事项,复制昨天的计划,并导出 PNG 或日历文件。",
+      "maker": "每日时间表制作器"
     },
     "routine": {
       "name": "日常安排",
-      "description": "为晨间安排、运动、用餐和阅读建立每周节奏。"
+      "description": "为晨间安排、运动、用餐和阅读建立每周节奏。",
+      "seoTitle": "作息表制作器 – 免费每日作息计划",
+      "seoDescription": "免费作息时间表制作器。制作每周重复的早晨、健身与阅读安排,每天打卡、记录连续天数,并加入日历。",
+      "maker": "作息表制作器"
     },
     "custom": {
       "name": "自定义时间表",
-      "description": "从空白周时间表开始，自由设置事件、时段、颜色和标题。"
+      "description": "从空白周时间表开始，自由设置事件、时段、颜色和标题。",
+      "seoTitle": "自定义课表制作器 – 空白课表模板",
+      "seoDescription": "免费自定义课表制作器。用自己的列(星期、房间或人员)设计空白课表,选择主题,导出 PNG、打印或日历文件。",
+      "maker": "自定义课表制作器"
     }
   },
   "views": {
@@ -136,7 +203,17 @@
       "unassigned": "其他学习",
       "empty": "添加学习时段或复制课程开始。",
       "emptySessions": "添加第一个复习或作业时段。",
-      "emptyClasses": "复制课程表后在这里查看课程。"
+      "emptyClasses": "复制课程表后在这里查看课程。",
+      "addSubject": "添加科目",
+      "addSubjectAction": "添加",
+      "done": "已完成",
+      "goalFor": "{{subject}} 的每周目标",
+      "goalLeft": "还差 {{hours}}",
+      "goalMet": "已达标",
+      "goalsHint": "为每个科目设定每周目标,进度条显示已安排的小时数。",
+      "goalsTitle": "每周目标",
+      "noSessions": "还没有安排。",
+      "of": "/"
     },
     "exam": {
       "mobilePreview": "考试日程",
@@ -154,7 +231,25 @@
       "next": "首场考试",
       "empty": "添加考试日期，开始制作考试日程。",
       "count": "{{count}} 场考试",
-      "count_other": "{{count}} 场考试"
+      "count_other": "{{count}} 场考试",
+      "list": "列表",
+      "month": "月历",
+      "addOn": "在 {{date}} 添加考试",
+      "allowed": "可带:{{items}}",
+      "clash": "时间冲突",
+      "countdown": "倒计时",
+      "inDays": "还有 {{count}} 天",
+      "inDays_other": "还有 {{count}} 天",
+      "nextMonth": "下个月",
+      "prevMonth": "上个月",
+      "noWarnings": "没有冲突或间隔过短",
+      "passed": "已结束",
+      "seat": "座位 {{seat}}",
+      "tightGap": "{{date}}:{{a}} 与 {{b}} 只相隔 {{minutes}} 分钟。",
+      "today": "今天",
+      "tomorrow": "明天",
+      "warnings": "提醒",
+      "warningsHint": "请检查高亮的考试"
     },
     "work": {
       "mobilePreview": "班次看板",
@@ -170,7 +265,17 @@
       "description": "按星期查看班次与工作时数。",
       "hours": "每周工时",
       "shifts": "每周班次",
-      "addShift": "添加班次"
+      "addShift": "添加班次",
+      "break": "休息 {{minutes}} 分钟",
+      "currency": "货币符号",
+      "grossHint": "扣除休息前 {{hours}}",
+      "off": "休息日",
+      "overtime": "加班",
+      "overtimeAfter": "每周超过(小时)算加班",
+      "overtimeHint": "超过 {{hours}} 小时",
+      "pay": "预估工资",
+      "payHint": "给班次填写时薪即可估算",
+      "rulesHint": "工时 = 班次时长减去休息。工资与加班仅为排班估算,不是正式薪资核算。"
     },
     "daily": {
       "mobilePreview": "每日时间轴",
@@ -183,7 +288,21 @@
       "sidebarTitle": "时间块",
       "sidebarEmpty": "选择时间轴上的空闲时段，或从模板开始。",
       "description": "逐小时安排一天的时间。",
-      "addBlock": "在此添加时段"
+      "addBlock": "在此添加时段",
+      "addTodo": "添加任务…",
+      "addTodoAction": "添加",
+      "blocks": "时间块",
+      "carry": "把昨天未完成的 {{count}} 项带过来",
+      "copyYesterday": "复制昨天的时间块",
+      "now": "当前时间",
+      "pin": "设为重点",
+      "planned": "已安排",
+      "schedule": "排入时间轴",
+      "tasks": "已完成任务",
+      "todoTitle": "待办",
+      "topEmpty": "最多置顶三件今天必须完成的事。",
+      "topHint": "最多 {{count}} 件最重要的事",
+      "topTitle": "重点事项"
     },
     "routine": {
       "mobilePreview": "每周矩阵",
@@ -200,12 +319,312 @@
       "routines": "日常安排",
       "repeat": "每周次数",
       "routine": "安排",
-      "empty": "添加重复活动，开始建立每周节奏。"
+      "empty": "添加重复活动，开始建立每周节奏。",
+      "morning": "上午",
+      "afternoon": "下午",
+      "evening": "晚上",
+      "checked": "已完成",
+      "unchecked": "未完成",
+      "days": "{{count}} 天",
+      "days_other": "{{count}} 天",
+      "matrix": "一周总览",
+      "nextWeek": "下一周",
+      "prevWeek": "上一周",
+      "thisWeek": "本周",
+      "noneToday": "今天没有安排。",
+      "rate": "完成率",
+      "rateHint": "本周截至目前的打卡",
+      "streak": "最长连续",
+      "streakChip": "连续 {{count}} 天",
+      "today": "今天"
     },
     "custom": {
       "mobilePreview": "自定义画布",
       "kicker": "设计工作台",
       "description": "选择主题，在画布上制作自己的时间表。"
+    },
+    "weekly": {
+      "kicker": "本周概览",
+      "description": "看看时间花在哪里,还剩多少空闲。",
+      "viewName": "概览",
+      "scheduled": "每周已安排",
+      "free": "空闲时间",
+      "freeHint": "显示日期内 {{start}}–{{end}}",
+      "busiest": "最忙的一天",
+      "blocks": "时间块",
+      "byDay": "每天小时数",
+      "byCategory": "各类别小时数"
+    }
+  },
+  "calendarSkipped": "没有日期或星期的事件(例如房间列)不会写入日历文件。",
+  "categories": {
+    "study": "学习",
+    "work": "工作",
+    "meal": "用餐",
+    "focus": "专注",
+    "health": "健康",
+    "rest": "休息",
+    "personal": "个人",
+    "routine": "作息",
+    "exam": "考试",
+    "shift": "班次",
+    "class": "课程",
+    "booking": "预约"
+  },
+  "column": "列",
+  "columns": {
+    "title": "自定义列",
+    "hint": "自己命名每一列:星期、日期,或房间、人员、科目之类的标签。每个事件属于一列。",
+    "customize": "自定义列",
+    "reset": "恢复为七天",
+    "name": "列名称",
+    "kind": "类型",
+    "kindText": "标签",
+    "kindDay": "星期",
+    "kindDate": "日期",
+    "weekday": "星期",
+    "color": "列颜色",
+    "up": "左移",
+    "down": "右移",
+    "newDate": "新日期",
+    "newText": "第 {{n}} 列",
+    "add": {
+      "text": "+ 标签",
+      "day": "+ 星期",
+      "date": "+ 日期"
+    }
+  },
+  "conflictWarning": "与以下事件时间重叠:{{names}}",
+  "conflictWarning_other": "与 {{count}} 个事件时间重叠,包括:{{names}}",
+  "copyDay": "复制",
+  "copyDayAll": "其他所有天",
+  "copyDayDone": "已复制 {{count}} 个时间块。",
+  "copyDayFrom": "复制这一天",
+  "copyDayNothing": "没有可复制的新内容。",
+  "copyDayTo": "到",
+  "data": {
+    "title": "备份、导入与分享",
+    "hint": "除非你下载或分享,所有内容都只留在这个浏览器里。",
+    "open": "备份与分享",
+    "backup": "备份",
+    "downloadJson": "下载备份 (.json)",
+    "downloadCsv": "下载事件 (.csv)",
+    "import": "导入",
+    "importHint": "选择 TimetableCraft 备份 (.json),或包含 title、start、end 以及 days 或 date 列的 CSV。",
+    "chooseFile": "选择文件",
+    "jsonFound": "{{name}}:找到 {{count}} 个事件。",
+    "csvFound": "{{name}}:找到 {{count}} 个事件。",
+    "skipped": "有 {{count}} 条无效记录已跳过。",
+    "merge": "加入我的计划",
+    "replace": "替换我的计划",
+    "confirmReplace": "确认,全部替换",
+    "share": "分享链接",
+    "shareHint": "计划被压缩进链接本身。打开链接的人可以保存一份副本,不会上传任何内容。",
+    "createLink": "生成链接",
+    "copy": "复制",
+    "danger": "危险操作",
+    "clearHint": "清除这个工具在此浏览器里的全部事件和设置。离开页面前仍可撤销。",
+    "clear": "清空此计划",
+    "confirmClear": "确认,全部清空",
+    "cleared": "已清空,可以撤销。",
+    "merged": "计划已更新。",
+    "replaced": "计划已替换,可以撤销。",
+    "sharedTitle": "打开分享的计划?",
+    "sharedHint": "这个链接包含 {{count}} 个事件。你选择之前不会有任何改动。",
+    "dismiss": "暂不"
+  },
+  "duplicate": "复制一份",
+  "duplicated": "已创建副本,可在此编辑。",
+  "errorShareTooLong": "计划太大,放不进链接。请改用备份文件。",
+  "errorShareFormat": "无法读取这个链接。",
+  "errorSharePlanner": "这个链接属于另一个工具。",
+  "errorImportFormat": "该文件不是有效的 TimetableCraft 计划或 CSV。",
+  "errorImportVersion": "该文件由更新版本生成。",
+  "errorImportPlanner": "这份备份属于另一个工具。",
+  "errorReminder": "请选择有效的提醒。",
+  "fields": {
+    "allowed": "允许携带",
+    "breakMin": "休息(分钟)",
+    "code": "课程号",
+    "duration": "快速时长",
+    "netHours": "计薪时间:扣除休息后 {{hours}} 小时",
+    "overnightHint": "跨过午夜,在次日结束({{time}})。",
+    "presets": "班次预设",
+    "preset": {
+      "morning": "早班",
+      "mid": "中班",
+      "evening": "晚班",
+      "night": "夜班"
+    },
+    "rate": "时薪",
+    "role": "岗位",
+    "room": "考场 / 地点",
+    "seat": "座位",
+    "subject": "科目"
+  },
+  "filter": {
+    "label": "显示:",
+    "showAll": "全部显示"
+  },
+  "linkCopied": "链接已复制。",
+  "markDone": "标记完成",
+  "nextDay": "次日",
+  "prevDay": "前一天",
+  "today": "今天",
+  "prefs": {
+    "title": "显示",
+    "weekStart": "每周起始于",
+    "hour24": "24 小时制",
+    "showWeekend": "显示周末",
+    "hint": "隐藏日期上的事件仍会保留。"
+  },
+  "priority": "优先级",
+  "priorityOption": {
+    "none": "无",
+    "low": "低",
+    "medium": "中",
+    "high": "高"
+  },
+  "redo": "重做",
+  "undo": "撤销",
+  "reminder": "提醒",
+  "reminderNone": "不提醒",
+  "reminderOption": {
+    "0": "开始时",
+    "5": "提前 5 分钟",
+    "10": "提前 10 分钟",
+    "15": "提前 15 分钟",
+    "30": "提前 30 分钟",
+    "60": "提前 1 小时",
+    "120": "提前 2 小时",
+    "1440": "提前 1 天"
+  },
+  "smartFill": {
+    "title": "智能排程",
+    "hint": "告诉它每个科目需要多少小时,它会在课程和其他安排之外找空档,你确认后才会加入。",
+    "open": "智能排学习时段",
+    "subjects": "每个科目要加的小时数",
+    "hoursFor": "{{subject}} 的小时数",
+    "noSubjects": "先添加一个科目。",
+    "days": "学习日",
+    "from": "最早",
+    "to": "最晚",
+    "min": "最短(分钟)",
+    "max": "最长(分钟)",
+    "gap": "间隔(分钟)",
+    "invalid": "请至少选一天和一个有小时数的科目,并且时间窗要长于最短时长。",
+    "generate": "查找空档",
+    "preview": "找到 {{count}} 个时段,不要的可以取消勾选。",
+    "none": "没有合适的空档。请放宽时间窗或缩短时长。",
+    "unmet": "这些科目空间不足:{{list}}。",
+    "back": "返回",
+    "add": "加入 {{count}} 个时段",
+    "added": "已加入 {{count}} 个学习时段。"
+  },
+  "templateChoose": "模板",
+  "uncategorized": "未分类",
+  "templates": {
+    "weekly": {
+      "workweek": {
+        "name": "上班族一周",
+        "hint": "专注工作、会议、午餐、健身,外加一个周末时段。"
+      },
+      "student": {
+        "name": "学生一周",
+        "hint": "每天晨间学习、图书馆自习和周日复盘。"
+      },
+      "freelancer": {
+        "name": "自由职业",
+        "hint": "每天两段客户工作、一个行政下午和健身。"
+      }
+    },
+    "study": {
+      "balanced": {
+        "name": "均衡",
+        "hint": "复习、作业、备考和每周复盘。"
+      },
+      "examSeason": {
+        "name": "考试季",
+        "hint": "每天早间复习、下午刷题,周六刷真题。"
+      },
+      "light": {
+        "name": "轻松",
+        "hint": "四个晚间短复习和周日一段作业时间。"
+      }
+    },
+    "exam": {
+      "midterms": {
+        "name": "期中考试",
+        "hint": "一周左右三门考试,带提醒。"
+      },
+      "finals": {
+        "name": "期末考试",
+        "hint": "两周内四场三小时期末考。"
+      },
+      "single": {
+        "name": "单场考试",
+        "hint": "从一场考试开始。"
+      }
+    },
+    "work": {
+      "standard": {
+        "name": "标准班",
+        "hint": "早班和晚班,含一小时休息。"
+      },
+      "retail": {
+        "name": "零售排班",
+        "hint": "开店、中班、关店,并标注岗位。"
+      },
+      "nights": {
+        "name": "夜班",
+        "hint": "四个跨过午夜的夜班。"
+      }
+    },
+    "daily": {
+      "workday": {
+        "name": "工作日",
+        "hint": "晨间安排、专注工作、午餐、会议和健身。"
+      },
+      "studyDay": {
+        "name": "学习日",
+        "hint": "两个学习时段、一次休息和晚间复习。"
+      },
+      "restDay": {
+        "name": "休息日",
+        "hint": "慢悠悠的早晨、杂事、兴趣和朋友聚会。"
+      }
+    },
+    "routine": {
+      "morning": {
+        "name": "晨间仪式",
+        "hint": "每天起床、晨练、早餐和写日记。"
+      },
+      "fitness": {
+        "name": "健身计划",
+        "hint": "健身、跑步、长跑和每晚拉伸。"
+      },
+      "evening": {
+        "name": "晚间放松",
+        "hint": "晚餐、阅读、冥想和早睡。"
+      }
+    },
+    "custom": {
+      "weekdays": {
+        "name": "工作日列",
+        "hint": "周一到周五的列,附两个示例事件。"
+      },
+      "periods": {
+        "name": "学校节次",
+        "hint": "工作日列加上编号的课节。"
+      },
+      "rooms": {
+        "name": "房间预约",
+        "hint": "每个房间一列,适合共享空间。"
+      },
+      "team": {
+        "name": "团队分工",
+        "hint": "每人一列,规划谁在何时做什么。"
+      }
     }
   }
 }

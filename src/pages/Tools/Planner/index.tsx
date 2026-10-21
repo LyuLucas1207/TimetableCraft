@@ -7,18 +7,19 @@ import { absoluteUrl, breadcrumbJsonLd, softwareJsonLd } from "@/utils/seo";
 export default function PlannerPage({ planner }: { planner: PlannerDefinition }) {
   const { t } = useTranslation("pages.Planner");
   const name = t(`tools.${planner.id}.name`);
-  const description = t(`tools.${planner.id}.description`);
+  const description = t(`tools.${planner.id}.seoDescription`);
+  const maker = t(`tools.${planner.id}.maker`);
   const path = plannerPath(planner);
   return (
     <>
       <Seo
-        title={`${name} – TimetableCraft`}
+        title={t(`tools.${planner.id}.seoTitle`)}
         description={description}
         path={path}
         jsonLd={[
-          softwareJsonLd(description, absoluteUrl(path), name, [name], {
+          softwareJsonLd(description, absoluteUrl(path), maker, [name, "timetable maker", "free timetable maker"], {
             category: "ProductivityApplication",
-            features: ["Event editor", "Editable templates", "Local browser storage", "PNG export", "ICS calendar export", "Print and Save as PDF"],
+            features: ["Editable templates", "Drag and drop time blocks", "Undo and redo", "Backup and share link", "Local browser storage", "PNG export", "ICS calendar export with reminders", "Print and Save as PDF"],
           }),
           breadcrumbJsonLd([
             { name: "TimetableCraft", path: "/" },

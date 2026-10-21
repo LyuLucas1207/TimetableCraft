@@ -25,7 +25,7 @@ try {
   await page.getByRole("button", { name: "Save event", exact: true }).click();
   await page.getByRole("dialog").waitFor({ state: "hidden" });
   const weeklyBefore = await page.evaluate(() => localStorage.getItem("timetablecraft:planner:weekly:v1"));
-  assert.equal(JSON.parse(weeklyBefore).state.document.events.length, 5);
+  assert.equal(JSON.parse(weeklyBefore).state.document.events.length, 6);
   await page.reload();
   await page.getByRole("button", { name: /^Sunday test/ }).first().waitFor();
   await page.getByRole("button", { name: /^Sunday test/ }).first().click();
@@ -70,7 +70,7 @@ try {
   assert.equal(await page.getByRole("button", { name: /^Sunday updated/ }).count(), 0);
   await page.getByRole("button", { name: "Add starter template", exact: true }).click();
   const state = await page.evaluate(() => ({ weekly: JSON.parse(localStorage.getItem("timetablecraft:planner:weekly:v1")), work: JSON.parse(localStorage.getItem("timetablecraft:planner:work:v1")) }));
-  assert.equal(state.weekly.state.document.events.length, 5); assert.equal(state.work.state.document.events.length, 2);
+  assert.equal(state.weekly.state.document.events.length, 6); assert.equal(state.work.state.document.events.length, 2);
   await go("exam-timetable");
   for (const [title, date] of [["Exam Alpha", "2026-10-05"], ["Exam Beta", "2026-10-12"]]) {
     await page.getByRole("button", { name: "Add event", exact: true }).first().click();

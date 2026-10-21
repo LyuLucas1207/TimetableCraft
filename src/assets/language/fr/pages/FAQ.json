@@ -29,5 +29,13 @@
   "contactBody": "Suggestions ou questions : {{email}}. Pour un autre campus, joignez un export d’horaire.",
   "contactCta": "Envoyer un e-mail",
   "ubcLink": "Aperçu du créateur d’horaire UBC",
-  "guideLink": "Ouvrir le guide illustré"
+  "guideLink": "Ouvrir le guide illustré",
+  "q12": "Qu’est-ce qu’un créateur d’emploi du temps ?",
+  "a12": "C’est un outil en ligne pour placer cours, services, séances d’étude ou examens sur une grille hebdomadaire ou quotidienne. TimetableCraft est gratuit : ajoutez des événements, choisissez des couleurs et exportez un PNG, un PDF imprimable ou un .ics.",
+  "q13": "TimetableCraft est-il un créateur d’emploi du temps gratuit ?",
+  "a13": "Oui. Tous les outils sont gratuits, sans compte ni filigrane. Vos plannings restent dans votre navigateur et peuvent être sauvegardés dans un fichier.",
+  "q14": "Comment faire un horaire de cours en ligne ?",
+  "a14": "Ouvrez l’outil d’horaire de cours, ajoutez chaque cours avec ses jours et heures, ou importez un Excel UBC Workday. Choisissez les cours à afficher, ajustez le style, puis téléchargez un PNG ou ajoutez-le à votre calendrier.",
+  "q15": "Quels modèles sont inclus ?",
+  "a15": "Planning de la semaine, révisions, examens, services de travail, agenda du jour, routine et un horaire personnalisé avec vos propres colonnes. Chaque outil propose des modèles modifiables."
 }

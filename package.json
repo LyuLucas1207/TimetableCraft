@@ -14,7 +14,8 @@
     "lint": "oxlint",
     "preview": "vite preview --mode prod.local",
     "test:seo": "node scripts/check-seo.mjs",
-    "test:planners": "node scripts/test-planners.mjs"
+    "test:planners": "node scripts/test-planners.mjs",
+    "test:logic": "node scripts/test-planner-logic.mjs && node scripts/render-planners.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
